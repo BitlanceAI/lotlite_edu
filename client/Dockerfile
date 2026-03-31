@@ -5,11 +5,12 @@ WORKDIR /app
 
 COPY package*.json ./
 
-# 🔥 Use install instead of ci (more reliable in your case)
-RUN npm install --legacy-peer-deps
+# ✅ Clean install (no flags needed now)
+RUN npm ci
 
 COPY . .
 
+# Build-time variables
 ARG VITE_API_BASE_URL
 ARG VITE_API_URL
 ARG VITE_FIREBASE_API_KEY
