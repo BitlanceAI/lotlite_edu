@@ -3,16 +3,13 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy dependencies
 COPY package*.json ./
 
-# Fix: handle peer dependency conflicts
-RUN npm ci --legacy-peer-deps
+# 🔥 Use install instead of ci (more reliable in your case)
+RUN npm install --legacy-peer-deps
 
-# Copy rest of the app
 COPY . .
 
-# Build-time variables (for Vite)
 ARG VITE_API_BASE_URL
 ARG VITE_API_URL
 ARG VITE_FIREBASE_API_KEY
@@ -25,17 +22,14 @@ ENV VITE_API_BASE_URL=$VITE_API_BASE_URL \
     VITE_FIREBASE_BLOGS_API_KEY=$VITE_FIREBASE_BLOGS_API_KEY \
     VITE_FIREBASE_VAPID_KEY=$VITE_FIREBASE_VAPID_KEY
 
-# Build app
 RUN npm run build
 
 
 # ── Stage 2: Serve ──────────────────────────────────────────
 FROM nginx:alpine
 
-# Remove default config
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Custom nginx config
 RUN printf 'server {\n\
     listen 80;\n\
     root /usr/share/nginx/html;\n\
@@ -60,7 +54,6 @@ RUN printf 'server {\n\
     }\n\
 }\n' > /etc/nginx/conf.d/default.conf
 
-# Copy built files
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 EXPOSE 80
