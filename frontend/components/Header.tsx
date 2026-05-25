@@ -177,15 +177,11 @@ export default function Header({ activeTab, setActiveTab, candidateCount }: Head
 
             <div className="border-t border-border pt-4">
               <div className="flex items-center gap-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img 
-                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" 
-                  alt="Sarah Jenkins" 
-                  className="h-8 w-8 rounded-full object-cover"
-                />
+                <div className="h-8 w-8 rounded-full bg-muted border border-border flex items-center justify-center shrink-0">
+                  <span className="text-xs font-semibold text-muted-foreground">HR</span>
+                </div>
                 <div>
-                  <h4 className="text-xs font-semibold text-foreground">Sarah Jenkins</h4>
-                  <span className="text-[10px] text-muted-foreground">Sarah@TalentSphere.ai</span>
+                  <h4 className="text-xs font-semibold text-foreground">Recruiter</h4>
                 </div>
               </div>
             </div>

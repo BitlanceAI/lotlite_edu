@@ -86,16 +86,13 @@ export default function Sidebar({ activeTab, setActiveTab, candidateCount }: Sid
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3 overflow-hidden">
             <div className="relative shrink-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" 
-                alt="Sarah Jenkins" 
-                className="h-9 w-9 rounded-full object-cover border border-border"
-              />
+              <div className="h-9 w-9 rounded-full bg-muted border border-border flex items-center justify-center">
+                <span className="text-xs font-semibold text-muted-foreground">HR</span>
+              </div>
               <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 border border-card animate-pulse-ring" />
             </div>
             <div className="overflow-hidden">
-              <h3 className="font-semibold text-xs leading-none text-foreground truncate">Sarah Jenkins</h3>
+              <h3 className="font-semibold text-xs leading-none text-foreground truncate">Recruiter</h3>
               <span className="text-[10px] text-muted-foreground truncate block mt-0.5">Talent Acquisition</span>
             </div>
           </div>
