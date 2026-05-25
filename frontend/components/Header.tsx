@@ -103,12 +103,9 @@ export default function Header({ activeTab, setActiveTab, candidateCount }: Head
         {/* User Quick Info */}
         <div className="h-8 w-px bg-border mx-1 hidden sm:block" />
         <div className="flex items-center gap-2 sm:gap-3 pl-1 sm:pl-2">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img 
-            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" 
-            alt="User Avatar" 
-            className="h-8 w-8 rounded-lg object-cover border border-border"
-          />
+          <div className="h-8 w-8 rounded-lg bg-muted border border-border flex items-center justify-center">
+            <span className="text-xs font-semibold text-muted-foreground">HR</span>
+          </div>
         </div>
       </div>
 
