@@ -16,7 +16,7 @@ export async function sendResumeToWebhook(
     headers: {
       'Content-Type': 'application/json',
     },
-    timeout: 15000, // 15 seconds timeout
+    timeout: 60000,
   });
   return response.data;
 }
