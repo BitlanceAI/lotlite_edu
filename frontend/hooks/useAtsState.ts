@@ -8,7 +8,7 @@ import {
   fetchActiveJobConfig,
   upsertJobConfig,
 } from '../lib/supabase';
-import { sendResumeToWebhook, generateLocalAnalysis } from '../services/webhook';
+import { sendResumeToWebhook } from '../services/webhook';
 import { parseCandidateDetailsFromFileName } from '../utils/parser';
 
 const DEFAULT_JOB_CONFIG: JobConfig = {
@@ -148,37 +148,30 @@ export function useAtsState() {
         minimum_ats_score: currentConfig.minimumAtsScore,
       };
 
-      let analysisResult: CandidateResult;
+      const webhookResponse = await sendResumeToWebhook(payload);
 
-      try {
-        const webhookResponse = await sendResumeToWebhook(payload);
-
-        if (webhookResponse && webhookResponse.atsScore !== undefined) {
-          analysisResult = {
-            id:              webhookResponse.id || crypto.randomUUID(),
-            candidateName:   webhookResponse.candidateName   || parsedDetails.name,
-            email:           webhookResponse.email           || parsedDetails.email,
-            phoneNumber:     webhookResponse.phoneNumber     || '',
-            atsScore:        Number(webhookResponse.atsScore),
-            matchPercentage: Number(webhookResponse.matchPercentage || webhookResponse.atsScore),
-            missingSkills:   Array.isArray(webhookResponse.missingSkills) ? webhookResponse.missingSkills : [],
-            recommendation:  webhookResponse.recommendation  || 'Potential Match',
-            resumeLink:      resumeUrl,
-            appliedAt:       webhookResponse.appliedAt || new Date().toLocaleDateString('en-US', {
-              month: 'short', day: 'numeric', year: 'numeric',
-              hour: '2-digit', minute: '2-digit',
-            }),
-            analysisSummary: webhookResponse.analysisSummary,
-            suitReasons:     webhookResponse.suitReasons,
-            notSuitReasons:  webhookResponse.notSuitReasons,
-          };
-        } else {
-          analysisResult = generateLocalAnalysis(parsedDetails.name, parsedDetails.email, resumeUrl, currentConfig);
-        }
-      } catch (webhookErr) {
-        console.warn('AI analysis failed. Using local simulation fallback.', webhookErr);
-        analysisResult = generateLocalAnalysis(parsedDetails.name, parsedDetails.email, resumeUrl, currentConfig);
+      if (!webhookResponse || webhookResponse.atsScore === undefined) {
+        throw new Error('AI analysis returned an invalid response. Please try again.');
       }
+
+      const analysisResult: CandidateResult = {
+        id:              webhookResponse.id || crypto.randomUUID(),
+        candidateName:   webhookResponse.candidateName   || parsedDetails.name,
+        email:           webhookResponse.email           || parsedDetails.email,
+        phoneNumber:     webhookResponse.phoneNumber     || '',
+        atsScore:        Number(webhookResponse.atsScore),
+        matchPercentage: Number(webhookResponse.matchPercentage || webhookResponse.atsScore),
+        missingSkills:   Array.isArray(webhookResponse.missingSkills) ? webhookResponse.missingSkills : [],
+        recommendation:  webhookResponse.recommendation  || 'Potential Match',
+        resumeLink:      resumeUrl,
+        appliedAt:       webhookResponse.appliedAt || new Date().toLocaleDateString('en-US', {
+          month: 'short', day: 'numeric', year: 'numeric',
+          hour: '2-digit', minute: '2-digit',
+        }),
+        analysisSummary: webhookResponse.analysisSummary,
+        suitReasons:     webhookResponse.suitReasons,
+        notSuitReasons:  webhookResponse.notSuitReasons,
+      };
 
       // Save to Supabase DB
       await insertCandidate(analysisResult, activeJobConfigId.current);
