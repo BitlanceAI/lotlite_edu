@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 // ─── Mailtrap SMTP transporter ────────────────────────────────────────────────
 const transporter = nodemailer.createTransport({
   host: 'live.smtp.mailtrap.io',
-  port: 587,
+  port: 2525,
   auth: {
     user: process.env.MAILTRAP_SMTP_USER,
     pass: process.env.MAILTRAP_SMTP_PASS,
