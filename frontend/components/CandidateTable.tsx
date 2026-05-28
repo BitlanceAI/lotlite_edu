@@ -32,6 +32,7 @@ import { CandidateResult, JobConfig } from '../types';
 import { JobEntry } from '../hooks/useAtsState';
 import { cn } from '../utils/cn';
 import { sendCandidateEmail, sendBulkCandidateEmails } from '../services/email';
+import { markCandidateEmailSent } from '../lib/supabase';
 
 interface CandidateTableProps {
   candidates: CandidateResult[];
@@ -235,7 +236,7 @@ export default function CandidateTable({ candidates, jobConfig, allJobs, onDelet
       cell: ({ row }) => {
         const candidate = row.original;
         const isShortlisted = candidate.atsScore >= jobConfig.minimumAtsScore;
-        const eState = emailState[candidate.id] || 'idle';
+        const eState = emailState[candidate.id] || (candidate.emailSent ? 'sent' : 'idle');
         const hasEmail = !!candidate.email;
 
         const handleSendEmail = async (e: React.MouseEvent) => {
@@ -248,6 +249,7 @@ export default function CandidateTable({ candidates, jobConfig, allJobs, onDelet
             const resolvedJobTitle = candidateJob?.config.jobTitle ?? jobConfig.jobTitle;
             const resolvedMinScore = candidateJob?.config.minimumAtsScore ?? jobConfig.minimumAtsScore;
             await sendCandidateEmail({
+              candidateId: candidate.id,
               type: candidate.atsScore >= resolvedMinScore ? 'shortlisted' : 'not_shortlisted',
               to: candidate.email,
               candidateName: candidate.candidateName,
@@ -256,6 +258,7 @@ export default function CandidateTable({ candidates, jobConfig, allJobs, onDelet
               recommendation: candidate.recommendation,
               missingSkills: candidate.missingSkills,
             });
+            candidate.emailSent = true;
             setEmailState(prev => ({ ...prev, [candidate.id]: 'sent' }));
           } catch {
             setEmailState(prev => ({ ...prev, [candidate.id]: 'error' }));
@@ -377,17 +380,18 @@ export default function CandidateTable({ candidates, jobConfig, allJobs, onDelet
             {candidates.length > 0 && (
               <button
                 onClick={async () => {
-                  const withEmail = filteredData.filter(c => !!c.email);
-                  if (withEmail.length === 0) { setBulkResult('No candidates with email addresses.'); setTimeout(() => setBulkResult(null), 3000); return; }
+                  const pendingCandidates = filteredData.filter(c => !!c.email && !c.emailSent && emailState[c.id] !== 'sent');
+                  if (pendingCandidates.length === 0) { setBulkResult('No new candidates to email.'); setTimeout(() => setBulkResult(null), 3000); return; }
                   setBulkSending(true);
                   setBulkResult(null);
                   try {
-                    const results = await sendBulkCandidateEmails(withEmail.map(c => {
+                    const results = await sendBulkCandidateEmails(pendingCandidates.map(c => {
                       // Resolve each candidate's own job profile
                       const candidateJob = allJobs.find(j => j.id === c.jobConfigId);
                       const resolvedJobTitle = candidateJob?.config.jobTitle ?? jobConfig.jobTitle;
                       const resolvedMinScore = candidateJob?.config.minimumAtsScore ?? jobConfig.minimumAtsScore;
                       return {
+                        candidateId: c.id,
                         type: c.atsScore >= resolvedMinScore ? 'shortlisted' : 'not_shortlisted',
                         to: c.email,
                         candidateName: c.candidateName,
@@ -397,13 +401,24 @@ export default function CandidateTable({ candidates, jobConfig, allJobs, onDelet
                         missingSkills: c.missingSkills,
                       };
                     }));
-                    // Mark all as sent
+                    // Mark successful ones as sent
                     const sentMap: Record<string, 'sent'> = {};
-                    withEmail.forEach(c => { sentMap[c.id] = 'sent'; });
+                    let sentCount = 0;
+                    let failedCount = 0;
+                    
+                    await Promise.all(results.map(async (r, idx) => {
+                      const c = pendingCandidates[idx];
+                      if (r.status === 'sent') {
+                        sentMap[c.id] = 'sent';
+                        c.emailSent = true;
+                        sentCount++;
+                      } else {
+                        failedCount++;
+                      }
+                    }));
+                    
                     setEmailState(prev => ({ ...prev, ...sentMap }));
-                    const sent = results.filter(r => r.status === 'sent').length;
-                    const failed = results.filter(r => r.status === 'failed').length;
-                    setBulkResult(`✅ ${sent} sent${failed > 0 ? `, ❌ ${failed} failed` : ''}`);
+                    setBulkResult(`✅ ${sentCount} sent${failedCount > 0 ? `, ❌ ${failedCount} failed` : ''}`);
                   } catch (err: any) {
                     setBulkResult(`❌ ${err.message}`);
                   } finally {

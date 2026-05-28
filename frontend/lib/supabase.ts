@@ -8,7 +8,11 @@ if (!supabaseUrl || !supabaseAnonKey) {
   console.warn('Supabase environment variables are missing. Please configure them in .env');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  global: {
+    fetch: (url, options) => fetch(url, { ...options, cache: 'no-store' })
+  }
+});
 
 /**
  * Uploads a resume file to the 'resumes' Supabase Storage bucket.
@@ -75,6 +79,7 @@ export async function fetchCandidates(): Promise<CandidateResult[]> {
       month: 'short', day: 'numeric', year: 'numeric',
       hour: '2-digit', minute: '2-digit',
     }),
+    emailSent:       row.email_sent ?? false,
     analysisSummary: row.analysis_summary  ?? undefined,
     suitReasons:     row.suit_reasons      ?? undefined,
     notSuitReasons:  row.not_suit_reasons  ?? undefined,
@@ -97,6 +102,7 @@ export async function insertCandidate(
     missing_skills:   c.missingSkills,
     recommendation:   c.recommendation,
     resume_url:       c.resumeLink,
+    email_sent:       c.emailSent       ?? false,
     analysis_summary: c.analysisSummary ?? null,
     suit_reasons:     c.suitReasons     ?? null,
     not_suit_reasons: c.notSuitReasons  ?? null,
@@ -105,6 +111,30 @@ export async function insertCandidate(
   if (error) {
     console.error('Failed to insert candidate:', error.message);
   }
+}
+
+/** Mark candidate email as sent in DB */
+export async function markCandidateEmailSent(id: string): Promise<void> {
+  if (id.startsWith('cand_')) {
+    // It's a legacy local candidate, update localStorage directly
+    try {
+      const raw = localStorage.getItem('ats_candidates_v2');
+      if (raw) {
+        const candidates = JSON.parse(raw);
+        const idx = candidates.findIndex((c: any) => c.id === id);
+        if (idx !== -1) {
+          candidates[idx].emailSent = true;
+          localStorage.setItem('ats_candidates_v2', JSON.stringify(candidates));
+        }
+      }
+    } catch (err) {
+      console.error('Failed to update localStorage candidate:', err);
+    }
+    return;
+  }
+
+  const { error } = await supabase.from('candidates').update({ email_sent: true }).eq('id', id);
+  if (error) console.error('Failed to mark email sent in DB:', error.message);
 }
 
 /** Delete a candidate from the DB by id */

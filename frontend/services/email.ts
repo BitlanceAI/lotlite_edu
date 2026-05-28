@@ -1,6 +1,7 @@
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
 
 interface SendEmailParams {
+  candidateId: string;
   type: 'shortlisted' | 'not_shortlisted';
   to: string;
   candidateName: string;

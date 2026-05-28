@@ -44,6 +44,7 @@ export interface CandidateResult {
   appliedAt: string;
   phoneNumber?: string;
   jobConfigId?: string;  // links candidate to a job_configs row
+  emailSent?: boolean;   // tracks if an email has been sent
   // AI analysis fields from OpenAI structured output
   analysisSummary?: string;
   suitReasons?: AnalysisReason[];

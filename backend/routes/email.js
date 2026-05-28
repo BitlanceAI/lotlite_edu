@@ -1,36 +1,37 @@
 import express from 'express';
+import { createClient } from '@supabase/supabase-js';
 import { sendShortlistedEmail, sendNotShortlistedEmail } from '../services/email.js';
 
 const router = express.Router();
 
+// Initialize Supabase client using Service Role Key (bypasses RLS)
+// It requires SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in backend/.env
+const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://pelbzgpgbmtzahxfnanc.supabase.co';
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabase = supabaseServiceKey ? createClient(supabaseUrl, supabaseServiceKey) : null;
+
+async function markCandidateEmailSent(candidateId) {
+  if (!supabase || !candidateId) return;
+  try {
+    const { error } = await supabase.from('candidates').update({ email_sent: true }).eq('id', candidateId);
+    if (error) {
+      console.error(`[DB] Failed to mark email_sent for ${candidateId}:`, error.message);
+    } else {
+      console.log(`[DB] ✅ Marked email_sent = true for ${candidateId}`);
+    }
+  } catch (err) {
+    console.error(`[DB] Error updating candidate ${candidateId}:`, err);
+  }
+}
+
 /**
  * POST /api/email/send
- * Body:
- *   {
- *     type: 'shortlisted' | 'not_shortlisted',
- *     to: string,                   // candidate email
- *     candidateName: string,
- *     jobTitle: string,
- *     atsScore: number,
- *     recommendation?: string,
- *     missingSkills?: string[]
- *   }
  */
 router.post('/send', async (req, res) => {
-  const { type, to, candidateName, jobTitle, atsScore, recommendation, missingSkills = [] } = req.body;
+  const { candidateId, type, to, candidateName, jobTitle, atsScore, recommendation, missingSkills = [] } = req.body;
 
-  // ── Validation ────────────────────────────────────────────────────────────
   if (!type || !to || !candidateName || !jobTitle || atsScore === undefined) {
-    return res.status(400).json({ error: 'Missing required fields: type, to, candidateName, jobTitle, atsScore' });
-  }
-
-  if (!['shortlisted', 'not_shortlisted'].includes(type)) {
-    return res.status(400).json({ error: 'type must be "shortlisted" or "not_shortlisted"' });
-  }
-
-  // Basic email format check
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to)) {
-    return res.status(400).json({ error: 'Invalid email address' });
+    return res.status(400).json({ error: 'Missing required fields' });
   }
 
   try {
@@ -41,8 +42,13 @@ router.post('/send', async (req, res) => {
     }
 
     console.log(`[Email] ✅ ${type} email sent to ${to} for "${jobTitle}"`);
-    return res.json({ success: true, message: `${type} email sent to ${to}` });
+    
+    // Update the database
+    if (candidateId) {
+      await markCandidateEmailSent(candidateId);
+    }
 
+    return res.json({ success: true, message: `${type} email sent to ${to}` });
   } catch (err) {
     console.error('[Email] ❌ Failed to send email:', err.message);
     return res.status(500).json({ error: 'Failed to send email', details: err.message });
@@ -51,8 +57,6 @@ router.post('/send', async (req, res) => {
 
 /**
  * POST /api/email/send-bulk
- * Sends emails to multiple candidates in one call.
- * Body: { candidates: Array<{ type, to, candidateName, jobTitle, atsScore, recommendation, missingSkills }> }
  */
 router.post('/send-bulk', async (req, res) => {
   const { candidates } = req.body;
@@ -63,7 +67,7 @@ router.post('/send-bulk', async (req, res) => {
 
   const results = await Promise.allSettled(
     candidates.map(async (c) => {
-      const { type, to, candidateName, jobTitle, atsScore, recommendation, missingSkills = [] } = c;
+      const { candidateId, type, to, candidateName, jobTitle, atsScore, recommendation, missingSkills = [] } = c;
 
       if (!type || !to || !candidateName || !jobTitle || atsScore === undefined) {
         throw new Error(`Missing fields for candidate: ${candidateName || to}`);
@@ -76,6 +80,12 @@ router.post('/send-bulk', async (req, res) => {
       }
 
       console.log(`[Email] ✅ ${type} email sent to ${to}`);
+      
+      // Update database
+      if (candidateId) {
+        await markCandidateEmailSent(candidateId);
+      }
+      
       return { to, status: 'sent' };
     })
   );
