@@ -9,7 +9,7 @@ variables:
   - name: imageRepositoryFrontend
     value: 'lotlite-frontend'
   - name: containerRegistry
-    value: 'bitlanceaiapp.azurecr.io'
+    value: 'lotliteappacr.azurecr.io'
   - name: dockerfilePathBackend
     value: '$(Build.SourcesDirectory)/backend/Dockerfile'
   - name: dockerfilePathFrontend
