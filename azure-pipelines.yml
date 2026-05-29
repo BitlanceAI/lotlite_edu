@@ -44,6 +44,7 @@ stages:
         dockerfile: $(dockerfilePathFrontend)
         containerRegistry: $(dockerRegistryServiceConnection)
         buildContext: '$(Build.SourcesDirectory)/frontend'
+        arguments: '--build-arg NEXT_PUBLIC_SUPABASE_URL=$(NEXT_PUBLIC_SUPABASE_URL) --build-arg NEXT_PUBLIC_SUPABASE_ANON_KEY=$(NEXT_PUBLIC_SUPABASE_ANON_KEY) --build-arg NEXT_PUBLIC_BACKEND_URL=$(NEXT_PUBLIC_BACKEND_URL)'
         tags: |
           $(tag)
           latest
