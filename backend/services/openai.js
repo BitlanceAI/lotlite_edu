@@ -8,12 +8,15 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-export async function analyzeCandidate(pdfText, jobTitle, jobDescription, candidateName, email) {
+export async function analyzeCandidate(pdfText, jobTitle, jobDescription, candidateName, email, requiredSkills = [], preferredSkills = [], weights = {}, minAtsScore = 0) {
   if (!process.env.OPENAI_API_KEY) {
     throw new Error('OpenAI API Key is missing in server environment variables.');
   }
 
-  const systemPrompt = `You are the recruiter in recruiting agency, you are strict and you pay extra attention on details in a resume. You work with companies and find talents for their jobs. You asses any resume really attentively and critically. If the candidate is a jumper, you notice that and say us. You need to say if the candidate from out base is suitable for this job. Return 4 things: 1. Percentage (10% step) of matching candidate resume with job. 2. Short summary - should use simple language and be short. Provide final decision on candidate based on matching percentage and candidate skills vs job requirements. 3. Summary why this candidate suits this jobs. 4. Summary why this candidate doesn't suit this jobs.\n\nContext - Job Description: ${jobDescription}\nJob Title: ${jobTitle}`;
+  const skillsContext = requiredSkills.length > 0 ? `\nRequired Skills: ${requiredSkills.join(', ')}` : '';
+  const preferredContext = preferredSkills.length > 0 ? `\nPreferred Skills: ${preferredSkills.join(', ')}` : '';
+  
+  const systemPrompt = `You are the recruiter in recruiting agency, you are strict and you pay extra attention on details in a resume. You work with companies and find talents for their jobs. You asses any resume really attentively and critically. If the candidate is a jumper, you notice that and say us. You need to say if the candidate from out base is suitable for this job. Return 4 things: 1. Percentage (10% step) of matching candidate resume with job. 2. Short summary - should use simple language and be short. Provide final decision on candidate based on matching percentage and candidate skills vs job requirements. 3. Summary why this candidate suits this jobs. 4. Summary why this candidate doesn't suit this jobs.\n\nContext - Job Description: ${jobDescription}\nJob Title: ${jobTitle}${skillsContext}${preferredContext}`;
 
   const completion = await openai.chat.completions.create({
     model: 'gpt-4o-mini',

@@ -15,6 +15,10 @@ router.post('/', validateAnalyzeRequest, async (req, res) => {
       job_description,
       candidate_name,
       email,
+      required_skills,
+      preferred_skills,
+      weights,
+      minimum_ats_score,
     } = req.body;
 
     // Fall back to filename-parsed details when the caller doesn't supply them
@@ -38,7 +42,11 @@ router.post('/', validateAnalyzeRequest, async (req, res) => {
       job_title,
       job_description,
       resolvedName,
-      resolvedEmail
+      resolvedEmail,
+      required_skills,
+      preferred_skills,
+      weights,
+      minimum_ats_score
     );
     console.log(`         AI Analysis complete! Score: ${analysisPayload.atsScore}%`);
 
