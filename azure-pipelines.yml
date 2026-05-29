@@ -3,7 +3,7 @@ trigger:
 
 variables:
   - name: dockerRegistryServiceConnection
-    value: 'acr-service-connection'
+    value: 'acr-service-connection-lotlite'
   - name: imageRepositoryBackend
     value: 'lotlite-backend'
   - name: imageRepositoryFrontend
