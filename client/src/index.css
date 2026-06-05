@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import "tailwindcss";
+@import "./theme.css";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-wine: var(--color-wine);
+  --color-wine-hover: var(--color-wine-hover);
+  --color-wine-light: var(--color-wine-light);
+  --color-wine-light-border: var(--color-wine-light-border);
+  --color-card: var(--color-bg-card);
+  --color-input: var(--color-bg-input);
+  --color-bottle-green: var(--color-bottle-green);
+  --color-black: var(--color-text);
+  --color-white: var(--color-bg);
+  --color-offwhite: var(--color-offwhite);
+  --color-muted: var(--color-text-muted);
+  --color-gold: var(--color-wine);
+  --color-border: var(--color-border);
+  --color-badge-bg: var(--color-badge-bg);
+  --color-badge-text: var(--color-badge-text);
+  --color-badge-border: var(--color-badge-border);
+
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+
+  --radius-lg: 12px;
+  --radius-pill: 100px;
+
+  --shadow-card: 0 12px 60px rgba(0,0,0,0.08);
+
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 30s linear infinite;
+  --animate-floating: floating 6s ease-in-out infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+  }
+  @keyframes marquee-reverse {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+  }
+  @keyframes floating {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-sans text-black bg-white transition-colors duration-300 antialiased select-none;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif tracking-tight text-black;
+  }
+}
+
+/* Custom Utilities */
+.scrollbar-hide {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none !important;
+}
+
+.glass-nav {
+  @apply backdrop-blur-md bg-white/80;
+}
+
+.dark .glass-nav {
+  @apply bg-offwhite/40;
+}
+
+.glass-card {
+  @apply bg-black/5 backdrop-blur-md border border-border rounded-lg transition-all duration-300 hover:bg-black/10;
+}
+
+.dark .glass-card {
+  @apply bg-offwhite/5 border-white/10 hover:bg-offwhite/10;
+}
+
+.light-gradient-card {
+  @apply bg-linear-to-br from-white to-offwhite border border-border rounded-lg shadow-card;
+}
+
+.dark .light-gradient-card {
+  @apply bg-linear-to-br from-offwhite to-offwhite/50 border-white/10;
+}
+
+.wine-glow {
+  @apply absolute rounded-full blur-[120px] opacity-10 pointer-events-none;
+  background: radial-gradient(circle, var(--color-wine) 0%, transparent 70%);
+}
+
+.green-glow {
+  @apply absolute rounded-full blur-[120px] opacity-10 pointer-events-none;
+  background: radial-gradient(circle, var(--color-bottle-green) 0%, transparent 70%);
+}
+
+.marquee-container {
+  @apply flex overflow-hidden select-none gap-8;
+}
+
+.marquee-content {
+  @apply flex shrink-0 justify-around gap-8 min-w-full animate-marquee;
+}
+
+.marquee-content-reverse {
+  @apply flex shrink-0 justify-around gap-8 min-w-full animate-marquee-reverse;
+}
+
+.mesh-bg-light {
+  background: radial-gradient(at 0% 0%, hsla(350,100%,94%,1) 0, transparent 50%),
+              radial-gradient(at 100% 0%, hsla(15,100%,95%,1) 0, transparent 50%),
+              radial-gradient(at 100% 100%, hsla(350,100%,94%,1) 0, transparent 50%),
+              radial-gradient(at 0% 100%, hsla(15,100%,95%,1) 0, transparent 50%);
+  background-color: #FFFFFF;
+}
+
+.dark .mesh-bg-light {
+  background: radial-gradient(at 0% 0%, hsla(350,100%,20%,0.12) 0, transparent 50%),
+              radial-gradient(at 100% 0%, hsla(24,100%,20%,0.08) 0, transparent 50%),
+              radial-gradient(at 100% 100%, hsla(350,100%,20%,0.12) 0, transparent 50%),
+              radial-gradient(at 0% 100%, hsla(24,100%,20%,0.08) 0, transparent 50%);
+  background-color: var(--color-bg);
+}
+
+.floating {
+  @apply animate-floating;
+}
+
+.section-green {
+  background: linear-gradient(180deg, rgba(var(--green-glow-rgb), 0.12) 0%, rgba(var(--bg-gradient-end), 1) 100%);
+}
+
+.section-wine {
+  background: linear-gradient(180deg, rgba(var(--wine-glow-rgb), 0.12) 0%, rgba(var(--bg-gradient-end), 1) 100%);
+}
+
+.bg-arch-1 {
+  background-image: var(--bg-architectural-1);
+  background-size: cover;
+  background-position: center;
+  @apply opacity-[0.03] dark:opacity-[0.06] grayscale transition-opacity duration-700;
+}
+
+.bg-arch-2 {
+  background-image: var(--bg-architectural-2);
+  background-size: cover;
+  background-position: center;
+  @apply opacity-[0.03] dark:opacity-[0.06] grayscale transition-opacity duration-700;
+}
+
+.bg-arch-3 {
+  background-image: var(--bg-architectural-3);
+  background-size: cover;
+  background-position: center;
+  @apply opacity-[0.04] dark:opacity-[0.08] grayscale transition-opacity duration-700;
+}
+
+/* Custom class for the login close button to avoid Tailwind media query dark mode mismatch */
+.login-close-btn {
+  @apply text-muted transition-colors p-1.5 rounded-full cursor-pointer hover:text-wine hover:bg-wine/10;
+}
+
+.dark .login-close-btn {
+  @apply hover:text-wine hover:bg-neutral-800;
+}
+
+/* Custom Modal Scroller class to hide native scrollbar and show elegant thin handle */
+.custom-modal-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-modal-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-modal-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(128, 0, 32, 0.25);
+  border-radius: 9999px;
+}
+
+.dark .custom-modal-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(222, 41, 67, 0.3);
+}
+
+.custom-modal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(128, 0, 32, 0.5);
+}
+
+.custom-modal-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(128, 0, 32, 0.25) transparent;
+}
+
+.dark .custom-modal-scrollbar {
+  scrollbar-color: rgba(222, 41, 67, 0.3) transparent;
+}
+
+

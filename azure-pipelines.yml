@@ -1,0 +1,54 @@
+trigger:
+  - main
+
+variables:
+  - name: azureSubscription
+    value: 'edu-arc-service-connection'
+  - name: containerRegistry
+    value: 'bitlanceaiapp'
+  - name: frontendImageName
+    value: 'lotlite'
+  - name: backendImageName
+    value: 'lotlite-backend'
+  - name: tag
+    value: '$(Build.BuildId)'
+
+stages:
+  - stage: BuildAndPush
+    displayName: Build and Push Images to ACR
+    jobs:
+      - job: BuildAndPushJob
+        displayName: Build and Push Client & Server
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+
+          # 1. Build & Push Frontend using Azure CLI (ACR Build)
+          # This reliably passes build args and pushes the image securely.
+          - task: AzureCLI@2
+            displayName: "Build and Push Frontend (Client)"
+            inputs:
+              azureSubscription: $(azureSubscription)
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az acr build \
+                  --registry $(containerRegistry) \
+                  --image $(frontendImageName):$(tag) \
+                  --image $(frontendImageName):latest \
+                  --build-arg VITE_API_BASE_URL="$(VITE_API_BASE_URL)" \
+                  ./client
+
+          # 2. Build & Push Backend using Azure CLI (ACR Build)
+          - task: AzureCLI@2
+            displayName: "Build and Push Backend (Server)"
+            inputs:
+              azureSubscription: $(azureSubscription)
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az acr build \
+                  --registry $(containerRegistry) \
+                  --image $(backendImageName):$(tag) \
+                  --image $(backendImageName):latest \
+                  ./server

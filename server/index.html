@@ -1,0 +1,303 @@
+<html>
+
+<head>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lfa7icrAAAAAKL6zTywTkvT0gsJullBezUrAgS3"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Lexend:wght@100..900&display=swap');
+
+        body {
+            font-family: "Karla";
+            font-size: 18px;
+            letter-spacing: normal;
+            margin: 20px;
+        }
+
+        .leadform-card {
+            box-shadow: 0 3px 2px rgba(0, 0, 0, 0.2);
+            background-color: #fff8fd;
+            border-radius: 12px;
+            max-width: 450px;
+
+            .lead-form h1 {
+                font-family: "Karla";
+                text-align: center;
+                font-weight: 700;
+                font-size: 25px;
+                margin-bottom: 10px;
+                color: #2F2F39;
+            }
+
+            .lead-form label {
+                font-family: "Karla";
+                font-weight: 700;
+                font-size: 16px;
+                color: #2F2F39;
+                margin-top: 10px;
+            }
+
+            .lead-form label span {
+                color: red;
+            }
+
+            .form-control {
+                font-family: "Karla";
+                font-weight: 400;
+                font-size: 15px;
+                color: #141414;
+            }
+
+            .form-check {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin-top: 10px;
+
+                label {
+                    font-family: "Karla";
+                    font-weight: 400;
+                    font-size: 15px;
+                    color: #2F2F39;
+
+                    a {
+                        color: #0000D9;
+                        text-decoration: none;
+                    }
+                }
+
+                input {
+                    margin-top: 12px;
+                    width: 14px;
+                    height: 14px;
+                    cursor: pointer;
+                    accent-color: #ffc107;
+                }
+            }
+
+            .checkbox-group {
+                input {
+                    width: 14px;
+                    height: 14px;
+                    cursor: pointer;
+                    accent-color: #ffc107;
+                }
+
+                label {
+                    font-family: "Karla";
+                    font-weight: 400;
+                    font-size: 15px;
+                    color: #2F2F39;
+                    margin-right: 10px;
+                    margin-top: 0;
+                }
+            }
+
+            .radio-group {
+                input {
+                    width: 14px;
+                    height: 14px;
+                    cursor: pointer;
+                }
+
+                label {
+                    font-family: "Karla";
+                    font-weight: 400;
+                    font-size: 15px;
+                    color: #2F2F39;
+                    margin-right: 10px;
+                    margin-top: 0;
+                }
+            }
+
+            button {
+                font-family: "Karla";
+                font-size: 18px;
+                font-weight: 700;
+                color: #fff;
+                background-color: #000000;
+                border: none;
+                border-radius: 4px;
+                padding: 7px 24px;
+                margin-right: 10px;
+                margin: 15px;
+            }
+        }
+
+        /* Remove spinner buttons in WebKit browsers */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .multi-select {
+
+            display: grid;
+
+            button {
+                margin: 0;
+                line-height: 1.1;
+
+                span {
+                    margin-bottom: 15px;
+                    color: #ffff;
+                }
+            }
+
+            .select2-container--default .select2-selection--multiple {
+                background-color: white;
+                border: 1px solid #ced4da;
+                border-radius: 4px;
+                cursor: text;
+                padding-bottom: 5px;
+                padding-right: 5px;
+                position: relative;
+            }
+
+            .select2-results__option {
+                font-size: 14px;
+                padding: 6px;
+            }
+
+            .select2-container--default .select2-selection--multiple .select2-selection__choice__display {
+                padding-right: 5px;
+                display: flex;
+                align-items: center;
+                font-size: 14px;
+
+            }
+
+            .select2-container--default .select2-selection--multiple .select2-selection__choice {
+                background-color: #ffc107;
+                border: none;
+                padding-right: 20px;
+                padding-left: 5px;
+
+
+            }
+
+            .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+                border: none;
+                font-weight: 400;
+                padding: 0 5px;
+                right: 0;
+                left: auto;
+
+            }
+
+            .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+                background-color: #ffc107;
+                opacity: 70%;
+            }
+
+        }
+
+        /* Hide the reCAPTCHA badge */
+        .grecaptcha-badge {
+            visibility: hidden !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="leadform-card mb-4">
+        <div id="message" class="text-center mt-3"></div>
+        <form class="lead-form px-4 mt-4 pt-3" id="dynamicForm">
+            <h1>undefined</h1>
+            <label title="First Name" class="form-label">First Name <span>*</span></label><input type="text"
+                onblur="this.value = this.value.trim()" class="form-control" id="firstName" placeholder="First Name"
+                required />
+            <label title="Phone Number" class="form-label">Phone Number <span>*</span></label><input type="text"
+                onblur="this.value = this.value.trim()" class="form-control" id="number" placeholder="Phone Number"
+                required />
+            <label title="Email" class="form-label">Email</label><input type="email"
+                onblur="this.value = this.value.trim()" email="true"
+                pattern="^[_0-9A-Za-z][_0-9A-Za-z-.]+@([0-9A-Za-z][0-9A-Za-z-]+.)+[A-Za-z]+$" class="form-control"
+                id="InputBox1780143703106" placeholder="Email" />
+            <label title="Program Category" class="form-label">Program Category</label><input type="text"
+                onblur="this.value = this.value.trim()" class="form-control" id="InputBox1780143703123"
+                placeholder="Program Category" />
+            <label title="Specialization" class="form-label">Specialization</label><input type="text"
+                onblur="this.value = this.value.trim()" class="form-control" id="InputBox1780143703131"
+                placeholder="Specialization" />
+            <div class="text-center">
+                <button type="button" id="submitButton">apply Now</button>
+            </div>
+    </div>
+    </form>
+    </div>
+
+    <script>
+
+        const siteKey = '6Lfa7icrAAAAAKL6zTywTkvT0gsJullBezUrAgS3';
+
+        document.getElementById('submitButton').addEventListener('click', function () {
+
+            const form = document.getElementById('dynamicForm');
+
+            if (!form.checkValidity()) {
+                // Show browser's default tooltip validation
+                form.reportValidity();
+                return;
+            }
+
+            event.preventDefault(); // Prevent form submission
+
+            grecaptcha.ready(function () {
+                // Execute reCAPTCHA v3
+                grecaptcha.execute(siteKey, { action: 'submit' }).then(function (token) {
+
+                    submitForm(token);
+                });
+            });
+        });
+
+        function submitForm(token) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Gather form data
+            const formData = {
+                firstName: document.getElementById('firstName').value, number: document.getElementById('number').value, InputBox1780143703106: document.getElementById('InputBox1780143703106').value, InputBox1780143703123: document.getElementById('InputBox1780143703123').value, InputBox1780143703131: document.getElementById('InputBox1780143703131').value, domainName: window.location.hostname, gReCaptchaToken: token, formName: 'lotlite_edu'
+            };
+
+            // Call API
+            fetch('https://services.callyzer.co/api/noauth-service/noAuth/listener/lead/LeadCapture/undefined', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(response => {
+
+                    // document.getElementById('message').textContent = 'Form submitted successfully!';
+                    // document.getElementById('message').style.color = 'green'
+                    ;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('message').textContent = 'There was an error submitting the form.';
+                    document.getElementById('message').style.color = 'red';
+                });
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.js-example-basic-multiple').select2({
+                maximumSelectionLength: 10
+            });
+        });
+    </script>
+</body>
+
+</html>
