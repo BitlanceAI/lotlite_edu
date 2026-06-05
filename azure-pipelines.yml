@@ -9,7 +9,7 @@ variables:
   - name: frontendImageName
     value: 'lotlite'
   - name: backendImageName
-    value: 'lotlite-backend'
+    value: 'lotlite-backend-edu'
   - name: tag
     value: '$(Build.BuildId)'
 
