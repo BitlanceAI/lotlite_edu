@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, ShieldAlert, Lock, LogOut } from 'lucide-react';
+import { Menu, X, ShieldAlert, LogOut } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import ThemeToggle from '../ui/ThemeToggle';
 import Logo from '../ui/Logo';
@@ -197,7 +197,7 @@ export default function Navbar({
             <div className="flex items-center gap-2.5 lg:gap-3.5">
               <ThemeToggle />
 
-              {isAdminLoggedIn ? (
+              {isAdminLoggedIn && (
                 <button
                   onClick={onLogout}
                   title="Sign out of Board portal"
@@ -205,15 +205,6 @@ export default function Navbar({
                 >
                   <LogOut size={11} />
                   <span>Logout</span>
-                </button>
-              ) : (
-                <button
-                  onClick={onOpenAdminLogin}
-                  title="Administrative access keys"
-                  className="bg-transparent hover:text-wine text-black/50 dark:text-neutral-400 px-2.5 py-2 rounded-md font-bold text-[9px] uppercase tracking-[0.15em] transition-all flex items-center gap-1 cursor-pointer"
-                >
-                  <Lock size={11} />
-                  <span>Admin Portal</span>
                 </button>
               )}
 
@@ -315,7 +306,7 @@ export default function Navbar({
               })}
             </div>
 
-            {isAdminLoggedIn ? (
+            {isAdminLoggedIn && (
               <button 
                 onClick={() => {
                   onLogout();
@@ -324,16 +315,6 @@ export default function Navbar({
                 className="bg-transparent border border-wine/40 text-wine hover:bg-wine hover:text-white font-bold px-12 py-3 rounded-lg text-xs uppercase tracking-widest text-center flex items-center justify-center w-full max-w-xs mt-2 transition-colors cursor-pointer"
               >
                 Logout Board portal
-              </button>
-            ) : (
-              <button 
-                onClick={() => {
-                  onOpenAdminLogin();
-                  setIsMenuOpen(false);
-                }}
-                className="bg-transparent border border-black/10 text-black/50 font-bold px-12 py-3 rounded-lg text-xs uppercase tracking-widest text-center flex items-center justify-center w-full max-w-xs mt-2 transition-colors cursor-pointer"
-              >
-                Board Admin Portal
               </button>
             )}
 
