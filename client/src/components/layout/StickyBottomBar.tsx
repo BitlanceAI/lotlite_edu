@@ -34,18 +34,15 @@ export default function StickyBottomBar({ isMenuOpen }: StickyBottomBarProps) {
             className="bg-wine rounded-full flex items-center justify-between p-2 sm:p-2.5 pr-5 sm:pr-7 shadow-[0_10px_40px_rgba(128,0,32,0.3)] pointer-events-auto border border-white/10"
           >
             {/* APPLY NOW Button */}
-            <button 
+            <button
               onClick={() => {
-                const element = document.getElementById('apply');
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' });
-                }
+                window.dispatchEvent(new CustomEvent('switch-tab', { detail: 'apply_form' }));
               }}
               className="bg-white text-wine px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold text-[11px] sm:text-[13px] uppercase tracking-widest hover:bg-gray-100 active:scale-95 transition-all shadow-md shrink-0"
             >
               Apply Now
             </button>
-            
+
             {/* Icons */}
             <div className="flex items-center gap-3.5 sm:gap-5">
               {/* Phone */}
