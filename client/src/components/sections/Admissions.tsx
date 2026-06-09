@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CheckCircle } from 'lucide-react';
+import OtpVerificationPage from '../auth/OtpVerificationPage';
 
 export default function Admissions() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [pendingLead, setPendingLead] = useState<any>(null);
+  const [isSendingOtp, setIsSendingOtp] = useState(false);
+  const [otpError, setOtpError] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [program, setProgram] = useState('B.REM in Real Estate Management');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const newApp = {
@@ -24,15 +28,42 @@ export default function Admissions() {
       appliedDate: new Date().toISOString().split('T')[0]
     };
 
-    try {
-      const stored = localStorage.getItem('lotlite_applicants');
-      const list = stored ? JSON.parse(stored) : [];
-      localStorage.setItem('lotlite_applicants', JSON.stringify([newApp, ...list]));
-    } catch (err) {
-      console.error("Local storage sync error", err);
-    }
+    setIsSendingOtp(true);
+    setOtpError('');
 
-    setIsSubmitted(true);
+    try {
+      const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/otp/send`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone })
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok || !data.success) {
+        setOtpError(data.error || 'Failed to send OTP. Please try again.');
+        setIsSendingOtp(false);
+        return;
+      }
+
+      setPendingLead({
+        phone,
+        localData: newApp,
+        leadData: {
+          fullName: name,
+          email,
+          phone,
+          programCategory: program,
+          source: 'Admissions Form',
+          lead_tags: ['Lotlite Edu', 'Admissions']
+        }
+      });
+    } catch (err) {
+      console.error('OTP Send error', err);
+      setOtpError('Network error. Please try again.');
+    }
+    setIsSendingOtp(false);
   };
 
   const handleResetForm = () => {
@@ -45,6 +76,16 @@ export default function Admissions() {
 
   return (
     <section className="bg-transparent relative overflow-hidden pt-4 pb-16 md:pt-4 md:pb-24 scroll-mt-20" id="apply">
+      {pendingLead && (
+        <OtpVerificationPage
+          pendingLead={pendingLead}
+          onSuccess={() => {
+            setPendingLead(null);
+            setIsSubmitted(true);
+          }}
+          onCancel={() => setPendingLead(null)}
+        />
+      )}
       <div className="wine-glow -top-20 -right-20 w-[600px] h-[600px] blur-[150px]" />
       <div className="absolute inset-0 z-[1] bg-arch-1 pointer-events-none" />
       <div className="grid md:grid-cols-2 min-h-screen relative z-10">
@@ -117,9 +158,10 @@ export default function Admissions() {
                       <option value="Digital Certification" className="bg-white dark:bg-offwhite text-black">Digital Certification</option>
                     </select>
                   </div>
-                  <button type="submit" className="w-full bg-bottle-green text-white py-3.5 md:py-5 rounded-xl font-bold border-2 border-transparent shadow-xl shadow-bottle-green/20 hover:bg-transparent hover:text-bottle-green hover:border-bottle-green transition-all uppercase tracking-[0.2em] text-xs md:text-sm">
-                    <span className="md:hidden">Submit Application</span>
-                    <span className="hidden md:inline">Submit My Application →</span>
+                  {otpError && <p className="text-red-500 text-xs font-bold mt-2 text-center">{otpError}</p>}
+                  <button type="submit" disabled={isSendingOtp} className="w-full bg-bottle-green text-white py-3.5 md:py-5 rounded-xl font-bold border-2 border-transparent shadow-xl shadow-bottle-green/20 hover:bg-transparent hover:text-bottle-green hover:border-bottle-green transition-all uppercase tracking-[0.2em] text-xs md:text-sm disabled:opacity-75 disabled:cursor-not-allowed">
+                    <span className="md:hidden">{isSendingOtp ? 'Sending OTP...' : 'Submit Application'}</span>
+                    <span className="hidden md:inline">{isSendingOtp ? 'Sending OTP...' : 'Submit My Application →'}</span>
                   </button>
                   <p className="text-center text-black/20 text-[10px] font-bold uppercase tracking-widest mt-6">Secure Submission backed by Lotlite Group</p>
                 </form>

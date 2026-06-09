@@ -39,6 +39,7 @@ import {
   mcaStructure, 
   mbaStructure 
 } from '../../data/curriculumData';
+import OtpVerificationPage from '../auth/OtpVerificationPage';
 
 
 interface AcademicHubProps {
@@ -74,6 +75,9 @@ export default function AcademicHub({
   const [formPhone, setFormPhone] = useState('');
   const [formProgram, setFormProgram] = useState('B.REM in Real Estate Management & Investment');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [pendingLead, setPendingLead] = useState<any>(null);
+  const [isSendingOtp, setIsSendingOtp] = useState(false);
+  const [otpError, setOtpError] = useState('');
 
   // Proposal form states
   const [proposalName, setProposalName] = useState('');
@@ -353,27 +357,58 @@ export default function AcademicHub({
 
   const filteredBlogs = blogFilter === 'All' ? blogs : blogs.filter(b => b.category === blogFilter);
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formName || !formEmail || !formPhone) return;
     
-    // Submit through central app context
-    submitApplicant({
+    setIsSendingOtp(true);
+    setOtpError('');
+
+    const newApp = {
+      id: `app-${Date.now()}`,
       name: formName,
       email: formEmail,
       phone: formPhone,
       program: formProgram,
       background: 'Admissions Inquiry Portal Lead',
-      experience: 'Form submitted on lotlite.org under programs catalog'
-    });
-    
-    triggerToast({
-      title: "Application Received",
-      description: `Logged application for ${formName} under ${formProgram}`,
-      type: 'success'
-    });
+      status: 'Pending',
+      experience: 'Form submitted on lotlite.org under programs catalog',
+      appliedDate: new Date().toISOString().split('T')[0]
+    };
 
-    setIsSubmitted(true);
+    try {
+      const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/otp/send`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: formPhone })
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok || !data.success) {
+        setOtpError(data.error || 'Failed to send OTP. Please try again.');
+        setIsSendingOtp(false);
+        return;
+      }
+
+      setPendingLead({
+        phone: formPhone,
+        localData: newApp,
+        leadData: {
+          fullName: formName,
+          email: formEmail,
+          phone: formPhone,
+          programCategory: formProgram,
+          source: 'Admissions Inquiry Portal Lead',
+          lead_tags: ['Lotlite Edu', 'Programs']
+        }
+      });
+    } catch (err) {
+      console.error('OTP Send error', err);
+      setOtpError('Network error. Please try again.');
+    }
+    setIsSendingOtp(false);
   };
 
   const handleProposalSubmit = (e: React.FormEvent) => {
@@ -507,10 +542,26 @@ export default function AcademicHub({
   const currentMetadata = sectionHeadings[activeSection] || { tag: '', title: '', desc: '' };
   const currentSidebarOptions = sidebarMenus[activeSection as keyof typeof sidebarMenus] || [];
 
-  const isModalViewActive = !!(selectedCase || selectedBlog);
+  const isModalViewActive = !!(selectedCase || selectedBlog || pendingLead);
 
   return (
     <div className={`py-6 pb-6 relative scroll-mt-24 ${isModalViewActive ? 'z-[99999]' : 'z-10'}`} id="academic-hub">
+      {pendingLead && (
+        <OtpVerificationPage
+          pendingLead={pendingLead}
+          onSuccess={() => {
+            setPendingLead(null);
+            setIsSubmitted(true);
+            triggerToast({
+              title: "Application Received",
+              description: `Logged application for ${formName} under ${formProgram}`,
+              type: 'success'
+            });
+            // We optionally could call submitApplicant here, but OtpVerificationPage saves it directly.
+          }}
+          onCancel={() => setPendingLead(null)}
+        />
+      )}
       <div className="max-w-7xl mx-auto px-3 sm:px-6 md:px-10 lg:px-12 bg-white/75 backdrop-blur-lg rounded-3xl p-5 sm:p-8 md:p-12 shadow-sm border border-border">
         
         {/* ======================= GLOBAL HEADER ELEMENT FOR ACTIVE SECTION ======================= */}
@@ -681,11 +732,13 @@ export default function AcademicHub({
                                       placeholder="+91 91111 22222" 
                                     />
                                   </div>
+                                  {otpError && <p className="text-red-500 text-xs font-bold mb-2 text-center">{otpError}</p>}
                                   <button 
                                     type="submit" 
-                                    className="bg-wine hover:bg-wine-hover text-[#ffffff] font-bold text-xs uppercase tracking-widest px-6 py-3 rounded-xl transition-all w-full select-none cursor-pointer"
+                                    disabled={isSendingOtp}
+                                    className="bg-wine hover:bg-wine-hover text-[#ffffff] font-bold text-xs uppercase tracking-widest px-6 py-3 rounded-xl transition-all w-full select-none cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
                                   >
-                                    Submit Admissions Briefing Inquiry
+                                    {isSendingOtp ? 'Sending OTP...' : 'Submit Admissions Briefing Inquiry'}
                                   </button>
                                 </form>
                               ) : (
