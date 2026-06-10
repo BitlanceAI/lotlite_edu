@@ -96,6 +96,8 @@ interface AppContextType {
   updateVenture: (updatedVenture: Venture) => void;
 }
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
+
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -149,9 +151,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const fetchSystemStats = async () => {
     try {
-      const statsRes = await fetch('/api/applicants');
+      const statsRes = await fetch(`${API_BASE}/api/applicants`);
       const apps: Applicant[] = await statsRes.json();
-      const venturesRes = await fetch('/api/ventures');
+      const venturesRes = await fetch(`${API_BASE}/api/ventures`);
       const vens: Venture[] = await venturesRes.json();
 
       const interviewCount = apps.filter(a => a.status === 'Interview Scheduled').length;
@@ -246,7 +248,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const fetchFaqs = async (category?: string) => {
     setFaqsLoading(true);
-    const url = category ? `/api/faqs?category=${category}` : '/api/faqs';
+    const url = category ? `${API_BASE}/api/faqs?category=${category}` : `${API_BASE}/api/faqs`;
     try {
       const res = await fetch(url);
       if (res.ok) {
@@ -290,7 +292,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const fetchBlogs = async () => {
     setBlogsLoading(true);
     try {
-      const res = await fetch('/api/blog');
+      const res = await fetch(`${API_BASE}/api/blog`);
       if (res.ok) {
         const data = await res.json();
         // Map backend Blog schema to frontend BlogPost interface
@@ -334,7 +336,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       isPublished: true
     };
     
-    const res = await fetch('/api/blog/save', {
+    const res = await fetch(`${API_BASE}/api/blog/save`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
@@ -389,7 +391,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const sendMessageToBot = async (text: string) => {
     setIsBotTyping(true);
     try {
-      const res = await fetch('/api/chatbot', {
+      const res = await fetch(`${API_BASE}/api/chatbot`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -436,7 +438,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const fetchApplicants = async () => {
     setAdmissionsLoading(true);
     try {
-      const res = await fetch('/api/applicants');
+      const res = await fetch(`${API_BASE}/api/applicants`);
       if (res.ok) {
         const data = await res.json();
         setApplicants(data);
@@ -451,7 +453,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const fetchVentures = async () => {
     setAdmissionsLoading(true);
     try {
-      const res = await fetch('/api/ventures');
+      const res = await fetch(`${API_BASE}/api/ventures`);
       if (res.ok) {
         const data = await res.json();
         setVentures(data);
@@ -467,7 +469,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setSubmittingApplication(true);
     setApplicationSuccess(false);
     try {
-      const res = await fetch('/api/applicants', {
+      const res = await fetch(`${API_BASE}/api/applicants`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(applicant)
@@ -489,7 +491,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const updateApplicantStatus = async (id: string, status: Applicant['status']) => {
     try {
-      const res = await fetch(`/api/applicants/${id}/status`, {
+      const res = await fetch(`${API_BASE}/api/applicants/${id}/status`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status })
@@ -504,7 +506,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const deleteApplicant = async (id: string) => {
     try {
-      const res = await fetch(`/api/applicants/${id}`, {
+      const res = await fetch(`${API_BASE}/api/applicants/${id}`, {
         method: 'DELETE'
       });
       if (res.ok) {
@@ -517,7 +519,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const auditVenture = async (id: string) => {
     try {
-      const res = await fetch(`/api/ventures/${id}/audit`, {
+      const res = await fetch(`${API_BASE}/api/ventures/${id}/audit`, {
         method: 'PUT'
       });
       if (res.ok) {
@@ -529,7 +531,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const createVenture = async (venture: Omit<Venture, 'id' | 'status'>): Promise<Venture> => {
-    const res = await fetch('/api/ventures', {
+    const res = await fetch(`${API_BASE}/api/ventures`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(venture)

@@ -24,7 +24,8 @@ export default function BlogArticlePage() {
   const [author, setAuthor] = useState<AuthorProfile | null>(null);
 
   useEffect(() => {
-    fetch('/api/author')
+    const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
+    fetch(`${API_BASE}/api/author`)
       .then(res => res.ok ? res.json() : null)
       .then(data => data && setAuthor(data))
       .catch(() => {});
