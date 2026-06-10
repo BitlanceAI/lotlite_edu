@@ -27,6 +27,16 @@ const handleCreateLead = async (req, res) => {
   }
 };
 
+const handleGetLeads = async (req, res) => {
+  try {
+    const leads = await leadService.getAllLeads();
+    return res.status(200).json({ success: true, data: leads });
+  } catch (err) {
+    console.error('[Lead Controller] Error fetching leads:', err);
+    return res.status(500).json({ success: false, error: 'Internal server error' });
+  }
+};
+
 const handleProxyCallyzerLead = async (req, res) => {
   try {
     const result = await leadService.proxyCallyzerLead(req.body);
@@ -42,5 +52,6 @@ const handleProxyCallyzerLead = async (req, res) => {
 
 module.exports = {
   handleCreateLead,
-  handleProxyCallyzerLead
+  handleProxyCallyzerLead,
+  handleGetLeads
 };

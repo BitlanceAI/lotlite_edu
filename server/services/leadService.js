@@ -137,6 +137,10 @@ const createLead = async (leadData) => {
   }
 };
 
+const getAllLeads = async () => {
+  return await Lead.find().sort({ createdAt: -1 });
+};
+
 /**
  * Proxy function directly forwarding any payload to Callyzer
  */
@@ -176,5 +180,6 @@ const proxyCallyzerLead = async (payload) => {
 
 module.exports = {
   createLead,
-  proxyCallyzerLead
+  proxyCallyzerLead,
+  getAllLeads
 };
