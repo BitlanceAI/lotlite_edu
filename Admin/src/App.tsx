@@ -2,8 +2,7 @@ import { useState } from 'react';
 import LeadDashboard from './components/LeadDashboard'
 import OverviewDashboard from './components/OverviewDashboard'
 import BlogGeneration from './components/BlogGeneration'
-import AuthorManagement from './components/AuthorManagement'
-import { LayoutDashboard, Users, Settings, LogOut, Menu, X, FileText } from 'lucide-react';
+import { LayoutDashboard, Users, LogOut, Menu, X, FileText } from 'lucide-react';
 
 type ViewState = 'overview' | 'leads' | 'blog';
 

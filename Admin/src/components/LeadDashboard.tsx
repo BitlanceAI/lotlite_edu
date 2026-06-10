@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Users, Search, AlertCircle, CheckCircle, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Users, AlertCircle, CheckCircle, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Lead {
   _id: string;
