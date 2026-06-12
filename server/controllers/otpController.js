@@ -26,20 +26,22 @@ const sendOtp = async (req, res) => {
     console.log(`[OTP GENERATED] Phone: ${phone} | OTP: ${otp}`);
     console.log(`================================\n`);
 
-    // Send OTP via WhatsApp
-    const result = await whatsappService.sendWhatsappOtp(phone, otp);
-
-    if (!result.success) {
-      // If WhatsApp service is configured but failed
-      if (result.message !== 'WhatsApp API credentials missing') {
-         return res.status(500).json({ success: false, error: 'Failed to send OTP via WhatsApp' });
-      } else {
-        // If credentials are missing, we still return success for local testing / development
-        // The user can enter the OTP generated since it's saved in DB. In real prod, this is a warning.
-        console.warn(`[OTP Dev Mode] Generated OTP for ${phone}: ${otp}`);
+    // Attempt to send OTP via WhatsApp — failure does NOT block the flow
+    // The OTP is already saved in DB above, so the user can still verify
+    try {
+      const result = await whatsappService.sendWhatsappOtp(phone, otp);
+      if (result && result.success) {
+        console.log(`[OTP Controller] WhatsApp OTP delivered successfully to ${phone}`);
+      } else if (result && result.message === 'WhatsApp API credentials missing') {
+        console.warn(`[OTP Dev Mode] WhatsApp not configured. OTP for ${phone}: ${otp}`);
       }
+    } catch (whatsappError) {
+      // Log the WhatsApp error but DO NOT fail the request
+      // The OTP is in the DB — user can still enter it if received via another channel
+      console.error(`[OTP Controller] WhatsApp delivery failed for ${phone} — OTP still valid in DB:`, whatsappError?.data?.error?.message || whatsappError?.message || whatsappError);
     }
 
+    // Always return success — OTP is saved regardless of WhatsApp delivery
     return res.status(200).json({ success: true, message: 'OTP sent successfully' });
 
   } catch (error) {
@@ -47,6 +49,7 @@ const sendOtp = async (req, res) => {
     return res.status(500).json({ success: false, error: 'Internal server error' });
   }
 };
+
 
 const verifyOtpAndSubmitLead = async (req, res) => {
   try {

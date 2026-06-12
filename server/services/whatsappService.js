@@ -91,7 +91,10 @@ const sendWhatsappAcknowledgement = async (leadData) => {
   }
 };
 
-const sendWhatsappOtp = async (phone, otp) => {
+// Helper: sleep for ms milliseconds
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const sendWhatsappOtp = async (phone, otp, retries = 3, delayMs = 1000) => {
   const apiUrl = process.env.WHATSAPP_API_URL;
   const apiToken = process.env.WHATSAPP_API_TOKEN;
 
@@ -138,33 +141,56 @@ const sendWhatsappOtp = async (phone, otp) => {
     }
   };
 
-  try {
-    const { default: fetch } = await import('node-fetch');
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiToken}`
-      },
-      body: JSON.stringify(payload)
-    });
+  const { default: fetch } = await import('node-fetch');
 
-    const text = await response.text();
-    let json;
+  for (let attempt = 1; attempt <= retries; attempt++) {
     try {
-      json = JSON.parse(text);
-    } catch {
-      json = { raw: text };
-    }
+      console.log(`[WhatsApp Service] Sending OTP attempt ${attempt}/${retries} to ${contactNumber}`);
 
-    if (!response.ok) {
-      throw { status: response.status, data: json };
-    }
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiToken}`
+        },
+        body: JSON.stringify(payload)
+      });
 
-    return { success: true, data: json };
-  } catch (error) {
-    console.error('[WhatsApp Service] Error sending OTP:', error);
-    throw error;
+      const text = await response.text();
+      let json;
+      try {
+        json = JSON.parse(text);
+      } catch {
+        json = { raw: text };
+      }
+
+      if (!response.ok) {
+        // Check if it's a transient error (Meta code 2) — worth retrying
+        const isTransient = json?.error?.is_transient === true || json?.error?.code === 2;
+
+        if (isTransient && attempt < retries) {
+          console.warn(`[WhatsApp Service] Transient error on attempt ${attempt}. Retrying in ${delayMs}ms...`);
+          await sleep(delayMs * attempt); // exponential backoff: 1s, 2s, 3s
+          continue;
+        }
+
+        throw { status: response.status, data: json };
+      }
+
+      console.log(`[WhatsApp Service] OTP sent successfully on attempt ${attempt}`);
+      return { success: true, data: json };
+
+    } catch (error) {
+      // If it's the last attempt, throw the error
+      if (attempt === retries) {
+        console.error('[WhatsApp Service] Error sending OTP after all retries:', error);
+        throw error;
+      }
+
+      // For network-level errors, also retry
+      console.warn(`[WhatsApp Service] Network error on attempt ${attempt}. Retrying...`, error?.message || error);
+      await sleep(delayMs * attempt);
+    }
   }
 };
 
@@ -172,3 +198,4 @@ module.exports = {
   sendWhatsappAcknowledgement,
   sendWhatsappOtp
 };
+
