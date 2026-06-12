@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Save, Image as ImageIcon, UploadCloud, Loader2, FileText, Users, Plus, Trash2, Edit3 } from 'lucide-react';
+import { Save, Image as ImageIcon, UploadCloud, Loader2, FileText, Users, Plus, Trash2 } from 'lucide-react';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
 
