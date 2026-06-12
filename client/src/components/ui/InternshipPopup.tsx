@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Sparkles, User, Mail, Phone, CheckCircle2, ChevronRight, ArrowRight, Award, Briefcase, GraduationCap } from 'lucide-react';
+import OtpVerificationPage from '../auth/OtpVerificationPage';
 
 interface InternshipPopupProps {
   isOpen: boolean;
@@ -15,6 +16,8 @@ export default function InternshipPopup({ isOpen, onClose }: InternshipPopupProp
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [pendingLead, setPendingLead] = useState<any>(null);
+  const [otpError, setOtpError] = useState('');
 
   // Reset states when open/close
   useEffect(() => {
@@ -25,6 +28,8 @@ export default function InternshipPopup({ isOpen, onClose }: InternshipPopupProp
       setEducation('');
       setIsSuccess(false);
       setErrors({});
+      setPendingLead(null);
+      setOtpError('');
     }
   }, [isOpen]);
 
@@ -68,11 +73,12 @@ export default function InternshipPopup({ isOpen, onClose }: InternshipPopupProp
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setIsSubmitting(true);
+    setOtpError('');
 
     // Form submission payload
     const newApp = {
@@ -87,21 +93,40 @@ export default function InternshipPopup({ isOpen, onClose }: InternshipPopupProp
       appliedDate: new Date().toISOString().split('T')[0]
     };
 
-    setTimeout(() => {
-      try {
-        const stored = localStorage.getItem('lotlite_applicants');
-        const list = stored ? JSON.parse(stored) : [];
-        localStorage.setItem('lotlite_applicants', JSON.stringify([newApp, ...list]));
-        
-        // Dispatch custom global event to refresh listing if Admin is logged in
-        window.dispatchEvent(new CustomEvent('applicant-registered', { detail: newApp }));
-      } catch (err) {
-        console.error('Local storage synchronization error:', err);
-      }
+    try {
+      const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/otp/send`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: phone.trim() })
+      });
       
-      setIsSubmitting(false);
-      setIsSuccess(true);
-    }, 1200);
+      const data = await response.json();
+      
+      if (!response.ok || !data.success) {
+        setOtpError(data.error || 'Failed to send OTP. Please try again.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      setPendingLead({
+        phone: phone.trim(),
+        localData: newApp,
+        leadData: {
+          fullName: name.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+          programCategory: 'Career & Internship Co-Op (₹30k Stipend)',
+          programSpecialization: education.trim(),
+          source: 'Web Pop-Up Career Portal Inquiry',
+          lead_tags: ['Lotlite Edu', 'Internship']
+        }
+      });
+    } catch (err) {
+      console.error('OTP Send error', err);
+      setOtpError('Network error. Please try again.');
+    }
+    setIsSubmitting(false);
   };
 
   return (
@@ -114,9 +139,21 @@ export default function InternshipPopup({ isOpen, onClose }: InternshipPopupProp
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-black/60 dark:bg-neutral-950/85 backdrop-blur-md dark:backdrop-blur-lg"
+            className="fixed inset-0 bg-white/40 dark:bg-zinc-950/30 backdrop-blur-xl"
             onClick={onClose}
           />
+
+          {/* OTP Verification Overlay */}
+          {pendingLead && (
+            <OtpVerificationPage
+              pendingLead={pendingLead}
+              onSuccess={() => {
+                setPendingLead(null);
+                setIsSuccess(true);
+              }}
+              onCancel={() => setPendingLead(null)}
+            />
+          )}
 
           {/* Modal Container */}
           <motion.div
@@ -290,6 +327,11 @@ export default function InternshipPopup({ isOpen, onClose }: InternshipPopupProp
                           <p className="text-[8px] text-red-500 font-bold mt-0.5 uppercase tracking-wider">{errors.education}</p>
                         )}
                       </div>
+
+                      {/* Error Message */}
+                      {otpError && (
+                        <p className="text-[10px] text-red-500 font-bold mt-1 uppercase tracking-wider text-center">{otpError}</p>
+                      )}
 
                       {/* Action Submission Button */}
                       <button

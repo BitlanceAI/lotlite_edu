@@ -30,20 +30,17 @@ export default function Footer({
   setActiveSubTab
 }: FooterProps) {
   const programLinks = [
-    { label: "B.REM Undergraduate", section: "programs", subTab: "brem-overview" },
-    { label: "PG AI & PropTech Specialization", section: "programs", subTab: "pg-overview" },
-    { label: "Admission Channels", section: "programs", subTab: "brem-admission" },
-    { label: "Fees Structure", section: "programs", subTab: "brem-fees" },
-    { label: "Academic Board & Faculty", section: "faculty", subTab: "all" },
+    { label: "BBA Programme", section: "programs", subTab: "bba-overview" },
+    { label: "MBA Programme", section: "programs", subTab: "mba-overview" },
+    { label: "Admission Process", section: "admissions", subTab: "" },
   ];
 
   const exploreLinks = [
-    { label: "Why SSI & Legacy", section: "about", subTab: "why-ssi" },
-    { label: "Founders & Advisory Board", section: "about", subTab: "founders" },
-    { label: "Placements & CTC Stats", section: "outcomes", subTab: "stats" },
-    { label: "Alumni Success Stories", section: "outcomes", subTab: "carousel" },
-    { label: "Venture Incubator Labs", section: "incubation", subTab: "ventures" },
-    { label: "Lotlite Sprint Chronicles", section: "blogs", subTab: "insights" },
+    { label: "Why Lotlite?", section: "about", subTab: "why-ssi" },
+    { label: "Our Founders", section: "about", subTab: "founders" },
+    { label: "Academic Board & Faculty", section: "about", subTab: "all" },
+    { label: "Intellectual Papers", section: "about", subTab: "research" },
+    { label: "Sprint Chronicles", section: "blogs", subTab: "insights" },
   ];
 
   const navigateTo = (section: string, subTab: string) => {
@@ -60,21 +57,24 @@ export default function Footer({
       <div className="absolute top-0 left-0 w-full h-px bg-black/5 dark:bg-white/10" />
       <div className="wine-glow -bottom-40 -left-40 w-[800px] h-[800px] blur-[150px] opacity-[0.03]" />
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-          <div className="lg:col-span-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20" data-aos="fade-up">
+          <div className="lg:col-span-1" data-aos="fade-up" data-aos-delay="0">
             <div className="flex items-center gap-3 mb-8">
               <Logo className="h-10 sm:h-12 w-auto" />
             </div>
             <p className="text-black/40 dark:text-zinc-400 text-sm leading-relaxed mb-8 font-medium">
               Building India's Next Generation of Real Estate Leaders
             </p>
-            <div className="space-y-2 text-sm text-black/60 dark:text-zinc-300 font-medium">
-              <p>Bengaluru Urban, Karnataka — 560076</p>
+            <div className="space-y-4 text-sm text-black/60 dark:text-zinc-300 font-medium">
+              <div>
+                <p className="text-[9px] uppercase tracking-widest text-[#a3a3a3] mb-1 font-semibold">Campus Address</p>
+                <p className="text-xs text-muted dark:text-zinc-400 leading-relaxed font-semibold">Lotlite Technology Pvt Ltd</p>
+              </div>
               <p>Email: <a href="mailto:admissions@lotlite.co" className="text-wine transition-opacity hover:opacity-80">admissions@lotlite.co</a></p>
             </div>
           </div>
 
-          <div>
+          <div data-aos="fade-up" data-aos-delay="100">
              <h4 className="text-wine uppercase tracking-[0.2em] text-[10px] font-bold mb-8">Academic Programs</h4>
              <ul className="space-y-4 text-sm text-black/40 dark:text-zinc-400 font-medium">
                {programLinks.map((link) => (
@@ -90,7 +90,7 @@ export default function Footer({
              </ul>
           </div>
 
-          <div>
+          <div data-aos="fade-up" data-aos-delay="200">
              <h4 className="text-wine uppercase tracking-[0.2em] text-[10px] font-bold mb-8">Explore Campus</h4>
              <ul className="space-y-4 text-sm text-black/40 dark:text-zinc-400 font-medium">
                {exploreLinks.map((link) => (
@@ -106,27 +106,46 @@ export default function Footer({
              </ul>
           </div>
 
-          <div>
+          <div data-aos="fade-up" data-aos-delay="300">
              <h4 className="text-wine uppercase tracking-[0.2em] text-[10px] font-bold mb-8">Get In Touch</h4>
              <p className="text-black/40 dark:text-zinc-400 text-sm mb-6 leading-relaxed mb-8 font-medium">
                 Ready to transform your career? Connect with our team of specialists.
              </p>
-             <div className="flex gap-4">
+             <div className="flex gap-4 mb-6">
                 {[
                   { icon: <Linkedin size={18} />, href: "#" },
                   { icon: <Instagram size={18} />, href: "#" },
                   { icon: <Twitter size={18} />, href: "#" },
-                  { icon: <WhatsAppIcon size={18} />, href: "https://chat.whatsapp.com/invite/LotliteSupport" }
+                  { icon: <WhatsAppIcon size={18} />, href: "https://wa.me/917219877473?text=hii" }
                 ].map((social, idx) => (
                   <a key={idx} href={social.href} className="w-10 h-10 rounded-lg border border-black/5 dark:border-white/10 flex items-center justify-center text-black/40 dark:text-zinc-400 hover:border-[#C21A22] hover:text-[#C21A22] dark:hover:border-[#E3262F] dark:hover:text-[#E3262F] transition-all shadow-sm hover:-translate-y-1 bg-white dark:bg-zinc-900" target={social.href.startsWith('http') ? '_blank' : undefined} rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}>
                     {social.icon}
                   </a>
                 ))}
              </div>
+             
+             {/* Styled Mini Maps Navigation Section */}
+             <div className="rounded-2xl overflow-hidden border border-black/5 dark:border-white/10 shadow-xs relative group bg-neutral-50 dark:bg-zinc-900/40 p-1 mt-4">
+                <iframe 
+                  src="https://maps.google.com/maps?q=Lotlite%20Technology%20Pvt%20Ltd&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                  className="w-full h-24 rounded-xl border-0 grayscale dark:invert-[90%] dark:hue-rotate-180 contrast-125 opacity-75 hover:opacity-100 hover:grayscale-0 dark:hover:invert-0 dark:hover:hue-rotate-0 transition-all duration-300"
+                  allowFullScreen
+                  loading="lazy"
+                  title="Campus Location Map"
+                ></iframe>
+                <a 
+                  href="https://maps.app.goo.gl/HfDLvejmHQTizR1v7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute bottom-2.5 right-2.5 bg-white/95 dark:bg-zinc-900/95 text-[7.5px] font-black font-mono tracking-wider uppercase text-wine hover:text-black dark:text-zinc-300 dark:hover:text-white px-2.5 py-1 rounded border border-black/10 dark:border-white/10 transition-colors shadow-xs"
+                >
+                  Navigate ↗
+                </a>
+             </div>
           </div>
         </div>
 
-        <div className="pt-10 md:pt-12 border-t border-black/5 dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
+        <div className="pt-10 md:pt-12 border-t border-black/5 dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6" data-aos="fade-up">
            <p className="text-black/30 dark:text-zinc-500 text-[8px] md:text-[10px] uppercase font-bold tracking-[0.2em] md:tracking-[0.3em] text-center">© 2025 Lotlite Education. All rights reserved.</p>
            <div className="flex flex-wrap gap-4 md:gap-8 items-center text-black/30 dark:text-zinc-500 text-[8px] md:text-[10px] uppercase font-bold tracking-[0.2em] md:tracking-[0.3em]">
               <a href="#" className="hover:text-wine transition-colors">Terms of Use</a>
