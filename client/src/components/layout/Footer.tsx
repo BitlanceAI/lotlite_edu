@@ -14,21 +14,10 @@ const WhatsAppIcon = ({ size = 24, className = "" }: { size?: number; className?
 );
 
 
-interface FooterProps {
-  onOpenLogin: () => void;
-  isAdminLoggedIn: boolean;
-  onLogout: () => void;
-  setActiveSection: (sec: string) => void;
-  setActiveSubTab: (tab: string) => void;
-}
+import { useNavigate } from 'react-router-dom';
 
-export default function Footer({ 
-  onOpenLogin, 
-  isAdminLoggedIn, 
-  onLogout,
-  setActiveSection,
-  setActiveSubTab
-}: FooterProps) {
+export default function Footer() {
+  const navigate = useNavigate();
   const programLinks = [
     { label: "BBA Programme", section: "programs", subTab: "bba-overview" },
     { label: "MBA Programme", section: "programs", subTab: "mba-overview" },
@@ -44,12 +33,8 @@ export default function Footer({
   ];
 
   const navigateTo = (section: string, subTab: string) => {
-    setActiveSection(section);
-    setActiveSubTab(subTab);
-    const element = document.getElementById('workspace-section');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    navigate(`/${section}/${subTab}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -150,11 +135,6 @@ export default function Footer({
            <div className="flex flex-wrap gap-4 md:gap-8 items-center text-black/30 dark:text-zinc-500 text-[8px] md:text-[10px] uppercase font-bold tracking-[0.2em] md:tracking-[0.3em]">
               <a href="#" className="hover:text-wine transition-colors">Terms of Use</a>
               <a href="#" className="hover:text-wine transition-colors">Privacy Policy</a>
-              {isAdminLoggedIn ? (
-                <button onClick={onLogout} className="hover:text-wine transition-colors font-bold uppercase cursor-pointer text-wine">Logout Session</button>
-              ) : (
-                <button onClick={onOpenLogin} className="hover:text-wine transition-colors font-bold uppercase cursor-pointer text-muted-foreground/60">Admin Access</button>
-              )}
            </div>
         </div>
       </div>

@@ -11,7 +11,7 @@ const phrases = [
 ];
 
 export default function Hero() {
-  const { setApplyPopupOpen, setAdvisorPopupOpen } = useApp();
+  const { setApplyPopupOpen, setAdvisorPopupOpen, setDownloadBrochureOpen } = useApp();
   const [isPlaying, setIsPlaying] = useState(false);
   const [index, setIndex] = useState(0);
   const [subText, setSubText] = useState("");
@@ -86,7 +86,7 @@ export default function Hero() {
               <button 
                 onClick={(e) => {
                   e.preventDefault();
-                  window.dispatchEvent(new CustomEvent('switch-tab', { detail: 'fees' }));
+                  setDownloadBrochureOpen(true);
                 }}
                 className="border border-border text-black bg-white px-6 py-3 rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-black hover:text-white transition-all cursor-pointer text-center"
               >

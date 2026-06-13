@@ -3,9 +3,10 @@ import LeadDashboard from './components/LeadDashboard'
 import OverviewDashboard from './components/OverviewDashboard'
 import BlogGeneration from './components/BlogGeneration'
 import WebsiteDataDashboard from './components/WebsiteDataDashboard'
-import { LayoutDashboard, Users, LogOut, Menu, X, FileText, Globe } from 'lucide-react';
+import ChatbotLogsDashboard from './components/ChatbotLogsDashboard'
+import { LayoutDashboard, Users, LogOut, Menu, X, FileText, Globe, MessageSquare } from 'lucide-react';
 
-type ViewState = 'overview' | 'leads' | 'blog' | 'website-data';
+type ViewState = 'overview' | 'leads' | 'blog' | 'website-data' | 'chatbot-logs';
 
 function App() {
   const [activeView, setActiveView] = useState<ViewState>('overview');
@@ -57,6 +58,14 @@ function App() {
         >
           <Globe size={20} className={activeView === 'website-data' ? 'text-wine' : 'text-gray-400 group-hover:text-gray-600'} />
           <span className="font-medium text-sm">Website Data</span>
+        </button>
+
+        <button 
+          onClick={() => handleNavClick('chatbot-logs')}
+          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors group ${activeView === 'chatbot-logs' ? 'bg-wine/10 text-wine' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}`}
+        >
+          <MessageSquare size={20} className={activeView === 'chatbot-logs' ? 'text-wine' : 'text-gray-400 group-hover:text-gray-600'} />
+          <span className="font-medium text-sm">Chatbot Logs</span>
         </button>
       </nav>
 
@@ -121,6 +130,7 @@ function App() {
           {activeView === 'leads' && <LeadDashboard />}
           {activeView === 'blog' && <BlogGeneration />}
           {activeView === 'website-data' && <WebsiteDataDashboard />}
+          {activeView === 'chatbot-logs' && <ChatbotLogsDashboard />}
         </div>
       </main>
     </div>

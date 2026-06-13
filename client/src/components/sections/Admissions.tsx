@@ -12,7 +12,7 @@ const phrases = [
 ];
 
 export default function Admissions() {
-  const { setAdvisorPopupOpen } = useApp();
+  const { setAdvisorPopupOpen, setDownloadBrochureOpen } = useApp();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -183,7 +183,7 @@ export default function Admissions() {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  window.dispatchEvent(new CustomEvent('switch-tab', { detail: 'fees' }));
+                  setDownloadBrochureOpen(true);
                 }}
                 className="bg-black text-white px-4 py-3 rounded-xl font-bold text-[10px] uppercase tracking-widest shadow-md hover:bg-black/80 transition-colors cursor-pointer"
               >

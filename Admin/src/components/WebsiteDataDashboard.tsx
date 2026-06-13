@@ -5,24 +5,24 @@ const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
 
 export default function WebsiteDataDashboard() {
   const [activeTab, setActiveTab] = useState<'certificates' | 'brochures' | 'instructors' | 'mentors'>('certificates');
-  
+
   const [data, setData] = useState<Record<string, string>>({
     bba_certificate_url: '',
     mba_certificate_url: '',
     bba_brochure_url: '',
     mba_brochure_url: ''
   });
-  
+
   const [instructors, setInstructors] = useState<any[]>([]);
   const [industryMentors, setIndustryMentors] = useState<any[]>([]);
-  
+
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploadingBBA, setUploadingBBA] = useState(false);
   const [uploadingMBA, setUploadingMBA] = useState(false);
   const [uploadingBBABrochure, setUploadingBBABrochure] = useState(false);
   const [uploadingMBABrochure, setUploadingMBABrochure] = useState(false);
-  
+
   const [uploadingInstructorImage, setUploadingInstructorImage] = useState<number | null>(null);
   const [uploadingMentorImage, setUploadingMentorImage] = useState<number | null>(null);
 
@@ -107,16 +107,16 @@ export default function WebsiteDataDashboard() {
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
     if (!e.target.files || e.target.files.length === 0) return;
-    
+
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
 
-    const setUploadState = 
-      field === 'bba_certificate_url' ? setUploadingBBA : 
-      field === 'mba_certificate_url' ? setUploadingMBA :
-      field === 'bba_brochure_url' ? setUploadingBBABrochure : setUploadingMBABrochure;
-    
+    const setUploadState =
+      field === 'bba_certificate_url' ? setUploadingBBA :
+        field === 'mba_certificate_url' ? setUploadingMBA :
+          field === 'bba_brochure_url' ? setUploadingBBABrochure : setUploadingMBABrochure;
+
     setUploadState(true);
     setMessage({ text: '', type: '' });
 
@@ -145,7 +145,7 @@ export default function WebsiteDataDashboard() {
 
   const handleInstructorFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     if (!e.target.files || e.target.files.length === 0) return;
-    
+
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
@@ -180,7 +180,7 @@ export default function WebsiteDataDashboard() {
 
   const handleMentorFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     if (!e.target.files || e.target.files.length === 0) return;
-    
+
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
@@ -218,6 +218,7 @@ export default function WebsiteDataDashboard() {
       name: '',
       course: '',
       title: '',
+      bio: '',
       tags: [],
       imageUrl: '',
       linkedinUrl: ''
@@ -276,43 +277,39 @@ export default function WebsiteDataDashboard() {
         <div className="flex items-center gap-1 border-b border-gray-200">
           <button
             onClick={() => setActiveTab('certificates')}
-            className={`flex items-center gap-2 px-5 py-2.5 text-sm font-semibold border-b-2 -mb-px transition-colors cursor-pointer ${
-              activeTab === 'certificates'
+            className={`flex items-center gap-2 px-5 py-2.5 text-sm font-semibold border-b-2 -mb-px transition-colors cursor-pointer ${activeTab === 'certificates'
                 ? 'border-wine text-wine'
                 : 'border-transparent text-gray-500 hover:text-gray-800'
-            }`}
+              }`}
           >
             <ImageIcon size={16} /> Certificate Mockups
           </button>
           <button
             onClick={() => setActiveTab('brochures')}
-            className={`flex items-center gap-2 px-5 py-2.5 text-sm font-semibold border-b-2 -mb-px transition-colors cursor-pointer ${
-              activeTab === 'brochures'
+            className={`flex items-center gap-2 px-5 py-2.5 text-sm font-semibold border-b-2 -mb-px transition-colors cursor-pointer ${activeTab === 'brochures'
                 ? 'border-wine text-wine'
                 : 'border-transparent text-gray-500 hover:text-gray-800'
-            }`}
+              }`}
           >
             <FileText size={16} /> Program Brochures
           </button>
           <button
             onClick={() => setActiveTab('instructors')}
-            className={`flex items-center gap-2 px-5 py-2.5 text-sm font-semibold border-b-2 -mb-px transition-colors cursor-pointer ${
-              activeTab === 'instructors'
+            className={`flex items-center gap-2 px-5 py-2.5 text-sm font-semibold border-b-2 -mb-px transition-colors cursor-pointer ${activeTab === 'instructors'
                 ? 'border-wine text-wine'
                 : 'border-transparent text-gray-500 hover:text-gray-800'
-            }`}
+              }`}
           >
             <Users size={16} /> Instructors
           </button>
           <button
             onClick={() => setActiveTab('mentors')}
-            className={`flex items-center gap-2 px-5 py-2.5 text-sm font-semibold border-b-2 -mb-px transition-colors cursor-pointer ${
-              activeTab === 'mentors'
+            className={`flex items-center gap-2 px-5 py-2.5 text-sm font-semibold border-b-2 -mb-px transition-colors cursor-pointer ${activeTab === 'mentors'
                 ? 'border-wine text-wine'
                 : 'border-transparent text-gray-500 hover:text-gray-800'
-            }`}
+              }`}
           >
-            <Users size={16} /> Industry Mentors
+            <Users size={16} /> Our Founders
           </button>
         </div>
       </div>
@@ -333,7 +330,7 @@ export default function WebsiteDataDashboard() {
             </h3>
             <p className="text-sm text-gray-500 mt-1">Upload the certificate images displayed on the BBA and MBA program pages.</p>
           </div>
-          
+
           <div className="p-6 space-y-8">
             {/* BBA Certificate */}
             <div>
@@ -348,25 +345,25 @@ export default function WebsiteDataDashboard() {
                     <ImageIcon size={32} />
                   </div>
                 )}
-                
+
                 <div className="flex-1 w-full space-y-3">
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     value={data.bba_certificate_url}
-                    onChange={(e) => setData({...data, bba_certificate_url: e.target.value})}
+                    onChange={(e) => setData({ ...data, bba_certificate_url: e.target.value })}
                     placeholder="https://..."
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-wine focus:border-transparent outline-none"
                   />
-                  
+
                   <div className="relative">
-                    <input 
-                      type="file" 
+                    <input
+                      type="file"
                       accept="image/*"
                       onChange={(e) => handleFileUpload(e, 'bba_certificate_url')}
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                       disabled={uploadingBBA}
                     />
-                    <button 
+                    <button
                       disabled={uploadingBBA}
                       className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium rounded-lg transition-colors"
                     >
@@ -393,25 +390,25 @@ export default function WebsiteDataDashboard() {
                     <ImageIcon size={32} />
                   </div>
                 )}
-                
+
                 <div className="flex-1 w-full space-y-3">
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     value={data.mba_certificate_url}
-                    onChange={(e) => setData({...data, mba_certificate_url: e.target.value})}
+                    onChange={(e) => setData({ ...data, mba_certificate_url: e.target.value })}
                     placeholder="https://..."
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-wine focus:border-transparent outline-none"
                   />
-                  
+
                   <div className="relative">
-                    <input 
-                      type="file" 
+                    <input
+                      type="file"
                       accept="image/*"
                       onChange={(e) => handleFileUpload(e, 'mba_certificate_url')}
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                       disabled={uploadingMBA}
                     />
-                    <button 
+                    <button
                       disabled={uploadingMBA}
                       className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium rounded-lg transition-colors"
                     >
@@ -424,9 +421,9 @@ export default function WebsiteDataDashboard() {
             </div>
 
           </div>
-          
+
           <div className="p-6 bg-gray-50 border-t border-gray-200 flex justify-end">
-            <button 
+            <button
               onClick={handleSave}
               disabled={saving}
               className="flex items-center gap-2 px-6 py-2.5 bg-wine hover:bg-red-800 text-white font-medium rounded-lg transition-colors disabled:opacity-50"
@@ -448,30 +445,30 @@ export default function WebsiteDataDashboard() {
             </h3>
             <p className="text-sm text-gray-500 mt-1">Upload the PDF brochures for the BBA and MBA programs.</p>
           </div>
-          
+
           <div className="p-6 space-y-8">
             {/* BBA Brochure */}
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-2">BBA Brochure (PDF)</label>
               <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
                 <div className="flex-1 w-full space-y-3">
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     value={data.bba_brochure_url || ''}
-                    onChange={(e) => setData({...data, bba_brochure_url: e.target.value})}
+                    onChange={(e) => setData({ ...data, bba_brochure_url: e.target.value })}
                     placeholder="https://... (.pdf)"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-wine focus:border-transparent outline-none"
                   />
-                  
+
                   <div className="relative inline-block w-full sm:w-auto">
-                    <input 
-                      type="file" 
+                    <input
+                      type="file"
                       accept=".pdf,application/pdf"
                       onChange={(e) => handleFileUpload(e, 'bba_brochure_url')}
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                       disabled={uploadingBBABrochure}
                     />
-                    <button 
+                    <button
                       disabled={uploadingBBABrochure}
                       className="w-full flex justify-center items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium rounded-lg transition-colors"
                     >
@@ -491,23 +488,23 @@ export default function WebsiteDataDashboard() {
               <label className="block text-sm font-bold text-gray-700 mb-2">MBA Brochure (PDF)</label>
               <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
                 <div className="flex-1 w-full space-y-3">
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     value={data.mba_brochure_url || ''}
-                    onChange={(e) => setData({...data, mba_brochure_url: e.target.value})}
+                    onChange={(e) => setData({ ...data, mba_brochure_url: e.target.value })}
                     placeholder="https://... (.pdf)"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-wine focus:border-transparent outline-none"
                   />
-                  
+
                   <div className="relative inline-block w-full sm:w-auto">
-                    <input 
-                      type="file" 
+                    <input
+                      type="file"
                       accept=".pdf,application/pdf"
                       onChange={(e) => handleFileUpload(e, 'mba_brochure_url')}
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                       disabled={uploadingMBABrochure}
                     />
-                    <button 
+                    <button
                       disabled={uploadingMBABrochure}
                       className="w-full flex justify-center items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium rounded-lg transition-colors"
                     >
@@ -520,9 +517,9 @@ export default function WebsiteDataDashboard() {
               </div>
             </div>
           </div>
-          
+
           <div className="p-6 bg-gray-50 border-t border-gray-200 flex justify-end">
-            <button 
+            <button
               onClick={handleSave}
               disabled={saving}
               className="flex items-center gap-2 px-6 py-2.5 bg-wine hover:bg-red-800 text-white font-medium rounded-lg transition-colors disabled:opacity-50"
@@ -552,7 +549,7 @@ export default function WebsiteDataDashboard() {
               <Plus size={16} /> Add Instructor
             </button>
           </div>
-          
+
           <div className="p-6 grid grid-cols-1 xl:grid-cols-2 gap-6">
             {instructors.length === 0 ? (
               <div className="col-span-full text-center py-12 text-gray-400">
@@ -570,12 +567,12 @@ export default function WebsiteDataDashboard() {
                     <Trash2 size={18} />
                   </button>
                   <h4 className="font-bold text-sm text-gray-700 mb-4 uppercase tracking-widest">Instructor {idx + 1}</h4>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
                       <label className="block text-xs font-bold text-gray-600 mb-1">Full Name</label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         value={inst.name || ''}
                         onChange={(e) => updateInstructor(idx, 'name', e.target.value)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
@@ -584,8 +581,8 @@ export default function WebsiteDataDashboard() {
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-gray-600 mb-1">Course (Red Header)</label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         value={inst.course || ''}
                         onChange={(e) => updateInstructor(idx, 'course', e.target.value)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
@@ -596,8 +593,8 @@ export default function WebsiteDataDashboard() {
 
                   <div className="mb-4">
                     <label className="block text-xs font-bold text-gray-600 mb-1">Title & Company</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       value={inst.title || ''}
                       onChange={(e) => updateInstructor(idx, 'title', e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
@@ -605,11 +602,21 @@ export default function WebsiteDataDashboard() {
                     />
                   </div>
 
+                  <div className="mb-4">
+                    <label className="block text-xs font-bold text-gray-600 mb-1">Bio / Overview</label>
+                    <textarea
+                      value={inst.bio || ''}
+                      onChange={(e) => updateInstructor(idx, 'bio', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm min-h-[80px]"
+                      placeholder="Enter a short bio or quote about the instructor..."
+                    />
+                  </div>
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
                       <label className="block text-xs font-bold text-gray-600 mb-1">Tags (Comma separated)</label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         value={inst.tags ? inst.tags.join(', ') : ''}
                         onChange={(e) => {
                           const val = e.target.value;
@@ -622,8 +629,8 @@ export default function WebsiteDataDashboard() {
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-gray-600 mb-1">LinkedIn Profile URL</label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         value={inst.linkedinUrl || ''}
                         onChange={(e) => updateInstructor(idx, 'linkedinUrl', e.target.value)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
@@ -639,10 +646,10 @@ export default function WebsiteDataDashboard() {
                         {inst.imageUrl ? (
                           <img src={inst.imageUrl} alt="Instructor" className="w-16 h-16 object-cover rounded-lg border border-gray-200" />
                         ) : (
-                          <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-gray-400"><ImageIcon size={20}/></div>
+                          <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-gray-400"><ImageIcon size={20} /></div>
                         )}
                         <div className="flex-1 relative">
-                          <input 
+                          <input
                             type="file" accept="image/*"
                             onChange={(e) => handleInstructorFileUpload(e, idx)}
                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
@@ -660,9 +667,9 @@ export default function WebsiteDataDashboard() {
               ))
             )}
           </div>
-          
+
           <div className="p-6 bg-gray-50 border-t border-gray-200 flex justify-end">
-            <button 
+            <button
               onClick={handleSave}
               disabled={saving}
               className="flex items-center gap-2 px-6 py-2.5 bg-wine hover:bg-red-800 text-white font-medium rounded-lg transition-colors disabled:opacity-50"
@@ -692,7 +699,7 @@ export default function WebsiteDataDashboard() {
               <Plus size={16} /> Add Mentor
             </button>
           </div>
-          
+
           <div className="p-6 grid grid-cols-1 xl:grid-cols-2 gap-6">
             {industryMentors.length === 0 ? (
               <div className="col-span-full text-center py-12 text-gray-400">
@@ -710,12 +717,12 @@ export default function WebsiteDataDashboard() {
                     <Trash2 size={18} />
                   </button>
                   <h4 className="font-bold text-sm text-gray-700 mb-4 uppercase tracking-widest">Mentor {idx + 1}</h4>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
                       <label className="block text-xs font-bold text-gray-600 mb-1">Full Name</label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         value={mentor.name || ''}
                         onChange={(e) => updateMentor(idx, 'name', e.target.value)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
@@ -724,8 +731,8 @@ export default function WebsiteDataDashboard() {
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-gray-600 mb-1">Role</label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         value={mentor.role || ''}
                         onChange={(e) => updateMentor(idx, 'role', e.target.value)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
@@ -737,8 +744,8 @@ export default function WebsiteDataDashboard() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
                       <label className="block text-xs font-bold text-gray-600 mb-1">Company</label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         value={mentor.company || ''}
                         onChange={(e) => updateMentor(idx, 'company', e.target.value)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
@@ -747,8 +754,8 @@ export default function WebsiteDataDashboard() {
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-gray-600 mb-1">Bio Preview</label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         value={mentor.bio || ''}
                         onChange={(e) => updateMentor(idx, 'bio', e.target.value)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
@@ -759,8 +766,8 @@ export default function WebsiteDataDashboard() {
 
                   <div className="mb-4">
                     <label className="block text-xs font-bold text-gray-600 mb-1">Tags (Comma separated)</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       value={mentor.tags ? mentor.tags.join(', ') : ''}
                       onChange={(e) => {
                         const val = e.target.value;
@@ -779,10 +786,10 @@ export default function WebsiteDataDashboard() {
                         {mentor.imageUrl ? (
                           <img src={mentor.imageUrl} alt="Mentor" className="w-16 h-16 object-cover rounded-lg border border-gray-200" />
                         ) : (
-                          <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-gray-400"><ImageIcon size={20}/></div>
+                          <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-gray-400"><ImageIcon size={20} /></div>
                         )}
                         <div className="flex-1 relative">
-                          <input 
+                          <input
                             type="file" accept="image/*"
                             onChange={(e) => handleMentorFileUpload(e, idx)}
                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
@@ -799,9 +806,9 @@ export default function WebsiteDataDashboard() {
               ))
             )}
           </div>
-          
+
           <div className="p-6 bg-gray-50 border-t border-gray-200 flex justify-end">
-            <button 
+            <button
               onClick={handleSave}
               disabled={saving}
               className="flex items-center gap-2 px-6 py-2.5 bg-wine hover:bg-red-800 text-white font-medium rounded-lg transition-colors disabled:opacity-50"

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import {
   Sparkles,
   Users,
@@ -41,20 +42,14 @@ import {
   mbaStructure
 } from '../../data/curriculumData';
 
+export default function AcademicHub() {
+  const { section, subTab } = useParams();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  
+  const activeSection = section || 'programs';
+  const activeSubTab = subTab || searchParams.get('tab') || (activeSection === 'programs' ? 'brem' : activeSection === 'blogs' ? 'insights' : '');
 
-interface AcademicHubProps {
-  activeSection: string;
-  setActiveSection: (sec: string) => void;
-  activeSubTab: string;
-  setActiveSubTab: (tab: string) => void;
-}
-
-export default function AcademicHub({
-  activeSection,
-  setActiveSection,
-  activeSubTab,
-  setActiveSubTab
-}: AcademicHubProps) {
   const {
     blogs,
     faqs: allFaqs,
@@ -66,6 +61,7 @@ export default function AcademicHub({
     setApplyPopupOpen,
     setAdvisorPopupOpen,
     websiteData,
+    setDownloadBrochureOpen,
   } = useApp();
 
   useEffect(() => {
@@ -134,102 +130,9 @@ export default function AcademicHub({
   const [ugOpen, setUgOpen] = useState(true);
   const [pgOpen, setPgOpen] = useState(false);
 
-  // Brochure Download State & Handler
-  const [downloadingCourse, setDownloadingCourse] = useState<string | null>(null);
-
+  // Brochure Download Handler
   const handleDownloadBrochure = (courseKey: string) => {
-    const isBBA = courseKey === 'bba';
-    const brochureUrl = isBBA ? websiteData?.bba_brochure_url : websiteData?.mba_brochure_url;
-
-    if (brochureUrl) {
-      window.open(brochureUrl, '_blank');
-      return;
-    }
-
-    setDownloadingCourse(courseKey);
-    triggerToast({
-      title: "Downloading Brochure",
-      description: "Preparing your customized academic prospectus document...",
-      type: 'info'
-    });
-
-    setTimeout(() => {
-      let programTitle = "";
-      let duration = "";
-      let rationale = "";
-      let semesterStructure = "";
-      let feesStructureDetail = "";
-
-      if (courseKey === 'bba') {
-        programTitle = "BBA in Business, Real Estate and Marketing";
-        duration = "3 Years (Undergraduate)";
-        rationale = "Focused on business foundation, marketing, human resources, analytics, and comprehensive real estate exposure.";
-        semesterStructure = "Semesters 1-2: Foundations of management, business communication, micro/macro economics, mathematical modeling.\nSemesters 3-4: Core marketing, human resources, financial management, business laws, and advanced operations research.\nSemesters 5-6: Service marketing, brand management, sales and distribution network strategies, and capstone research project.";
-        feesStructureDetail = "Tuition: ₹1,50,000 / Semester";
-      } else if (courseKey === 'mbs') {
-        programTitle = "MBS in Real Estate, Business and PropTech";
-        duration = "2 Years (Postgraduate)";
-        rationale = "High-level postgraduate training covering corporate finance, digital PropTech systems, and launch campaigns.";
-        semesterStructure = "Semesters 1-2: Business foundations, real estate basics, legal aspect analytics, and CRM automated architectures.\nSemesters 3-4: Corporate governance, AI/ML spatial analytics, channel integrations, and new property launch capstones.";
-        feesStructureDetail = "Tuition: ₹2,20,000 / Semester";
-      }
-
-      const fileContent = `========================================================
-LOTLITE SCHOOL OF EDUCATION & REAL ESTATE STUDIES
-FORMAL ACADEMIC SYLLABUS & ADMISSIONS CODE
-========================================================
-
-PROGRAM TRACK: ${programTitle}
-DURATION:      ${duration}
-FELLOWSHIP:    Backed directly by Lotlite Capital
-
---------------------------------------------------------
-PROGRAM DESCRIPTION & MISSION:
-${rationale}
-
---------------------------------------------------------
-SEMESTER-LEVEL CURRICULUM SYLLABUS OUTLINE:
-${semesterStructure}
-
---------------------------------------------------------
-ESTIMATED FEE STRUCTURE:
-${feesStructureDetail}
-
---------------------------------------------------------
-ADMISSION INSTRUCTIONS & CRITERIA:
-1. Online Application Submission
-2. Aptitude & Verbal Comprehension Test (30 min)
-3. Direct Founders Panel Video Evaluation Room
-4. Academic Offsetting Credit Calculations
-
---------------------------------------------------------
-CONTACT ACCREDITATION REGISTRY:
-Email: admissions@lotlite.edu.in
-Phone: +91 99000 00000
-Accreditation: Audited via UGC Matrices & RICS Global Templates
-
-========================================================
-All contents certified and active for Term Session 2026.
-Generated on: ${new Date().toLocaleDateString()}
-========================================================`;
-
-      // Trigger standard browser native file writing download
-      const blob = new Blob([fileContent], { type: 'text/plain;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', `${courseKey}_program_brochure_2026.txt`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      setDownloadingCourse(null);
-      triggerToast({
-        title: "Download Complete",
-        description: `Successfully downloaded prospectus for ${programTitle}!`,
-        type: 'success'
-      });
-    }, 1200);
+    setDownloadBrochureOpen(true, courseKey);
   };
 
   // Mobile submenu scroll indicators
@@ -265,8 +168,9 @@ Generated on: ${new Date().toLocaleDateString()}
 
         const activeItemIndex = menus.findIndex(item => {
           if (activeSection === 'programs') {
-            return derivedOption === item.id;
+            return activeSubTab === item.id;
           }
+          if (activeSection === 'admissions') {}
           return activeSubTab === item.id;
         });
 
@@ -618,7 +522,7 @@ Generated on: ${new Date().toLocaleDateString()}
   }
 
   const selectProgramOption = (course: 'bba' | 'mba' | string, option: string) => {
-    setActiveSubTab(`${course}-${option}`);
+    navigate('/' + activeSection + '/' + `${course}-${option}`);
   };
 
   useEffect(() => {
@@ -816,7 +720,6 @@ Generated on: ${new Date().toLocaleDateString()}
                               </button>
                               <button
                                 onClick={() => handleDownloadBrochure('bba')}
-                                disabled={downloadingCourse === 'bba'}
                                 className="w-full py-3 rounded-lg bg-[#de2341] text-white font-bold text-sm hover:bg-red-700 transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                               >
                                 <FileDown size={16} /> Syllabus
@@ -899,8 +802,7 @@ Generated on: ${new Date().toLocaleDateString()}
                               <div className="shrink-0 w-full md:w-auto">
                                 <button
                                   onClick={() => {
-                                    setActiveSection('admissions');
-                                    setActiveSubTab('all-applications');
+                                    navigate('/admissions/all-applications');
                                     setTimeout(() => {
                                       const element = document.getElementById('workspace-section');
                                       if (element) {
@@ -1091,8 +993,7 @@ Generated on: ${new Date().toLocaleDateString()}
                           <div className="pt-2">
                             <button
                               onClick={() => {
-                                setActiveSection('admissions');
-                                setActiveSubTab('all-applications');
+                                navigate('/admissions/all-applications');
                                 const element = document.getElementById('workspace-section');
                                 if (element) {
                                   element.scrollIntoView({ behavior: 'smooth' });
@@ -1185,7 +1086,6 @@ Generated on: ${new Date().toLocaleDateString()}
                               </button>
                               <button 
                                 onClick={() => handleDownloadBrochure('mba')}
-                                disabled={downloadingCourse === 'mba'}
                                 className="w-full py-3 rounded-lg bg-[#de2341] text-white font-bold text-sm hover:bg-red-700 transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                               >
                                 <FileDown size={16}/> Syllabus
@@ -1283,8 +1183,7 @@ Generated on: ${new Date().toLocaleDateString()}
                               <div className="shrink-0 w-full md:w-auto">
                                 <button
                                   onClick={() => {
-                                    setActiveSection('admissions');
-                                    setActiveSubTab('all-applications');
+                                    navigate('/admissions/all-applications');
                                     setTimeout(() => {
                                       const element = document.getElementById('workspace-section');
                                       if (element) {
@@ -1305,7 +1204,7 @@ Generated on: ${new Date().toLocaleDateString()}
                         <div className="bg-card/75 backdrop-blur-md border border-border rounded-3xl p-6 md:p-8 lg:p-10 shadow-xs space-y-6">
                           <span className="inline-block text-wine text-[10px] font-semibold uppercase tracking-widest bg-wine-light px-3 py-1 rounded-full border border-wine-light-border">EDUCATION INVESTMENT</span>
                           <h3 className="text-3xl font-serif text-black leading-tight">MBA Program Fees</h3>
-                          <p className="text-muted text-xs md:text-sm font-medium leading-relaxed">
+                          <p className="text-muted text-xs md:p-8 lg:p-10 shadow-xs space-y-6">
                             Invest in your executive credentials. Includes direct access to developer CFO groups and site modeling tools.
                           </p>
 
@@ -1479,8 +1378,7 @@ Generated on: ${new Date().toLocaleDateString()}
                           <div className="pt-2">
                             <button
                               onClick={() => {
-                                setActiveSection('admissions');
-                                setActiveSubTab('all-applications');
+                                navigate('/admissions/all-applications');
                                 const element = document.getElementById('workspace-section');
                                 if (element) {
                                   element.scrollIntoView({ behavior: 'smooth' });
@@ -1541,7 +1439,7 @@ Generated on: ${new Date().toLocaleDateString()}
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-2">
-                        {founders.map((item, idx) => (
+                        {(websiteData?.industryMentors?.length > 0 ? websiteData.industryMentors : founders).map((item: any, idx: number) => (
                           <div
                             key={idx}
                             className="group relative bg-[#ffffff] dark:bg-zinc-900/40 border border-border dark:border-zinc-800 rounded-2xl overflow-hidden shadow-xs hover:shadow-lg hover:border-wine/30 transition-all duration-300 flex flex-col justify-between"
@@ -1551,15 +1449,17 @@ Generated on: ${new Date().toLocaleDateString()}
                               {/* Photo Frame */}
                               <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-neutral-100 border border-black/5 dark:border-white/5">
                                 <img
-                                  src={item.image}
+                                  src={item.imageUrl || item.image}
                                   alt={item.name}
                                   className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
                                   referrerPolicy="no-referrer"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent opacity-85 group-hover:opacity-75 transition-opacity duration-300" />
-                                <span className="absolute top-3 right-3 bg-white/95 dark:bg-zinc-900/95 text-[8px] font-black tracking-widest text-[#111111] dark:text-zinc-300 uppercase px-2.5 py-1 rounded-md border border-neutral-200/80 dark:border-white/10 shadow-sm">
-                                  {item.education}
-                                </span>
+                                {item.education && (
+                                  <span className="absolute top-3 right-3 bg-white/95 dark:bg-zinc-900/95 text-[8px] font-black tracking-widest text-[#111111] dark:text-zinc-300 uppercase px-2.5 py-1 rounded-md border border-neutral-200/80 dark:border-white/10 shadow-sm">
+                                    {item.education}
+                                  </span>
+                                )}
 
                                 <div className="absolute bottom-3 left-4 right-4 text-left">
                                   <p className="text-[8.5px] uppercase tracking-widest text-zinc-300 font-extrabold mb-0.5">{item.company}</p>
@@ -1581,7 +1481,7 @@ Generated on: ${new Date().toLocaleDateString()}
 
                             {/* Bottom Tags bar */}
                             <div className="px-5 pb-5 pt-3 border-t border-dashed border-border/80 flex flex-wrap gap-1.5 mt-auto">
-                              {item.tags?.map((tag, tagIdx) => (
+                              {item.tags?.map((tag: string, tagIdx: number) => (
                                 <span
                                   key={tagIdx}
                                   className="text-[8.5px] uppercase tracking-widest font-black text-wine bg-wine-light/50 px-2 py-0.5 rounded-md border border-wine-light-border/60"
@@ -1606,19 +1506,19 @@ Generated on: ${new Date().toLocaleDateString()}
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-                        {faculty.map((prof, idx) => (
+                        {(websiteData?.instructors?.length > 0 ? websiteData.instructors : faculty).map((prof: any, idx: number) => (
                           <div key={idx} className="bg-card border border-border p-6 rounded-2xl flex gap-4 shadow-2xs">
                             <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0 border border-border">
-                              <img src={prof.image} alt={prof.name} className="w-full h-full object-cover grayscale-0" referrerPolicy="no-referrer" />
+                              <img src={prof.imageUrl || prof.image} alt={prof.name} className="w-full h-full object-cover grayscale-0" referrerPolicy="no-referrer" />
                             </div>
                             <div className="space-y-1 flex-1">
                               <span className="text-[9px] font-extrabold uppercase text-wine tracking-wider bg-wine-light px-2 py-0.5 rounded">{prof.course}</span>
                               <h4 className="font-serif font-black text-black text-base pt-1">{prof.name}</h4>
                               <p className="text-[9px] text-black/65 leading-tight font-extrabold uppercase tracking-wide">{prof.title}</p>
-                              <p className="text-[10px] text-muted dark:text-neutral-300 italic font-semibold leading-relaxed pt-1">"{prof.overview}"</p>
+                              <p className="text-[10px] text-muted dark:text-neutral-300 italic font-semibold leading-relaxed pt-1">"{prof.bio || prof.overview}"</p>
                               <div className="pt-2 border-t border-border/80 mt-2 flex items-center">
                                 <a
-                                  href={`https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(prof.name + " Lotlite Education")}`}
+                                  href={prof.linkedinUrl || `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(prof.name + " Lotlite Education")}`}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="inline-flex items-center gap-1.5 text-[9px] text-neutral-500 hover:text-blue-600 font-extrabold uppercase tracking-widest transition-colors cursor-pointer"
@@ -1767,7 +1667,7 @@ Generated on: ${new Date().toLocaleDateString()}
                               Apply for Incubation
                             </button>
                             <button
-                              onClick={() => setActiveSubTab('ventures')}
+                              onClick={() => navigate(`/${activeSection}/ventures`)}
                               className="border border-border text-black bg-white px-6 py-3 rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-black hover:text-white transition-all cursor-pointer"
                             >
                               View Projects
@@ -2456,3 +2356,4 @@ Generated on: ${new Date().toLocaleDateString()}
     </div>
   );
 }
+
