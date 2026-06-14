@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Save, Image as ImageIcon, UploadCloud, Loader2, FileText, Users, Plus, Trash2 } from 'lucide-react';
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
+const API_BASE = import.meta.env.VITE_API_URL || '';
 
 export default function WebsiteDataDashboard() {
   const [activeTab, setActiveTab] = useState<'certificates' | 'brochures' | 'instructors' | 'mentors'>('certificates');
@@ -278,8 +278,8 @@ export default function WebsiteDataDashboard() {
           <button
             onClick={() => setActiveTab('certificates')}
             className={`flex items-center gap-2 px-5 py-2.5 text-sm font-semibold border-b-2 -mb-px transition-colors cursor-pointer ${activeTab === 'certificates'
-                ? 'border-wine text-wine'
-                : 'border-transparent text-gray-500 hover:text-gray-800'
+              ? 'border-wine text-wine'
+              : 'border-transparent text-gray-500 hover:text-gray-800'
               }`}
           >
             <ImageIcon size={16} /> Certificate Mockups
@@ -287,8 +287,8 @@ export default function WebsiteDataDashboard() {
           <button
             onClick={() => setActiveTab('brochures')}
             className={`flex items-center gap-2 px-5 py-2.5 text-sm font-semibold border-b-2 -mb-px transition-colors cursor-pointer ${activeTab === 'brochures'
-                ? 'border-wine text-wine'
-                : 'border-transparent text-gray-500 hover:text-gray-800'
+              ? 'border-wine text-wine'
+              : 'border-transparent text-gray-500 hover:text-gray-800'
               }`}
           >
             <FileText size={16} /> Program Brochures
@@ -296,8 +296,8 @@ export default function WebsiteDataDashboard() {
           <button
             onClick={() => setActiveTab('instructors')}
             className={`flex items-center gap-2 px-5 py-2.5 text-sm font-semibold border-b-2 -mb-px transition-colors cursor-pointer ${activeTab === 'instructors'
-                ? 'border-wine text-wine'
-                : 'border-transparent text-gray-500 hover:text-gray-800'
+              ? 'border-wine text-wine'
+              : 'border-transparent text-gray-500 hover:text-gray-800'
               }`}
           >
             <Users size={16} /> Instructors
@@ -305,8 +305,8 @@ export default function WebsiteDataDashboard() {
           <button
             onClick={() => setActiveTab('mentors')}
             className={`flex items-center gap-2 px-5 py-2.5 text-sm font-semibold border-b-2 -mb-px transition-colors cursor-pointer ${activeTab === 'mentors'
-                ? 'border-wine text-wine'
-                : 'border-transparent text-gray-500 hover:text-gray-800'
+              ? 'border-wine text-wine'
+              : 'border-transparent text-gray-500 hover:text-gray-800'
               }`}
           >
             <Users size={16} /> Our Founders
