@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { MessageSquare, RefreshCw, Activity, Users, Search, FilterX, Clock } from 'lucide-react';
+import { MessageSquare, RefreshCw, Activity, Users, Search, FilterX } from 'lucide-react';
 
 export default function ChatbotLogsDashboard() {
   const [chatLogs, setChatLogs] = useState<any[]>([]);
