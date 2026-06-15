@@ -14,7 +14,7 @@ const WhatsAppIcon = ({ size = 24, className = "" }: { size?: number; className?
 );
 
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Footer() {
   const navigate = useNavigate();
@@ -135,8 +135,8 @@ export default function Footer() {
         <div className="pt-10 md:pt-12 border-t border-black/5 dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6" data-aos="fade-up">
           <p className="text-black/30 dark:text-zinc-500 text-[8px] md:text-[10px] uppercase font-bold tracking-[0.2em] md:tracking-[0.3em] text-center">© 2025 Lotlite Education. All rights reserved.</p>
           <div className="flex flex-wrap gap-4 md:gap-8 items-center text-black/30 dark:text-zinc-500 text-[8px] md:text-[10px] uppercase font-bold tracking-[0.2em] md:tracking-[0.3em]">
-            <a href="#" className="hover:text-wine transition-colors">Terms of Use</a>
-            <a href="#" className="hover:text-wine transition-colors">Privacy Policy</a>
+            <Link to="/terms-of-use" className="hover:text-wine transition-colors">Terms of Use</Link>
+            <Link to="/privacy-policy" className="hover:text-wine transition-colors">Privacy Policy</Link>
           </div>
         </div>
       </div>

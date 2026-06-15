@@ -13,6 +13,8 @@ import AdvisorPopup from './components/ui/AdvisorPopup';
 import ApplyNowPopup from './components/ui/ApplyNowPopup';
 import DownloadBrochureModal from './components/auth/DownloadBrochureModal';
 import DesktopSideMenu from './components/layout/DesktopSideMenu';
+import TermsOfUse from './components/sections/TermsOfUse';
+import PrivacyPolicy from './components/sections/PrivacyPolicy';
 import { useApp } from './AppContext';
 
 // Extend Window interface for AOS
@@ -158,6 +160,8 @@ function AppContent() {
             <Route path="/bca" element={<Navigate to="/programs/bca-overview" replace />} />
             <Route path="/mca" element={<Navigate to="/programs/mca-overview" replace />} />
             <Route path="/programs" element={<Navigate to="/programs/brem" replace />} />
+            <Route path="/terms-of-use" element={<TermsOfUse />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/:section" element={
               <div id="workspace-section" className="scroll-mt-24 pt-24 sm:pt-28 md:pt-32 pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <AcademicHub />

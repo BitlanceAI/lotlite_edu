@@ -67,29 +67,7 @@ export default function ChatbotLogsDashboard() {
   return (
     <div className="min-h-screen p-4 md:p-8 max-w-7xl mx-auto bg-gray-50 relative">
       
-      {/* Disable Overlay */}
-      <div className="absolute inset-0 z-50 bg-gray-50/80 backdrop-blur-[2px] flex items-center justify-center p-4">
-        <div className="bg-white p-12 rounded-2xl shadow-xl border border-gray-200 text-center max-w-md pointer-events-auto">
-          <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 relative">
-            <MessageSquare className="text-gray-400" size={32} />
-            <div className="absolute -bottom-2 -right-2 bg-wine text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg">
-              <Clock size={16} />
-            </div>
-          </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-3">
-            Chatbot Logs
-          </h1>
-          <div className="inline-block px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-widest rounded-full mb-6">
-            Upcoming Feature
-          </div>
-          <p className="text-gray-500 text-sm leading-relaxed">
-            The AI Chatbot conversation monitoring dashboard is currently disabled. This feature will be available in a future update.
-          </p>
-        </div>
-      </div>
-      
-      {/* Original Content wrapped in pointer-events-none and opacity to show it's disabled */}
-      <div className="pointer-events-none opacity-40 select-none blur-[1px]">
+
       <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 tracking-tight flex items-center gap-3">
@@ -223,7 +201,6 @@ export default function ChatbotLogsDashboard() {
             )))}
         </div>
       )}
-      </div>
     </div>
   );
 }
