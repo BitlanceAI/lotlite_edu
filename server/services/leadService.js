@@ -141,6 +141,11 @@ const getAllLeads = async () => {
   return await Lead.find().sort({ createdAt: -1 });
 };
 
+const deleteLead = async (id) => {
+  return await Lead.findByIdAndDelete(id);
+};
+
+
 /**
  * Proxy function directly forwarding any payload to Callyzer
  */
@@ -181,5 +186,6 @@ const proxyCallyzerLead = async (payload) => {
 module.exports = {
   createLead,
   proxyCallyzerLead,
-  getAllLeads
+  getAllLeads,
+  deleteLead
 };

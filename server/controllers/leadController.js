@@ -37,6 +37,20 @@ const handleGetLeads = async (req, res) => {
   }
 };
 
+const handleDeleteLead = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleted = await leadService.deleteLead(id);
+    if (!deleted) {
+      return res.status(404).json({ success: false, error: 'Lead not found' });
+    }
+    return res.status(200).json({ success: true, message: 'Lead deleted successfully' });
+  } catch (err) {
+    console.error('[Lead Controller] Error deleting lead:', err);
+    return res.status(500).json({ success: false, error: 'Internal server error' });
+  }
+};
+
 const handleProxyCallyzerLead = async (req, res) => {
   try {
     const result = await leadService.proxyCallyzerLead(req.body);
@@ -53,5 +67,6 @@ const handleProxyCallyzerLead = async (req, res) => {
 module.exports = {
   handleCreateLead,
   handleProxyCallyzerLead,
-  handleGetLeads
+  handleGetLeads,
+  handleDeleteLead
 };
