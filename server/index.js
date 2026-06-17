@@ -10,6 +10,7 @@ const chatRoutes = require('./routes/chatRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 const agenda = require('./config/agenda');
 require('./jobs/leadJobs');
+require('./jobs/dograhJobs');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
