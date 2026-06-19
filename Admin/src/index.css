@@ -25,7 +25,7 @@
   --radius-xl: 16px;
   --radius-2xl: 24px;
 
-  --shadow-card: 0 12px 60px rgba(0,0,0,0.08);
+  --shadow-card: 0 12px 60px rgba(0, 0, 0, 0.08);
 }
 
 @layer base {
@@ -33,23 +33,41 @@
     scroll-behavior: smooth;
     font-family: "Montserrat", sans-serif;
   }
+
   body {
     font-family: "Montserrat", sans-serif;
     @apply font-sans text-black bg-white transition-colors duration-300 antialiased;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
   }
 
   body::-webkit-scrollbar {
-    display: none; /* Chrome, Safari and Opera */
+    display: none;
+    /* Chrome, Safari and Opera */
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: "Montserrat", sans-serif;
     @apply tracking-tight text-black font-semibold;
   }
 
-  p, span, div, li, ul, ol, button, input, textarea, select {
+  p,
+  span,
+  div,
+  li,
+  ul,
+  ol,
+  button,
+  input,
+  textarea,
+  select {
     font-family: "Montserrat", sans-serif;
   }
 }
@@ -74,11 +92,15 @@
 
 /* Slide in drawer keyframes */
 @keyframes slide-in {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }
 
 .animate-slide-in {
   animation: slide-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-
