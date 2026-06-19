@@ -378,11 +378,12 @@ export default function DograhCallLogsDashboard() {
       <div className="mb-10 pb-6 border-b border-border/60">
         <div className="flex items-start justify-between flex-wrap gap-4">
           <div>
-            <div className="flex items-center gap-2 text-wine font-black text-[9px] uppercase tracking-widest">
+            <div className="flex items-center gap-1.5 text-wine font-black text-[9px] uppercase tracking-widest">
+              <Phone size={11} />
               <span>Voice Agent Log Desk</span>
             </div>
-            <h1 className="text-3xl font-serif font-black tracking-tight text-black mt-2 flex items-center gap-3">
-              <Phone className="text-wine w-8 h-8" /> Voice Agent Logs
+            <h1 className="text-3xl font-serif font-black tracking-tight text-black mt-2">
+              Voice Agent Logs
             </h1>
             <p className="text-xs text-zinc-500 mt-1.5 uppercase font-mono tracking-widest font-semibold">
               Monitor all AI voice agent run activities, parameters, and expenses.

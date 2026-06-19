@@ -155,14 +155,19 @@ function App() {
         <div className="md:hidden flex items-center justify-between bg-white/80 backdrop-blur-md border-b border-border/60 p-4 shrink-0">
           <div className="flex items-center gap-3">
             <img src={logo} alt="Lotlite" className="h-7 object-contain" />
-            <span className="font-bold text-sm text-black uppercase tracking-wider">Admin Panel</span>
           </div>
-          <button 
-            onClick={toggleMobileMenu}
-            className="p-2 -mr-2 text-zinc-600 hover:bg-zinc-100 rounded-lg transition-colors cursor-pointer"
-          >
-            <Menu size={20} />
-          </button>
+          <div className="flex items-center gap-3">
+            <div className="flex flex-col items-end text-right mr-1">
+              <span className="text-[8px] font-black text-wine uppercase tracking-widest leading-none">Cockpit Panel</span>
+              <span className="text-[10px] font-black text-black tracking-widest uppercase mt-1 leading-none">Lotlite Admin</span>
+            </div>
+            <button 
+              onClick={toggleMobileMenu}
+              className="p-2 -mr-2 text-zinc-600 hover:bg-zinc-100 rounded-lg transition-colors cursor-pointer"
+            >
+              <Menu size={20} />
+            </button>
+          </div>
         </div>
 
         <div className="flex-1 relative overflow-auto">
