@@ -4,9 +4,10 @@ import OverviewDashboard from './components/OverviewDashboard'
 import BlogGeneration from './components/BlogGeneration'
 import WebsiteDataDashboard from './components/WebsiteDataDashboard'
 import ChatbotLogsDashboard from './components/ChatbotLogsDashboard'
-import { LayoutDashboard, Users, LogOut, Menu, X, FileText, Globe, MessageSquare } from 'lucide-react';
+import DograhCallLogsDashboard from './components/DograhCallLogsDashboard'
+import { LayoutDashboard, Users, LogOut, Menu, X, FileText, Globe, MessageSquare, Phone } from 'lucide-react';
 
-type ViewState = 'overview' | 'leads' | 'blog' | 'website-data' | 'chatbot-logs';
+type ViewState = 'overview' | 'leads' | 'blog' | 'website-data' | 'chatbot-logs' | 'dograh-call-logs';
 
 function App() {
   const [activeView, setActiveView] = useState<ViewState>('overview');
@@ -66,6 +67,14 @@ function App() {
         >
           <MessageSquare size={20} className={activeView === 'chatbot-logs' ? 'text-wine' : 'text-gray-400 group-hover:text-gray-600'} />
           <span className="font-medium text-sm">Chatbot Logs</span>
+        </button>
+
+        <button 
+          onClick={() => handleNavClick('dograh-call-logs')}
+          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors group ${activeView === 'dograh-call-logs' ? 'bg-wine/10 text-wine' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}`}
+        >
+          <Phone size={20} className={activeView === 'dograh-call-logs' ? 'text-wine' : 'text-gray-400 group-hover:text-gray-600'} />
+          <span className="font-medium text-sm">Voice Agent Logs</span>
         </button>
       </nav>
 
@@ -131,6 +140,7 @@ function App() {
           {activeView === 'blog' && <BlogGeneration />}
           {activeView === 'website-data' && <WebsiteDataDashboard />}
           {activeView === 'chatbot-logs' && <ChatbotLogsDashboard />}
+          {activeView === 'dograh-call-logs' && <DograhCallLogsDashboard />}
         </div>
       </main>
     </div>

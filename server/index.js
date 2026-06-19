@@ -8,6 +8,11 @@ const emailRoutes = require('./routes/emailRoutes');
 const otpRoutes = require('./routes/otpRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const blogRoutes = require('./routes/blogRoutes');
+const authorRoutes = require('./routes/authorRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
+const websiteDataRoutes = require('./routes/websiteDataRoutes');
+const dograhWebhookRoutes = require('./routes/dograhWebhookRoutes');
+const dograhCallLogRoutes = require('./routes/dograhCallLogRoutes');
 const agenda = require('./config/agenda');
 require('./jobs/leadJobs');
 require('./jobs/dograhJobs');
@@ -33,12 +38,14 @@ app.use('/api', emailRoutes);
 app.use('/api', otpRoutes);
 app.use('/api', chatRoutes);
 app.use('/api/blog', blogRoutes);
-const authorRoutes = require('./routes/authorRoutes');
 app.use('/api/author', authorRoutes);
-const uploadRoutes = require('./routes/uploadRoutes');
 app.use('/api/upload', uploadRoutes);
-const websiteDataRoutes = require('./routes/websiteDataRoutes');
 app.use('/api/website-data', websiteDataRoutes);
+
+// ── Dograh ────────────────────────────────────────────────────────────────────
+app.use('/api/webhooks', dograhWebhookRoutes);   // POST /api/webhooks/dograh
+app.use('/api', dograhCallLogRoutes);            // GET/DELETE /api/dograh-call-logs
+// ─────────────────────────────────────────────────────────────────────────────
 
 app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
@@ -51,5 +58,3 @@ app.listen(PORT, async () => {
     console.error('[Agenda] Failed to start:', err);
   }
 });
-
-// Force restart for .env load 2
