@@ -1,36 +1,19 @@
 const Blog = require('../models/Blog');
+const BitlanceAI = require("bitlance-ai-sdk");
 
 // 1. Generate Blog via external API
 exports.generateBlog = async (req, res) => {
   try {
+    const ai = new BitlanceAI(process.env.BITLANCE_API_KEY);
+    
     const { topic, audience, industry, keywords, language, length, style, image_option } = req.body;
     
-    // Call the external API using environment variable
-    const apiUrl = process.env.BLOG_GENERATOR_URL;
-    if (!apiUrl) throw new Error('BLOG_GENERATOR_URL environment variable is not defined');
-    
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        topic,
-        audience,
-        industry,
-        keywords,
-        language,
-        length,
-        style,
-        image_option
-      })
+    const data = await ai.generateSEO({
+      topic,
+      industry,
+      keywords,
+      length
     });
-    
-    if (!response.ok) {
-      throw new Error(`External API returned status: ${response.status}`);
-    }
-    
-    const data = await response.json();
     
     // Attempt to automatically convert external generator image to Bunny URL
     if (data && data.imageUrl) {
