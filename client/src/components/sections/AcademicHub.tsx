@@ -656,7 +656,7 @@ export default function AcademicHub() {
             <span className="text-wine text-xs font-bold uppercase tracking-[0.4em] block mb-3">
               {currentMetadata.tag}
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl text-black font-serif leading-none">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl text-black font-serif font-light leading-none">
               {currentMetadata.title}
             </h2>
             <p className="text-muted dark:text-neutral-400 text-sm mt-4 max-w-3xl font-medium leading-relaxed">
@@ -922,21 +922,14 @@ export default function AcademicHub() {
                             Get in touch with executive coordinators at our prime academic compound. We coordinate site tours on active request.
                           </p>
 
-                          <div className="grid md:grid-cols-2 gap-6 pt-2">
+                          <div className="pt-2 max-w-2xl">
                             <div className="bg-card border border-border p-6 rounded-2xl space-y-4">
                               <h4 className="font-extrabold text-black text-xs uppercase tracking-wider border-b border-border pb-2">Academic Coordination Desk</h4>
                               <div className="space-y-3 text-xs text-muted font-semibold">
                                 <div className="flex items-center gap-3"><Mail size={14} className="text-wine" /> <span>bba@lotlite-education.in</span></div>
                                 <div className="flex items-center gap-3"><Phone size={14} className="text-wine" /> <span>+91 80 4912 3500</span></div>
-                                <div className="flex items-center gap-3"><Building2 size={14} className="text-wine" /> <span>Dean of Students Office, Wing-A</span></div>
+                                <div className="flex items-start gap-3"><Building2 size={14} className="text-wine mt-0.5" /> <span className="leading-relaxed">Unit No 1, VTP Aethereus Commercial, Commercial 1, Mahalunge, Pune, Maharashtra 411045</span></div>
                               </div>
-                            </div>
-
-                            <div className="bg-card border border-border p-6 rounded-2xl space-y-4">
-                              <h4 className="font-extrabold text-black text-xs uppercase tracking-wider border-b border-border pb-2">Bengaluru Campus Location</h4>
-                              <p className="text-[11px] text-muted leading-relaxed font-semibold">
-                                Lotlite Tech Park Compound, Academic Buildings Wing 2, Outer Ring Road, Landmark Tech Park Sector, Bengaluru, Karnataka - 560103.
-                              </p>
                             </div>
                           </div>
                         </div>
@@ -1283,21 +1276,14 @@ export default function AcademicHub() {
                             Get in touch with executive coordinators at our prime academic compound. We coordinate site tours on active request.
                           </p>
 
-                          <div className="grid md:grid-cols-2 gap-6 pt-2">
+                          <div className="pt-2 max-w-2xl">
                             <div className="bg-card border border-border p-6 rounded-2xl space-y-4">
                               <h4 className="font-extrabold text-black text-xs uppercase tracking-wider border-b border-border pb-2">BCA Academic Coordination Desk</h4>
                               <div className="space-y-3 text-xs text-muted font-semibold">
                                 <div className="flex items-center gap-3"><Mail size={14} className="text-wine" /> <span>bca@lotlite-education.in</span></div>
                                 <div className="flex items-center gap-3"><Phone size={14} className="text-wine" /> <span>+91 80 4912 3600</span></div>
-                                <div className="flex items-center gap-3"><Building2 size={14} className="text-wine" /> <span>Dean of Computer Sciences Office, Wing-B</span></div>
+                                <div className="flex items-start gap-3"><Building2 size={14} className="text-wine mt-0.5" /> <span className="leading-relaxed">Unit No 1, VTP Aethereus Commercial, Commercial 1, Mahalunge, Pune, Maharashtra 411045</span></div>
                               </div>
-                            </div>
-
-                            <div className="bg-card border border-border p-6 rounded-2xl space-y-4">
-                              <h4 className="font-extrabold text-black text-xs uppercase tracking-wider border-b border-border pb-2">Bengaluru Campus Location</h4>
-                              <p className="text-[11px] text-muted leading-relaxed font-semibold">
-                                Lotlite Tech Park Compound, Academic Buildings Wing 2, Outer Ring Road, Landmark Tech Park Sector, Bengaluru, Karnataka - 560103.
-                              </p>
                             </div>
                           </div>
                         </div>
@@ -1667,21 +1653,14 @@ export default function AcademicHub() {
                             Speak with advisors at our premium office compounds.
                           </p>
 
-                          <div className="grid md:grid-cols-2 gap-6 pt-2">
+                          <div className="pt-2 max-w-2xl">
                             <div className="bg-card border border-border p-6 rounded-2xl space-y-4">
                               <h4 className="font-extrabold text-black text-xs uppercase tracking-wider border-b border-border pb-2">MBA Executive Admissions Hub</h4>
                               <div className="space-y-3 text-xs text-muted font-semibold">
                                 <div className="flex items-center gap-3"><Mail size={14} className="text-wine" /> <span>mba@lotlite-education.in</span></div>
                                 <div className="flex items-center gap-3"><Phone size={14} className="text-wine" /> <span>+91 80 4912 3705</span></div>
-                                <div className="flex items-center gap-3"><Building2 size={14} className="text-wine" /> <span>Executive Admissions Director office, Floor 2</span></div>
+                                <div className="flex items-start gap-3"><Building2 size={14} className="text-wine mt-0.5" /> <span className="leading-relaxed">Unit No 1, VTP Aethereus Commercial, Commercial 1, Mahalunge, Pune, Maharashtra 411045</span></div>
                               </div>
-                            </div>
-
-                            <div className="bg-card border border-border p-6 rounded-2xl space-y-4">
-                              <h4 className="font-extrabold text-black text-xs uppercase tracking-wider border-b border-border pb-2">Physical Location</h4>
-                              <p className="text-[11px] text-muted leading-relaxed font-semibold">
-                                Lotlite Corporate Compound, Tower-A, Floby Administrative Area, Outer Ring Road, Bengaluru - 560103.
-                              </p>
                             </div>
                           </div>
                         </div>
@@ -2072,21 +2051,14 @@ export default function AcademicHub() {
                             Speak with advisors at our technology programme offices.
                           </p>
 
-                          <div className="grid md:grid-cols-2 gap-6 pt-2">
+                          <div className="pt-2 max-w-2xl">
                             <div className="bg-card border border-border p-6 rounded-2xl space-y-4">
                               <h4 className="font-extrabold text-black text-xs uppercase tracking-wider border-b border-border pb-2">MCA Admissions Hub</h4>
                               <div className="space-y-3 text-xs text-muted font-semibold">
                                 <div className="flex items-center gap-3"><Mail size={14} className="text-wine" /> <span>mca@lotlite-education.in</span></div>
                                 <div className="flex items-center gap-3"><Phone size={14} className="text-wine" /> <span>+91 80 4912 3800</span></div>
-                                <div className="flex items-center gap-3"><Building2 size={14} className="text-wine" /> <span>Technology Admissions Director, Floor 3</span></div>
+                                <div className="flex items-start gap-3"><Building2 size={14} className="text-wine mt-0.5" /> <span className="leading-relaxed">Unit No 1, VTP Aethereus Commercial, Commercial 1, Mahalunge, Pune, Maharashtra 411045</span></div>
                               </div>
-                            </div>
-
-                            <div className="bg-card border border-border p-6 rounded-2xl space-y-4">
-                              <h4 className="font-extrabold text-black text-xs uppercase tracking-wider border-b border-border pb-2">Physical Location</h4>
-                              <p className="text-[11px] text-muted leading-relaxed font-semibold">
-                                Lotlite Corporate Compound, Tower-A, Floby Administrative Area, Outer Ring Road, Bengaluru - 560103.
-                              </p>
                             </div>
                           </div>
                         </div>
@@ -2897,7 +2869,7 @@ export default function AcademicHub() {
                       <span className="inline-block text-wine text-xs font-bold uppercase tracking-[0.4em] mb-1 bg-wine-light px-4 py-1.5 rounded-full border border-wine-light-border animate-fade-in">
                         ADMISSIONS
                       </span>
-                      <h2 className="text-4xl md:text-5xl lg:text-6xl text-black font-serif leading-none tracking-tight animate-fade-in">
+                      <h2 className="text-4xl md:text-5xl lg:text-6xl text-black font-serif font-light leading-none tracking-tight animate-fade-in">
                         Start your admission journey.
                       </h2>
                       <p className="text-muted dark:text-neutral-400 text-sm md:text-base mt-2 max-w-3xl font-medium leading-relaxed animate-fade-in">
