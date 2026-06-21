@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  Users, 
-  TrendingUp, 
-  Award, 
-  DollarSign, 
-  Briefcase, 
-  CheckCircle2, 
-  XCircle, 
-  Clock, 
-  Plus, 
-  Search, 
-  RefreshCw, 
-  Check, 
-  X, 
-  Building2, 
-  Filter, 
-  Activity, 
-  Zap, 
-  ArrowUpRight, 
+import {
+  Users,
+  TrendingUp,
+  Award,
+  DollarSign,
+  Briefcase,
+  CheckCircle2,
+  XCircle,
+  Clock,
+  Plus,
+  Search,
+  RefreshCw,
+  Check,
+  X,
+  Building2,
+  Filter,
+  Activity,
+  Zap,
+  ArrowUpRight,
   Trash2,
   Calendar,
   FileCheck2,
@@ -30,14 +30,14 @@ import {
   PlusCircle,
   FileText
 } from 'lucide-react';
-import { 
-  ResponsiveContainer, 
-  AreaChart, 
-  Area, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip 
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip
 } from 'recharts';
 import { useApp } from '../../AppContext';
 import { Applicant, Venture, BlogPost, Course, Faculty, AlumniStory, PlacementStats, PlacementPartner } from '../../types';
@@ -99,7 +99,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<'All' | 'Pending' | 'Interview Scheduled' | 'Offered' | 'Rejected'>('All');
   const [selectedApplicant, setSelectedApplicant] = useState<Applicant | null>(null);
-  
+
   // Local simulated log messages for the audit ticker feed
   const [auditLogs, setAuditLogs] = useState<string[]>([
     "System Initialized: Synced admissions with Lotlite Board",
@@ -129,10 +129,10 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
       await updateApplicantStatus(id, newStatus);
       const candidate = applicants.find(a => a.id === id);
       const candidateName = candidate?.name || "Candidate";
-      
+
       addAuditLog(`Updated candidate ${candidateName} status to ${newStatus}`);
-      triggerToast({ 
-        title: "Status Updated", 
+      triggerToast({
+        title: "Status Updated",
         description: `Successfully moved ${candidateName} to ${newStatus}`,
         type: 'success'
       });
@@ -186,7 +186,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
       const nextTraction = ven.traction + amount;
       const updatedVenture = { ...ven, traction: nextTraction };
       updateVenture(updatedVenture);
-      
+
       addAuditLog(`Detected micro-transaction on ${ven.name}: +₹${amount}. Aggregate valuation: ₹${nextTraction}`);
       triggerToast({
         title: "Simulation Recorded",
@@ -369,13 +369,13 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
 
   const handleDeleteProgram = async (id: string, name: string) => {
     if (['brem', 'bca', 'mca', 'mba'].includes(id)) {
-      triggerToast({ title: "Scope Restriction", description: "Core academic programmes cannot be deleted.", type: 'info' });
+      triggerToast({ title: "Scope Restriction", description: "Core academic Programs cannot be deleted.", type: 'info' });
       return;
     }
     try {
       await deleteCourse(id);
-      addAuditLog(`De-authorized extra academic programme: ${name}`);
-      triggerToast({ title: "Programme Purged", description: `Deconfigured ${name} from core registry`, type: 'info' });
+      addAuditLog(`De-authorized extra academic Program: ${name}`);
+      triggerToast({ title: "Program Purged", description: `Deconfigured ${name} from core registry`, type: 'info' });
       setSelectedProgramId('brem');
       fetchCourses();
     } catch {
@@ -547,7 +547,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
   };
 
   // Aggregated analytical variables
-  const countByStatus = (status: Applicant['status']) => 
+  const countByStatus = (status: Applicant['status']) =>
     applicants.filter(app => app.status === status).length;
 
   const totalTraction = ventures.reduce((acc, ven) => acc + ven.traction, 0);
@@ -569,12 +569,12 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
   ];
 
   const filteredApplicants = applicants.filter(app => {
-    const matchesSearch = 
-      app.name.toLowerCase().includes(search.toLowerCase()) || 
+    const matchesSearch =
+      app.name.toLowerCase().includes(search.toLowerCase()) ||
       app.email.toLowerCase().includes(search.toLowerCase()) ||
       app.program.toLowerCase().includes(search.toLowerCase()) ||
       app.background.toLowerCase().includes(search.toLowerCase());
-    
+
     const matchesFilter = statusFilter === 'All' || app.status === statusFilter;
     return matchesSearch && matchesFilter;
   });
@@ -630,11 +630,10 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
           <button
             key={t.id}
             onClick={() => setActiveTab(t.id as any)}
-            className={`px-4 py-2.5 rounded-xl text-[10px] uppercase tracking-wider font-black flex items-center gap-1.5 transition-all cursor-pointer ${
-              activeTab === t.id
+            className={`px-4 py-2.5 rounded-xl text-[10px] uppercase tracking-wider font-black flex items-center gap-1.5 transition-all cursor-pointer ${activeTab === t.id
                 ? 'bg-wine text-white shadow-md'
                 : 'bg-neutral-50 border border-border/80 text-zinc-500 hover:text-black hover:bg-neutral-100'
-            }`}
+              }`}
           >
             {t.icon}
             <span>{t.label}</span>
@@ -713,8 +712,8 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                       <AreaChart data={areaChartData}>
                         <defs>
                           <linearGradient id="colorApplications" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#800020" stopOpacity={0.2}/>
-                            <stop offset="95%" stopColor="#800020" stopOpacity={0}/>
+                            <stop offset="5%" stopColor="#800020" stopOpacity={0.2} />
+                            <stop offset="95%" stopColor="#800020" stopOpacity={0} />
                           </linearGradient>
                         </defs>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
@@ -755,7 +754,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                     </div>
                     <span className="text-[7.5px] font-bold uppercase tracking-widest font-mono text-zinc-400 py-0.5 px-1.5 bg-neutral-100 rounded border border-neutral-200">SYSTEM LIVE</span>
                   </div>
-                  
+
                   <div className="space-y-4 max-h-[220px] overflow-y-auto pr-1">
                     {auditLogs.map((log, index) => (
                       <div key={index} className="flex gap-2.5 items-start text-[9px] uppercase font-mono tracking-wider">
@@ -786,11 +785,10 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                             </h4>
                             <p className="text-[9px] text-[#737373] tracking-wide mt-0.5 uppercase font-bold font-mono">Founders: {ven.founders}</p>
                           </div>
-                          <span className={`text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded border font-mono ${
-                            ven.status === 'Audited & Certified'
+                          <span className={`text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded border font-mono ${ven.status === 'Audited & Certified'
                               ? 'bg-emerald-50 text-emerald-600 border-emerald-400/20'
                               : 'bg-amber-50 text-amber-600 border-amber-400/20'
-                          }`}>
+                            }`}>
                             {ven.status === 'Audited & Certified' ? 'Audited' : 'No Audit'}
                           </span>
                         </div>
@@ -804,7 +802,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                             <span className="text-[8px] font-extrabold uppercase tracking-widest text-neutral-400 block">Traction Metrics</span>
                             <span className="text-xs font-mono font-black text-black">₹ {ven.traction.toLocaleString()}</span>
                           </div>
-                          
+
                           <div className="inline-flex items-center gap-1">
                             <button
                               onClick={() => handleAddLiveTransaction(ven.id, 1000)}
@@ -853,11 +851,10 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                       <button
                         key={statusOption}
                         onClick={() => setStatusFilter(statusOption as any)}
-                        className={`px-2.5 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-wider transition-all cursor-pointer ${
-                          statusFilter === statusOption
+                        className={`px-2.5 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-wider transition-all cursor-pointer ${statusFilter === statusOption
                             ? 'bg-wine text-white shadow-sm font-black'
                             : 'text-neutral-500 hover:text-black hover:bg-neutral-100'
-                        }`}
+                          }`}
                       >
                         {statusOption === 'Interview Scheduled' ? 'Interviews' : statusOption}
                       </button>
@@ -892,7 +889,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                         <tr key={app.id} className="border-b border-border/40 hover:bg-neutral-50/40 transition-colors">
                           <td className="py-4 px-5">
                             <div className="flex flex-col">
-                              <span 
+                              <span
                                 onClick={() => setSelectedApplicant(app)}
                                 className="text-xs font-serif font-bold text-black hover:text-wine hover:underline cursor-pointer transition-colors"
                               >
@@ -907,18 +904,16 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                             <span className="text-[8px] text-zinc-400 block mt-0.5 font-sans">Applied Calendar Log: {app.appliedDate}</span>
                           </td>
                           <td className="py-4 px-5">
-                            <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[8px] font-extrabold uppercase tracking-wider border ${
-                              app.status === 'Offered' ? 'bg-emerald-50 text-emerald-700 border-emerald-400/20' :
-                              app.status === 'Interview Scheduled' ? 'bg-blue-50 text-blue-700 border-blue-400/20' :
-                              app.status === 'Rejected' ? 'bg-rose-50 text-rose-700 border-rose-400/20' :
-                              'bg-neutral-50 text-neutral-500 border-neutral-300/40'
-                            }`}>
-                              <span className={`w-1.5 h-1.5 rounded-full ${
-                                app.status === 'Offered' ? 'bg-emerald-500' :
-                                app.status === 'Interview Scheduled' ? 'bg-blue-500' :
-                                app.status === 'Rejected' ? 'bg-rose-500' :
-                                'bg-zinc-400'
-                              }`} />
+                            <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[8px] font-extrabold uppercase tracking-wider border ${app.status === 'Offered' ? 'bg-emerald-50 text-emerald-700 border-emerald-400/20' :
+                                app.status === 'Interview Scheduled' ? 'bg-blue-50 text-blue-700 border-blue-400/20' :
+                                  app.status === 'Rejected' ? 'bg-rose-50 text-rose-700 border-rose-400/20' :
+                                    'bg-neutral-50 text-neutral-500 border-neutral-300/40'
+                              }`}>
+                              <span className={`w-1.5 h-1.5 rounded-full ${app.status === 'Offered' ? 'bg-emerald-500' :
+                                  app.status === 'Interview Scheduled' ? 'bg-blue-500' :
+                                    app.status === 'Rejected' ? 'bg-rose-500' :
+                                      'bg-zinc-400'
+                                }`} />
                               {app.status === 'Interview Scheduled' ? 'Interview' : app.status}
                             </span>
                           </td>
@@ -1089,7 +1084,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                 <div className="pb-3 border-b border-border/80 mb-5 flex items-center justify-between">
                   <h3 className="text-xs font-serif font-black tracking-tight text-black flex items-center gap-1.5">
                     <BookOpen size={14} className="text-wine" />
-                    <span>Select Programme</span>
+                    <span>Select Program</span>
                   </h3>
                   <button
                     onClick={() => setSelectedProgramId('new')}
@@ -1104,11 +1099,10 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                     <button
                       key={courseItem.id}
                       onClick={() => setSelectedProgramId(courseItem.id)}
-                      className={`w-full p-3 rounded-xl border text-left flex items-center justify-between group transition-all cursor-pointer ${
-                        selectedProgramId === courseItem.id
+                      className={`w-full p-3 rounded-xl border text-left flex items-center justify-between group transition-all cursor-pointer ${selectedProgramId === courseItem.id
                           ? 'border-wine bg-wine/5 shadow-sm font-black'
                           : 'border-neutral-200 bg-neutral-50/30 hover:bg-neutral-50'
-                      }`}
+                        }`}
                     >
                       <div>
                         <p className="text-xs font-serif font-bold text-black">{courseItem.title}</p>
