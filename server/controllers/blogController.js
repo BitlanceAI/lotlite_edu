@@ -4,7 +4,9 @@ const BitlanceAI = require("bitlance-ai-sdk");
 // 1. Generate Blog via external API
 exports.generateBlog = async (req, res) => {
   try {
-    const ai = new BitlanceAI(process.env.BITLANCE_API_KEY);
+    const ai = new BitlanceAI(process.env.BITLANCE_API_KEY, {
+      baseURL: 'https://api.bitlancetechhub.com/api/v1'
+    });
     
     const { topic, audience, industry, keywords, language, length, style, image_option } = req.body;
     
@@ -25,6 +27,14 @@ exports.generateBlog = async (req, res) => {
       }
     }
 
+    // Normalize SDK response to match frontend and database schema expectations
+    if (data) {
+      data.success = true;
+      data.article = data.content || data.article || '';
+      data.markdown = data.content || data.markdown || '';
+      data.seoTitle = data.meta_title || data.title || data.seoTitle || '';
+    }
+
     res.json(data);
   } catch (error) {
     console.error('Error generating blog:', error);
@@ -36,6 +46,14 @@ exports.generateBlog = async (req, res) => {
 exports.saveBlog = async (req, res) => {
   try {
     const blogData = req.body;
+
+    // Normalize array fields to strings (SDK may return arrays for string schema fields)
+    if (Array.isArray(blogData.keywords)) {
+      blogData.keywords = blogData.keywords.join(', ');
+    }
+    if (Array.isArray(blogData.entities)) {
+      blogData.entities = blogData.entities.join(', ');
+    }
     
     // Process image to Bunny Storage if it's base64 or an external URL
     if (blogData.imageUrl) {
