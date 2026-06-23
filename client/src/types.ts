@@ -111,6 +111,7 @@ export interface ChatbotState {
 
 export interface BlogPost {
   id: string;
+  slug?: string;
   title: string;
   excerpt: string;
   content?: string;
@@ -118,6 +119,8 @@ export interface BlogPost {
   category: string;
   author?: string;
   image?: string;
+  metaDescription?: string;
+  readingTime?: string;
 }
 
 export interface Faculty {
@@ -170,5 +173,14 @@ export interface FaqState {
   faqs: FaqItem[];
   loading: boolean;
   error: string | null;
+}
+
+export interface ProjectCase {
+  _id: string;
+  founder: string;
+  company: string;
+  problem: string;
+  tag: string;
+  solution: string;
 }
 

@@ -1,6 +1,59 @@
 const Blog = require('../models/Blog');
 const BitlanceAI = require("bitlance-ai-sdk");
 
+function parseAndStripMetadata(blogData) {
+  let content = blogData.markdown || blogData.article || '';
+  if (!content) return;
+
+  const metaTitleRegex = /(?:📌\s*)?Meta Title:\s*(.*)/i;
+  const metaDescRegex = /(?:📝\s*)?Meta Description:\s*(.*)/i;
+  const slugRegex = /(?:🔗\s*)?URL Slug:\s*`?([^`\n]+)`?/i;
+  const readingTimeRegex = /(?:⏱️\s*)?Reading Time:\s*([^|\n\r]+)/i;
+
+  const titleMatch = content.match(metaTitleRegex);
+  const descMatch = content.match(metaDescRegex);
+  const slugMatch = content.match(slugRegex);
+  const readingMatch = content.match(readingTimeRegex);
+
+  if (titleMatch && titleMatch[1]) {
+    blogData.seoTitle = titleMatch[1].trim();
+  }
+  if (descMatch && descMatch[1]) {
+    blogData.metaDescription = descMatch[1].trim();
+  }
+  if (slugMatch && slugMatch[1]) {
+    blogData.slug = slugMatch[1].trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+  }
+  if (readingMatch && readingMatch[1]) {
+    blogData.readingTime = readingMatch[1].trim();
+  }
+
+  // Remove the block from the content.
+  const lines = content.split('\n');
+  const filteredLines = lines.filter(line => {
+    const isMetaLine = 
+      metaTitleRegex.test(line) ||
+      metaDescRegex.test(line) ||
+      slugRegex.test(line) ||
+      readingTimeRegex.test(line) ||
+      /Last Updated:/i.test(line);
+    return !isMetaLine;
+  });
+
+  let cleanedContent = filteredLines.join('\n');
+  
+  // Strip blockquote characters or isolated quotes from the top
+  cleanedContent = cleanedContent.replace(/^\s*(?:[>“"'\r\n\s]*\s*)+/, '');
+  // Strip trailing isolated quotes if they matched the closing quote of the metadata block
+  cleanedContent = cleanedContent.replace(/^[>“"'\s]*/, '');
+
+  // Trim final output
+  cleanedContent = cleanedContent.trim();
+
+  blogData.markdown = cleanedContent;
+  blogData.article = cleanedContent;
+}
+
 // 1. Generate Blog via external API
 exports.generateBlog = async (req, res) => {
   try {
@@ -16,6 +69,10 @@ exports.generateBlog = async (req, res) => {
       keywords,
       length
     });
+    // Normalize imageUrl key from API response
+    if (data) {
+      data.imageUrl = data.url || data.imageUrl || data.image_url || '';
+    }
     
     // Attempt to automatically convert external generator image to Bunny URL
     if (data && data.imageUrl) {
@@ -33,6 +90,7 @@ exports.generateBlog = async (req, res) => {
       data.article = data.content || data.article || '';
       data.markdown = data.content || data.markdown || '';
       data.seoTitle = data.meta_title || data.title || data.seoTitle || '';
+      parseAndStripMetadata(data);
     }
 
     res.json(data);
@@ -46,6 +104,10 @@ exports.generateBlog = async (req, res) => {
 exports.saveBlog = async (req, res) => {
   try {
     const blogData = req.body;
+    parseAndStripMetadata(blogData);
+
+    // Normalize image URL
+    blogData.imageUrl = blogData.url || blogData.imageUrl || blogData.image_url || '';
 
     // Normalize array fields to strings (SDK may return arrays for string schema fields)
     if (Array.isArray(blogData.keywords)) {
@@ -106,10 +168,17 @@ exports.getBlogs = async (req, res) => {
   }
 };
 
-// 4. Get blog by ID
+// 4. Get blog by ID or Slug
 exports.getBlogById = async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.id);
+    const { id } = req.params;
+    let blog = null;
+    if (id.match(/^[0-9a-fA-F]{24}$/)) {
+      blog = await Blog.findById(id);
+    }
+    if (!blog) {
+      blog = await Blog.findOne({ slug: id });
+    }
     if (!blog) {
       return res.status(404).json({ error: 'Blog not found' });
     }

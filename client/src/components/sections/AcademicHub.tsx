@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
+import PageSEO from '../PageSEO';
 import {
   Sparkles,
   Users,
@@ -64,11 +65,14 @@ export default function AcademicHub() {
     setAdvisorPopupOpen,
     websiteData,
     setDownloadBrochureOpen,
+    projectCases,
+    fetchProjectCases,
   } = useApp();
 
   useEffect(() => {
     fetchBlogs();
     fetchFaqs();
+    fetchProjectCases();
   }, []);
 
   // Local form states
@@ -346,56 +350,7 @@ export default function AcademicHub() {
     { name: "Ruheen Singh", role: "Growth Manager", company: "NoBroker", batch: "2024", package: "10.8 LPA", review: "My zero-CAC model built in Lotlite's build sprint was acquired by NoBroker, land-marking my pathway directly into a full leadership role." }
   ];
 
-  const cases = [
-    {
-      founder: "Utkarsh Gupta",
-      company: "Cosmos Realty",
-      problem: "Scale residential operations across the Mumbai Metropolitan Region (MMR) while preserving Cosmos' ultra-premium legacy branding.",
-      tag: "Brand Strategy",
-      solution: "Students deployed a spatial-filtering framework and built 100+ high-wealth buyer surveys. Result: selected 2 target MMR pockets and launched a local sales sprint generating 400 qualified leads.",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      founder: "Anil Goteti",
-      company: "Scapia Living",
-      problem: "Formulate user engagement vectors and co-living loyalty incentives to scale tenant retention beyond 18 months in tech parks.",
-      tag: "Growth Loop",
-      solution: "Engineered an offline-to-online community portal featuring workspace credits and regional real estate networking hubs. Tenant retention increased by 35% in early pilots.",
-      image: "https://images.unsplash.com/photo-1504384308090-c89e1224ad8f?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      founder: "Vibha Harish",
-      company: "CoSmix Realty",
-      problem: "Optimize top-of-funnel broker discovery and organic viral marketing channels for premium villa land plots in Outskirts of Bengaluru.",
-      tag: "Growth Loop",
-      solution: "Architected a WhatsApp-driven geographic referral engine and beautiful 3D drone land views. Resulted in a 4X raise in organic qualified plot visits within 60 days.",
-      image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      founder: "Shamika Haldipurkar",
-      company: "d'you Spaces",
-      problem: "Launch, market, and distribute d'you Spaces' flexible coworking slots through instant-access digital logistics.",
-      tag: "Sales Framework",
-      solution: "Integrated dynamic pricing models with popular quick-office channels, enabling local freelancers to book hotdesks within 90 seconds. Scaled bookings to 500+ weekly hours.",
-      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      founder: "Varun Khaitan",
-      company: "Urban Property",
-      problem: "Improve Net Promoter Scores (NPS) of the high-volume lease property management division operating above ₹80Cr ARR.",
-      tag: "Sales Framework",
-      solution: "Built a mobile-first automated diagnostic portal matching local technicians to lease tenants, cutting ticket resolution from 5 days to 4 hours. Checked a rise in NPS by 35 points.",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      founder: "Vivek Sinha",
-      company: "Emversity Properties",
-      problem: "Bridge digital marketing efficiency to achieve customer acquisition cost (CAC) reduction below 12% across suburban developments.",
-      tag: "Growth Loop",
-      solution: "Developed highly targeted spatial brokerage ads paired with physical localized weekend property tea-clubs, reducing reliance on expensive listing hubs. CAC dropped by 22%.",
-      image: "https://images.unsplash.com/photo-1512403754473-27855f33d0fc?auto=format&fit=crop&w=600&q=80"
-    }
-  ];
+  // Cases are now synced from API using projectCases from context
 
   // Blogs are now synchronized seamlessly from Redux blogs slice state and local storage API proxy
 
@@ -647,8 +602,55 @@ export default function AcademicHub() {
 
   const isModalViewActive = !!(selectedCase);
 
+  const sectionSEO: Record<string, { title: string; description: string; canonical: string; keywords: string }> = {
+    programs: {
+      title: 'Academic Programs – BBA, MBA, BCA, MCA in Real Estate & PropTech',
+      description: 'Explore Lotlite Edu undergraduate and postgraduate programs in real estate management, PropTech, business administration, and computer applications.',
+      canonical: '/programs',
+      keywords: 'BBA real estate, MBA real estate, BCA PropTech, MCA PropTech, real estate degree India',
+    },
+    admissions: {
+      title: 'Admissions – Apply to Lotlite Edu',
+      description: 'Start your admission process at Lotlite Edu. Learn about eligibility, fees, scholarships, and how to apply for our real estate and PropTech programs.',
+      canonical: '/admissions',
+      keywords: 'Lotlite Edu admission, real estate school admission, apply BBA MBA PropTech',
+    },
+    about: {
+      title: 'About Lotlite Edu – Faculty, Founders & Mission',
+      description: 'Learn about Lotlite Edu, its founders, academic board, research, and the mission to build India\'s next generation of real estate leaders.',
+      canonical: '/about',
+      keywords: 'Lotlite Edu about, real estate school founders, PropTech faculty India',
+    },
+    blogs: {
+      title: 'Sprint Chronicles – Real Estate & PropTech Insights',
+      description: 'Read the latest articles, research, and insights on real estate, PropTech, RERA, REIT, and property investment from Lotlite Edu faculty and experts.',
+      canonical: '/blogs',
+      keywords: 'real estate blog India, PropTech articles, RERA insights, property investment tips',
+    },
+    incubation: {
+      title: 'Startup Incubation – PropTech Ventures at Lotlite Edu',
+      description: 'Explore the Lotlite Edu incubation program for PropTech startups. Get mentorship, resources, and a launchpad for real estate innovation.',
+      canonical: '/incubation',
+      keywords: 'PropTech incubator India, real estate startup, Lotlite incubation',
+    },
+    outcomes: {
+      title: 'Career Outcomes – Placements & Alumni at Lotlite Edu',
+      description: 'Discover career outcomes, placement records, and alumni success stories from Lotlite Edu graduates in real estate and PropTech sectors.',
+      canonical: '/outcomes',
+      keywords: 'Lotlite placements, real estate careers, PropTech jobs India',
+    },
+  };
+
+  const activeSEO = sectionSEO[activeSection] || sectionSEO['programs'];
+
   return (
     <div className={`py-6 pb-6 relative scroll-mt-24 ${isModalViewActive ? 'z-[99999]' : 'z-10'}`} id="academic-hub">
+      <PageSEO
+        title={activeSEO.title}
+        description={activeSEO.description}
+        canonical={activeSEO.canonical}
+        keywords={activeSEO.keywords}
+      />
       <div className="max-w-7xl mx-auto px-3 sm:px-6 md:px-10 lg:px-12 bg-white/75 backdrop-blur-lg rounded-3xl p-5 sm:p-8 md:p-12 shadow-sm border border-border">
 
         {activeSection !== 'programs' && activeSection !== 'admissions' && activeSection !== 'incubation' && (
@@ -2716,7 +2718,7 @@ export default function AcademicHub() {
                       </p>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-                        {cases.map((item, idx) => (
+                        {projectCases.map((item, idx) => (
                           <div
                             key={idx}
                             onClick={() => setSelectedCase(item)}
@@ -2774,7 +2776,7 @@ export default function AcademicHub() {
                           key={idx}
                           onClick={() => {
                             setSelectedBlog(post);
-                            navigate(`/blog/${post.id}`);
+                            navigate(`/blog/${post.slug || post.id}`);
                           }}
                           className="bg-card border border-border rounded-2xl overflow-hidden hover:border-wine/25 cursor-pointer shadow-xs hover:shadow-md transition-all duration-300 group flex flex-col justify-between"
                         >

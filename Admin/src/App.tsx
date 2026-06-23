@@ -5,12 +5,13 @@ import BlogGeneration from './components/BlogGeneration';
 import WebsiteDataDashboard from './components/WebsiteDataDashboard';
 import ChatbotLogsDashboard from './components/ChatbotLogsDashboard';
 import DograhCallLogsDashboard from './components/DograhCallLogsDashboard';
-import { LayoutDashboard, Users, LogOut, Menu, X, FileText, Globe, MessageSquare, Phone } from 'lucide-react';
+import ProjectCaseDashboard from './components/ProjectCaseDashboard';
+import { LayoutDashboard, Users, LogOut, Menu, X, FileText, Globe, MessageSquare, Phone, Briefcase } from 'lucide-react';
 import logo from './assets/Lotlite_Logo.png';
 
 import Login from './components/Login';
 
-type ViewState = 'overview' | 'leads' | 'blog' | 'website-data' | 'chatbot-logs' | 'dograh-call-logs';
+type ViewState = 'overview' | 'leads' | 'blog' | 'website-data' | 'chatbot-logs' | 'dograh-call-logs' | 'project-cases';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
@@ -118,6 +119,18 @@ function App() {
           <Phone size={18} className={activeView === 'dograh-call-logs' ? 'text-white' : 'text-zinc-400 group-hover:text-wine'} />
           <span className="text-xs uppercase tracking-wider">Voice Agent Logs</span>
         </button>
+
+        <button 
+          onClick={() => handleNavClick('project-cases')}
+          className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group cursor-pointer ${
+            activeView === 'project-cases' 
+              ? 'bg-wine text-white shadow-md font-bold' 
+              : 'text-zinc-500 hover:bg-wine-light hover:text-wine font-medium'
+          }`}
+        >
+          <Briefcase size={18} className={activeView === 'project-cases' ? 'text-white' : 'text-zinc-400 group-hover:text-wine'} />
+          <span className="text-xs uppercase tracking-wider">Student Case Projects</span>
+        </button>
       </nav>
 
       <div className="p-4 border-t border-border/60 shrink-0">
@@ -200,6 +213,7 @@ function App() {
           {activeView === 'website-data' && <WebsiteDataDashboard />}
           {activeView === 'chatbot-logs' && <ChatbotLogsDashboard />}
           {activeView === 'dograh-call-logs' && <DograhCallLogsDashboard />}
+          {activeView === 'project-cases' && <ProjectCaseDashboard />}
         </div>
       </main>
     </div>

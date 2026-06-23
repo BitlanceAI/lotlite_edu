@@ -1,28 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Core Routes -->
+
+  <!-- Homepage -->
   <url>
-    <loc>https://www.yourdomain.com/</loc>
+    <loc>https://www.lotlitestartup.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Program Routes -->
+  <!-- Programs -->
   <url>
-    <loc>https://www.yourdomain.com/bba</loc>
-    <changefreq>weekly</changefreq>
+    <loc>https://www.lotlitestartup.com/programs/brem</loc>
+    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.yourdomain.com/mba</loc>
-    <changefreq>weekly</changefreq>
+    <loc>https://www.lotlitestartup.com/programs/bba-overview</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.lotlitestartup.com/programs/mba-overview</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.lotlitestartup.com/programs/bca-overview</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.lotlitestartup.com/programs/mca-overview</loc>
+    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Other potential routes -->
+  <!-- Admissions -->
   <url>
-    <loc>https://www.yourdomain.com/blog</loc>
+    <loc>https://www.lotlitestartup.com/admissions</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.lotlitestartup.com/programs/brem-admission</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- About -->
+  <url>
+    <loc>https://www.lotlitestartup.com/about</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.lotlitestartup.com/about/why-ssi</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.lotlitestartup.com/about/founders</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.lotlitestartup.com/about/all</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.lotlitestartup.com/about/research</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Incubation -->
+  <url>
+    <loc>https://www.lotlitestartup.com/incubation</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Outcomes -->
+  <url>
+    <loc>https://www.lotlitestartup.com/outcomes</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Blogs -->
+  <url>
+    <loc>https://www.lotlitestartup.com/blogs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- Legal -->
+  <url>
+    <loc>https://www.lotlitestartup.com/terms-of-use</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.lotlitestartup.com/privacy-policy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
 </urlset>

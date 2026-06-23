@@ -39,30 +39,24 @@ const ThreadsIcon = ({ size = 24, className = "" }: { size?: number; className?:
 
 
 
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
-  const navigate = useNavigate();
   const programLinks = [
-    { label: "BBA Program", section: "programs", subTab: "bba-overview" },
-    { label: "BCA Program", section: "programs", subTab: "bca-overview" },
-    { label: "MBA Program", section: "programs", subTab: "mba-overview" },
-    { label: "MCA Program", section: "programs", subTab: "mca-overview" },
-    { label: "Admission Process", section: "admissions", subTab: "" },
+    { label: "BBA Program", to: "/programs/bba-overview" },
+    { label: "BCA Program", to: "/programs/bca-overview" },
+    { label: "MBA Program", to: "/programs/mba-overview" },
+    { label: "MCA Program", to: "/programs/mca-overview" },
+    { label: "Admission Process", to: "/admissions" },
   ];
 
   const exploreLinks = [
-    { label: "Why Lotlite?", section: "about", subTab: "why-ssi" },
-    { label: "Our Founders", section: "about", subTab: "founders" },
-    { label: "Academic Board & Faculty", section: "about", subTab: "all" },
-    { label: "Intellectual Papers", section: "about", subTab: "research" },
-    { label: "Sprint Chronicles", section: "blogs", subTab: "insights" },
+    { label: "Why Lotlite?", to: "/about/why-ssi" },
+    { label: "Our Founders", to: "/about/founders" },
+    { label: "Academic Board & Faculty", to: "/about/all" },
+    { label: "Intellectual Papers", to: "/about/research" },
+    { label: "Sprint Chronicles", to: "/blogs/insights" },
   ];
-
-  const navigateTo = (section: string, subTab: string) => {
-    navigate(`/${section}/${subTab}`);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   return (
     <footer className="bg-white dark:bg-zinc-950 pt-16 pb-24 md:pb-12 text-black dark:text-white relative overflow-hidden">
@@ -91,12 +85,13 @@ export default function Footer() {
             <ul className="space-y-4 text-sm text-black/40 dark:text-zinc-400 font-medium">
               {programLinks.map((link) => (
                 <li key={link.label}>
-                  <button
-                    onClick={() => navigateTo(link.section, link.subTab)}
-                    className="hover:text-wine text-left transition-colors cursor-pointer text-black/40 dark:text-zinc-400 dark:hover:text-wine hover:text-wine font-medium text-sm block"
+                  <Link
+                    to={link.to}
+                    className="hover:text-wine transition-colors text-black/40 dark:text-zinc-400 dark:hover:text-wine font-medium text-sm block"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                   >
                     {link.label}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -107,12 +102,13 @@ export default function Footer() {
             <ul className="space-y-4 text-sm text-black/40 dark:text-zinc-400 font-medium">
               {exploreLinks.map((link) => (
                 <li key={link.label}>
-                  <button
-                    onClick={() => navigateTo(link.section, link.subTab)}
-                    className="hover:text-wine text-left transition-colors cursor-pointer text-black/40 dark:text-zinc-400 dark:hover:text-wine hover:text-wine font-medium text-sm block"
+                  <Link
+                    to={link.to}
+                    className="hover:text-wine transition-colors text-black/40 dark:text-zinc-400 dark:hover:text-wine font-medium text-sm block"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                   >
                     {link.label}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -15,6 +15,8 @@ const BlogSchema = new mongoose.Schema({
   article: { type: String },
   markdown: { type: String },
   seoTitle: { type: String },
+  metaDescription: { type: String },
+  readingTime: { type: String },
   imageUrl: { type: String },
   wordCount: { type: Number },
   plagiarismCheck: { type: String },

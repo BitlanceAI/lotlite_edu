@@ -1,8 +1,15 @@
 import { motion } from 'motion/react';
+import PageSEO from '../PageSEO';
 
 export default function PrivacyPolicy() {
   return (
     <div className="pt-32 pb-24 max-w-4xl mx-auto px-6 relative z-10 text-black dark:text-white">
+      <PageSEO
+        title="Privacy Policy"
+        description="Read the Privacy Policy of Lotlite Edu. Understand how we collect, use, and protect your personal data."
+        canonical="/privacy-policy"
+        noIndex={true}
+      />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

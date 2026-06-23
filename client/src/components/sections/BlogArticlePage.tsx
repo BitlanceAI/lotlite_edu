@@ -6,6 +6,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import { useApp } from '../../AppContext';
+import PageSEO from '../PageSEO';
 
 interface AuthorProfile {
   _id: string;
@@ -26,7 +27,7 @@ export default function BlogArticlePage() {
   const { blogsLoading, blogs } = useApp();
   const [author, setAuthor] = useState<AuthorProfile | null>(null);
 
-  const selectedBlog = blogs.find(b => b.id === id);
+  const selectedBlog = blogs.find(b => b.id === id || b.slug === id);
 
   useEffect(() => {
     const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
@@ -35,6 +36,7 @@ export default function BlogArticlePage() {
       .then(data => data && setAuthor(data))
       .catch(() => { });
   }, []);
+
 
   // If no blog is selected and we are done loading, go back to blogs
   useEffect(() => {
@@ -53,12 +55,25 @@ export default function BlogArticlePage() {
 
   if (!selectedBlog) return null;
 
+  const blogSlug = selectedBlog.slug || selectedBlog.id;
+  const blogCanonical = `/blog/${blogSlug}`;
+
   // Estimate reading time (200 words per minute)
   const wordCount = selectedBlog.content?.split(/\s+/).length || 0;
-  const readingTime = Math.ceil(wordCount / 200) || 5;
+  const calculatedTime = Math.ceil(wordCount / 200) || 5;
+  const displayReadingTime = selectedBlog.readingTime 
+    ? selectedBlog.readingTime.toUpperCase() 
+    : `${calculatedTime} MIN READ`;
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#0a0a0a] pb-20 pt-28">
+      <PageSEO
+        title={selectedBlog.title}
+        description={selectedBlog.metaDescription || selectedBlog.excerpt}
+        canonical={blogCanonical}
+        ogType="article"
+        ogImage={selectedBlog.image}
+      />
       {/* Header Image & Title */}
       <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-white/10">
         <div className="max-w-7xl mx-auto px-6 py-12 md:py-24 lg:px-8">
@@ -92,7 +107,7 @@ export default function BlogArticlePage() {
             </span>
             <span className="flex items-center gap-2">
               <Clock size={14} />
-              {readingTime} MIN READ
+              {displayReadingTime}
             </span>
             {selectedBlog.category && (
               <span

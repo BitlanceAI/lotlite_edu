@@ -102,7 +102,7 @@ export default function Blogs() {
             {blogPosts.map((post, idx) => (
               <motion.div
                 key={post.id}
-                onClick={() => navigate(`/blog/${post.id}`)}
+                onClick={() => navigate(`/blog/${post.slug || post.id}`)}
                 whileHover={{ y: -5 }}
                 className="group cursor-pointer bg-[#ffffff] p-5 rounded-2xl border border-border shadow-sm flex flex-col justify-between"
                 data-aos="fade-up"

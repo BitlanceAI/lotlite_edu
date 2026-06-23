@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import Navbar from './components/layout/Navbar';
 import HomeView from './components/HomeView';
 import AcademicHub from './components/sections/AcademicHub';
@@ -17,13 +19,6 @@ import TermsOfUse from './components/sections/TermsOfUse';
 import PrivacyPolicy from './components/sections/PrivacyPolicy';
 import SEOInjector from './components/SEOInjector';
 import { useApp } from './AppContext';
-
-// Extend Window interface for AOS
-declare global {
-  interface Window {
-    AOS: any;
-  }
-}
 
 export default function App() {
   const {
@@ -89,31 +84,15 @@ function AppContent() {
 
   // Re-initialize and refresh AOS when sections change
   useEffect(() => {
-    if (window.AOS) {
-      const timer = setTimeout(() => {
-        try {
-          window.AOS.init({
-            duration: 800,
-            once: true,
-            easing: 'ease-out-quad',
-          });
-          window.AOS.refresh();
-        } catch (err) {
-          console.error('Error refreshing AOS:', err);
-        }
-      }, 150);
-      return () => clearTimeout(timer);
-    }
+    const timer = setTimeout(() => {
+      AOS.init({ duration: 800, once: true, easing: 'ease-out-quad' });
+      AOS.refresh();
+    }, 150);
+    return () => clearTimeout(timer);
   }, [location.pathname]);
 
   useEffect(() => {
-    if (window.AOS) {
-      window.AOS.init({
-        duration: 800,
-        once: true,
-        easing: 'ease-out-quad',
-      });
-    }
+    AOS.init({ duration: 800, once: true, easing: 'ease-out-quad' });
   }, []);
 
   return (

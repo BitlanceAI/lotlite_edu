@@ -10,7 +10,8 @@ import {
   Faculty,
   AlumniStory,
   PlacementPartner,
-  PlacementStats
+  PlacementStats,
+  ProjectCase
 } from './types';
 
 // Let's create types for toast messages
@@ -134,6 +135,11 @@ interface AppContextType {
   auditVenture: (id: string) => Promise<void>;
   createVenture: (venture: Omit<Venture, 'id' | 'status'>) => Promise<Venture>;
   updateVenture: (updatedVenture: Venture) => void;
+
+  // Project Cases State
+  projectCases: ProjectCase[];
+  projectCasesLoading: boolean;
+  fetchProjectCases: () => Promise<void>;
 }
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
@@ -363,21 +369,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         // Map backend Blog schema to frontend BlogPost interface
         const mappedBlogs = data.map((b: any) => ({
           id: b._id,
+          slug: b.slug,
           title: b.seoTitle || b.topic,
           excerpt: b.article ? b.article.replace(/<[^>]+>/g, '').substring(0, 130) + '...' : '',
           content: b.markdown || b.article || '',
           category: b.industry || 'PropTech',
           date: new Date(b.createdAt).toLocaleDateString(),
           author: 'AI Generator',
-          image: b.imageUrl || b.image_option
+          image: b.imageUrl || b.image_option,
+          metaDescription: b.metaDescription || '',
+          readingTime: b.readingTime || ''
         }));
         setBlogs(mappedBlogs);
 
         // If we loaded initially on a specific blog URL, set it as selected
         const path = window.location.pathname;
         if (path.startsWith('/blog/') && path.length > 6) {
-          const blogId = path.split('/')[2];
-          const found = mappedBlogs.find((b: BlogPost) => b.id === blogId);
+          const blogIdOrSlug = path.split('/')[2];
+          const found = mappedBlogs.find((b: BlogPost) => b.id === blogIdOrSlug || b.slug === blogIdOrSlug);
           if (found) {
             setSelectedBlogState(found);
           }
@@ -844,6 +853,25 @@ const updateVenture = (updatedVenture: Venture) => {
   setVentures(prev => prev.map(v => v.id === updatedVenture.id ? updatedVenture : v));
 };
 
+  // Project Cases State
+  const [projectCases, setProjectCases] = useState<ProjectCase[]>([]);
+  const [projectCasesLoading, setProjectCasesLoading] = useState<boolean>(false);
+
+  const fetchProjectCases = async () => {
+    setProjectCasesLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/project-cases`);
+      if (res.ok) {
+        const data = await res.json();
+        setProjectCases(data);
+      }
+    } catch (e: any) {
+      console.error('Failed to load project cases:', e);
+    } finally {
+      setProjectCasesLoading(false);
+    }
+  };
+
   // Run on startup
   useEffect(() => {
     checkLocalAuth();
@@ -950,6 +978,12 @@ return (
     auditVenture,
     createVenture,
     updateVenture,
+
+    // Project Cases
+    projectCases,
+    projectCasesLoading,
+    fetchProjectCases,
+
     websiteData,
     fetchWebsiteData,
   }}>
