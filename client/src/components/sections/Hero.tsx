@@ -55,7 +55,7 @@ export default function Hero() {
           {/* Left Column (Content & Action Buttons) */}
           <div data-aos="fade-up" className="md:col-span-6 lg:col-span-6 text-center md:text-left space-y-4">
             <span className="text-wine text-[10px] font-bold uppercase tracking-[0.4em] block mb-2">Lotlite Edu</span>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl text-black font-serif font-light leading-[1.15] text-balance">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl text-black font-serif font-semibold leading-[1.15] text-balance">
               Real Estate and PropTech <br className="hidden md:block" />
               <span className="text-wine">Business Education for the Next Generation</span>
             </h1>
@@ -148,7 +148,7 @@ export default function Hero() {
         <div className="mt-8 pt-4 border-t border-black/5 flex flex-wrap items-center justify-center lg:justify-between gap-4">
           <p className="text-muted text-[8px] uppercase tracking-[0.3em] font-bold text-center lg:text-left">Strategic Endorsement Credentials</p>
           <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-2 opacity-80 text-[10px] font-bold uppercase tracking-widest text-black">
-            {["RICS Standard", "NAREDCO", "HIRANANDANI", "LODHA", "99acres"].map((logo) => (
+            {["GODREJ", "VTP REALTY", "KOHINOOR", "HIRANANDANI", "LODHA", "GERA", "PARANJAPE", "SHAPOORJI PALLONJI", "SAHEEL"].map((logo) => (
               <span key={logo}>{logo}</span>
             ))}
           </div>
