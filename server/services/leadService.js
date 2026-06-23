@@ -23,7 +23,7 @@ const sendLeadToCallyzer = async (leadData) => {
     programCategory = '', 
     programSpecialization = '', 
     source = 'Website Lead',
-    lead_tags = ['Lotlite Edu'] 
+    lead_tags = ['Loteleite SIEC'] 
   } = leadData;
 
   // Add source to lead tags if not already present

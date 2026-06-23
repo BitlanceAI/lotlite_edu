@@ -10,7 +10,7 @@ export default function HomeView() {
     <>
       <PageSEO
         canonical="/"
-        keywords="real estate school India, PropTech education, BBA real estate, MBA real estate, RERA, REIT, real estate management, Lotlite Edu, Pune business school, real estate career"
+        keywords="real estate school India, PropTech education, BBA real estate, MBA real estate, RERA, REIT, real estate management, Loteleite SIEC, Pune business school, real estate career"
       />
       <Hero />
       <CounterStrip />

@@ -13,7 +13,7 @@ export default function ParentFocus() {
         </h2>
         <div className="space-y-6 text-base md:text-lg text-muted font-medium leading-relaxed">
           <p>
-            Choosing a Program is not just about admission. It is about choosing a career direction. Lotlite Edu is designed for students who want practical exposure, business confidence, and industry focused learning.
+            Choosing a Program is not just about admission. It is about choosing a career direction. Loteleite SIEC is designed for students who want practical exposure, business confidence, and industry focused learning.
           </p>
           <p>
             The Program helps students understand how real estate businesses work, from sales and marketing to customer management, investment, compliance, and technology. For parents, this means a learning path that gives students direction, practical skills, and career awareness.

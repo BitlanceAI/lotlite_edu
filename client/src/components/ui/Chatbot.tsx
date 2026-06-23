@@ -317,7 +317,7 @@ export default function Chatbot() {
             fullName: name,
             phone,
             source: 'Chatbot',
-            lead_tags: ['Lotlite Edu', 'Chatbot']
+            lead_tags: ['Loteleite SIEC', 'Chatbot']
           }
         })
       });

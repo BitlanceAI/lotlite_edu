@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from 'motion/react';
 
 const faqs = [
   {
-    q: "What is Lotlite Edu?",
-    a: "Lotlite Edu is a real estate and PropTech focused education initiative designed to prepare students for careers in property, business, sales, marketing, investment, CRM, and entrepreneurship."
+    q: "What is Loteleite SIEC?",
+    a: "Loteleite SIEC is a real estate and PropTech focused education initiative designed to prepare students for careers in property, business, sales, marketing, investment, CRM, and entrepreneurship."
   },
   {
     q: "Who can apply for the MBA pathway?",
@@ -28,8 +28,8 @@ const faqs = [
     a: "No. The Program covers the wider real estate business ecosystem including marketing, sales, CRM, investment, compliance, technology, customer management, branding, and entrepreneurship."
   },
   {
-    q: "Does Lotlite Edu provide placement support?",
-    a: "Lotlite Edu can provide career guidance, practical exposure, and industry oriented learning to help students become job ready. Placement policies are subject to Lotlite's final institutional frameworks."
+    q: "Does Loteleite SIEC provide placement support?",
+    a: "Loteleite SIEC can provide career guidance, practical exposure, and industry oriented learning to help students become job ready. Placement policies are subject to Lotlite's final institutional frameworks."
   }
 ];
 

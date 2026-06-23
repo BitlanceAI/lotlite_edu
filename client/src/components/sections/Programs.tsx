@@ -55,7 +55,7 @@ export default function Programs() {
     <section className="py-20 bg-transparent relative overflow-hidden scroll-mt-20" id="programs">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="mb-14 text-center" data-aos="fade-up">
-          <span className="text-muted text-[10px] font-bold uppercase tracking-[0.4em] block mb-4">Lotlite Edu</span>
+          <span className="text-muted text-[10px] font-bold uppercase tracking-[0.4em] block mb-4">Loteleite SIEC</span>
           <h2 className="text-4xl md:text-5xl text-black font-serif leading-tight mb-4">
             Programs Offered
           </h2>

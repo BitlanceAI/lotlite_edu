@@ -6,7 +6,7 @@ export default function TermsOfUse() {
     <div className="pt-32 pb-24 max-w-4xl mx-auto px-6 relative z-10 text-black dark:text-white">
       <PageSEO
         title="Terms of Use"
-        description="Read the Terms of Use for Lotlite Edu. Learn about the rules governing use of our website and academic services."
+        description="Read the Terms of Use for Loteleite SIEC. Learn about the rules governing use of our website and academic services."
         canonical="/terms-of-use"
         noIndex={true}
       />

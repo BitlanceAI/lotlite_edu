@@ -6,7 +6,7 @@ export default function PrivacyPolicy() {
     <div className="pt-32 pb-24 max-w-4xl mx-auto px-6 relative z-10 text-black dark:text-white">
       <PageSEO
         title="Privacy Policy"
-        description="Read the Privacy Policy of Lotlite Edu. Understand how we collect, use, and protect your personal data."
+        description="Read the Privacy Policy of Loteleite SIEC. Understand how we collect, use, and protect your personal data."
         canonical="/privacy-policy"
         noIndex={true}
       />

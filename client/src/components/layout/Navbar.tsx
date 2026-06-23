@@ -153,9 +153,9 @@ export default function Navbar() {
           transition={{ duration: 0.5 }}
           className="absolute inset-0 glass-nav pointer-events-none"
         />
-        <div className="w-full pl-0 pr-4 sm:pr-6 md:pr-8 lg:pr-10 flex items-center justify-between relative z-10">
+        <div className="w-full pl-4 sm:pl-6 md:pl-8 lg:pl-10 pr-4 sm:pr-6 md:pr-8 lg:pr-10 flex items-center justify-between relative z-10">
           <div
-            className="flex items-center gap-3 group cursor-pointer -ml-4 sm:-ml-5 md:-ml-8"
+            className="flex items-center gap-3 group cursor-pointer"
             onClick={() => navigate('/')}
             id="nav-brand-logo"
           >

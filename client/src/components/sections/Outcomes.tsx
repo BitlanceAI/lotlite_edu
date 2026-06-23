@@ -54,7 +54,7 @@ export default function Outcomes() {
             Career Outcomes
           </h2>
           <p className="text-muted text-sm leading-relaxed max-w-2xl mx-auto font-medium">
-            Lotlite Edu prepares students for opportunities across real estate, business, marketing, sales, CRM, consulting, and PropTech. Our focus is on practical skill-building to help you become job ready.
+            Loteleite SIEC prepares students for opportunities across real estate, business, marketing, sales, CRM, consulting, and PropTech. Our focus is on practical skill-building to help you become job ready.
           </p>
         </div>
 

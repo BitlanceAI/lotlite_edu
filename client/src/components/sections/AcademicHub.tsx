@@ -605,37 +605,37 @@ export default function AcademicHub() {
   const sectionSEO: Record<string, { title: string; description: string; canonical: string; keywords: string }> = {
     programs: {
       title: 'Academic Programs – BBA, MBA, BCA, MCA in Real Estate & PropTech',
-      description: 'Explore Lotlite Edu undergraduate and postgraduate programs in real estate management, PropTech, business administration, and computer applications.',
+      description: 'Explore Loteleite SIEC undergraduate and postgraduate programs in real estate management, PropTech, business administration, and computer applications.',
       canonical: '/programs',
       keywords: 'BBA real estate, MBA real estate, BCA PropTech, MCA PropTech, real estate degree India',
     },
     admissions: {
-      title: 'Admissions – Apply to Lotlite Edu',
-      description: 'Start your admission process at Lotlite Edu. Learn about eligibility, fees, scholarships, and how to apply for our real estate and PropTech programs.',
+      title: 'Admissions – Apply to Loteleite SIEC',
+      description: 'Start your admission process at Loteleite SIEC. Learn about eligibility, fees, scholarships, and how to apply for our real estate and PropTech programs.',
       canonical: '/admissions',
-      keywords: 'Lotlite Edu admission, real estate school admission, apply BBA MBA PropTech',
+      keywords: 'Loteleite SIEC admission, real estate school admission, apply BBA MBA PropTech',
     },
     about: {
-      title: 'About Lotlite Edu – Faculty, Founders & Mission',
-      description: 'Learn about Lotlite Edu, its founders, academic board, research, and the mission to build India\'s next generation of real estate leaders.',
+      title: 'About Loteleite SIEC – Faculty, Founders & Mission',
+      description: 'Learn about Loteleite SIEC, its founders, academic board, research, and the mission to build India\'s next generation of real estate leaders.',
       canonical: '/about',
-      keywords: 'Lotlite Edu about, real estate school founders, PropTech faculty India',
+      keywords: 'Loteleite SIEC about, real estate school founders, PropTech faculty India',
     },
     blogs: {
       title: 'Sprint Chronicles – Real Estate & PropTech Insights',
-      description: 'Read the latest articles, research, and insights on real estate, PropTech, RERA, REIT, and property investment from Lotlite Edu faculty and experts.',
+      description: 'Read the latest articles, research, and insights on real estate, PropTech, RERA, REIT, and property investment from Loteleite SIEC faculty and experts.',
       canonical: '/blogs',
       keywords: 'real estate blog India, PropTech articles, RERA insights, property investment tips',
     },
     incubation: {
-      title: 'Startup Incubation – PropTech Ventures at Lotlite Edu',
-      description: 'Explore the Lotlite Edu incubation program for PropTech startups. Get mentorship, resources, and a launchpad for real estate innovation.',
+      title: 'Startup Incubation – PropTech Ventures at Loteleite SIEC',
+      description: 'Explore the Loteleite SIEC incubation program for PropTech startups. Get mentorship, resources, and a launchpad for real estate innovation.',
       canonical: '/incubation',
       keywords: 'PropTech incubator India, real estate startup, Lotlite incubation',
     },
     outcomes: {
-      title: 'Career Outcomes – Placements & Alumni at Lotlite Edu',
-      description: 'Discover career outcomes, placement records, and alumni success stories from Lotlite Edu graduates in real estate and PropTech sectors.',
+      title: 'Career Outcomes – Placements & Alumni at Loteleite SIEC',
+      description: 'Discover career outcomes, placement records, and alumni success stories from Loteleite SIEC graduates in real estate and PropTech sectors.',
       canonical: '/outcomes',
       keywords: 'Lotlite placements, real estate careers, PropTech jobs India',
     },
@@ -2884,7 +2884,7 @@ export default function AcademicHub() {
                         Start your admission journey.
                       </h2>
                       <p className="text-muted dark:text-neutral-400 text-sm md:text-base mt-2 max-w-3xl font-medium leading-relaxed animate-fade-in">
-                        Apply for the elite, industry-oriented professional courses provided by Lotlite Edu to unlock practical business expertise, master modern property marketing strategies, and launch your career in the thriving real estate businesses and high-growth PropTech enterprises.
+                        Apply for the elite, industry-oriented professional courses provided by Loteleite SIEC to unlock practical business expertise, master modern property marketing strategies, and launch your career in the thriving real estate businesses and high-growth PropTech enterprises.
                       </p>
                     </div>
 

@@ -21,23 +21,23 @@ const sendEmailAcknowledgement = async (leadData) => {
   const isInternship = programCategory === 'Career & Internship Co-Op';
 
   const mailOptions = {
-    from: process.env.SMTP_FROM_EMAIL || '"Lotlite Edu" <no-reply@lotlite.edu>',
+    from: process.env.SMTP_FROM_EMAIL || '"Loteleite SIEC" <no-reply@lotlite.edu>',
     to: email,
-    subject: isInternship ? 'Internship Application Received - Lotlite Edu' : 'Application Received - Lotlite Edu',
+    subject: isInternship ? 'Internship Application Received - Loteleite SIEC' : 'Application Received - Loteleite SIEC',
     html: isInternship ? `
       <h3>Hello ${fullName || 'Applicant'}! 🎉</h3>
       <p>Thank you for applying for the <strong>Career & Internship Co-Op</strong>. We have received your qualifications: <strong>${programSpecialization || 'Not Specified'}</strong>.</p>
       <p>A Career Mentor will review your profile and reach out shortly to discuss the next steps.</p>
       <br>
       <p>Best regards,</p>
-      <p><strong>The Lotlite Edu Team</strong></p>
+      <p><strong>The Loteleite SIEC Team</strong></p>
     ` : `
       <h3>Hello ${fullName || 'Applicant'}! 🎉</h3>
       <p>Thank you for starting your application for the <strong>${programCategory || 'Program'}</strong> program in <strong>${programSpecialization || 'Specialization'}</strong>. We have successfully received your details.</p>
       <p>A program lead will review your application and reach out to you within 24 hours.</p>
       <br>
       <p>Best regards,</p>
-      <p><strong>The Lotlite Edu Team</strong></p>
+      <p><strong>The Loteleite SIEC Team</strong></p>
     `
   };
 

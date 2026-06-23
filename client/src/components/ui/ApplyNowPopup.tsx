@@ -79,7 +79,7 @@ export default function ApplyNowPopup({ isOpen, onClose }: ApplyNowPopupProps) {
             phone: `${countryCode}${phone}`,
             programCategory: program,
             source: 'Apply Now Popup Form',
-            lead_tags: ['Lotlite Edu', 'Application']
+            lead_tags: ['Loteleite SIEC', 'Application']
           }
         })
       });

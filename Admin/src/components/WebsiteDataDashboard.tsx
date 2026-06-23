@@ -1090,7 +1090,7 @@ export default function WebsiteDataDashboard() {
                 type="text"
                 value={seoData.title}
                 onChange={(e) => setSeoData({ ...seoData, title: e.target.value })}
-                placeholder="e.g. Lotlite Edu | Real Estate and PropTech Business School"
+                placeholder="e.g. Loteleite SIEC | Real Estate and PropTech Business School"
                 className="w-full px-4 py-2.5 border border-border rounded-xl text-xs font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-wine/10 focus:border-wine"
               />
             </div>
@@ -1100,7 +1100,7 @@ export default function WebsiteDataDashboard() {
               <textarea
                 value={seoData.description}
                 onChange={(e) => setSeoData({ ...seoData, description: e.target.value })}
-                placeholder="e.g. Explore Lotlite Edu programmes in real estate..."
+                placeholder="e.g. Explore Loteleite SIEC programmes in real estate..."
                 className="w-full px-4 py-2.5 border border-border rounded-xl text-xs font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-wine/10 focus:border-wine min-h-[100px] resize-y"
               />
             </div>

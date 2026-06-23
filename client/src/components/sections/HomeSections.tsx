@@ -27,9 +27,9 @@ const HomeSections: React.FC = () => {
       {/* Section 01: Hero (in parent layout) */}
       {/* Section 02: Best of Both Worlds */}
       <BestOfBothWorlds />
-      {/* Section 03: Why Lotlite Edu */}
+      {/* Section 03: Why Loteleite SIEC */}
       <WhyLotlite />
-      {/* Section 04: Lotlite Edu Advantage */}
+      {/* Section 04: Loteleite SIEC Advantage */}
       <LotliteAdvantage />
       {/* Section 05: Programs Offered */}
       <Programs />

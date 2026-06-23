@@ -4,7 +4,7 @@ export default function WhyLotlite() {
   return (
     <section className="bg-white relative overflow-hidden" id="why-lotlite">
       <div className="max-w-4xl mx-auto px-6 relative z-10 text-center md:text-left">
-        <span className="text-wine text-[10px] font-bold uppercase tracking-[0.4em] block mb-4 text-center">Why Lotlite Edu</span>
+        <span className="text-wine text-[10px] font-bold uppercase tracking-[0.4em] block mb-4 text-center">Why Loteleite SIEC</span>
         <h2 className="text-3xl md:text-5xl font-serif text-black leading-tight mb-8 text-center">
           A Real Estate Business School <br className="hidden md:block" />Built for Modern Careers
         </h2>
@@ -14,7 +14,7 @@ export default function WhyLotlite() {
             The real estate industry needs professionals who understand more than property. Today, successful real estate careers require business knowledge, finance awareness, sales skills, compliance understanding, marketing ability, technology adoption, communication confidence, and customer management.
           </p>
           <p>
-            Lotlite Edu is designed to prepare students for this new reality. The Programs help learners build a strong foundation in business while developing practical understanding of real estate and PropTech.
+            Loteleite SIEC is designed to prepare students for this new reality. The Programs help learners build a strong foundation in business while developing practical understanding of real estate and PropTech.
           </p>
         </div>
 

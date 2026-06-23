@@ -119,7 +119,7 @@ export default function InternshipPopup({ isOpen, onClose }: InternshipPopupProp
           programCategory: 'Career & Internship Co-Op (₹30k Stipend)',
           programSpecialization: education.trim(),
           source: 'Web Pop-Up Career Portal Inquiry',
-          lead_tags: ['Lotlite Edu', 'Internship']
+          lead_tags: ['Loteleite SIEC', 'Internship']
         }
       });
     } catch (err) {

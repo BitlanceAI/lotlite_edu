@@ -9,7 +9,7 @@ export default function PracticalLearning() {
           Learn by Doing, Not Just Reading
         </h2>
         <p className="text-sm md:text-base text-muted font-medium leading-relaxed mb-12">
-          At Lotlite Edu, students learn through a practical and application based approach. The learning journey is designed to help students understand real industry situations and build workplace confidence.
+          At Loteleite SIEC, students learn through a practical and application based approach. The learning journey is designed to help students understand real industry situations and build workplace confidence.
         </p>
         
         <div className="bg-offwhite border border-black/5 rounded-3xl p-8 md:p-12 shadow-sm text-left">

@@ -1,6 +1,6 @@
-# Lotlite Education - System Architecture
+# Loteleite SIECcation - System Architecture
 
-This repository contains the Lotlite Education platform, structured as a monorepo consisting of three primary modules: `client`, `Admin`, and `server`.
+This repository contains the Loteleite SIECcation platform, structured as a monorepo consisting of three primary modules: `client`, `Admin`, and `server`.
 
 ## High-Level Architecture
 

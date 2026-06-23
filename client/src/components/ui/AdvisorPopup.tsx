@@ -75,7 +75,7 @@ export default function AdvisorPopup({ isOpen, onClose }: AdvisorPopupProps) {
             fullName: name,
             phone: `${countryCode}${phone}`,
             source: 'Advisor Request Popup',
-            lead_tags: ['Lotlite Edu', 'Advisor Consultation']
+            lead_tags: ['Loteleite SIEC', 'Advisor Consultation']
           }
         })
       });
