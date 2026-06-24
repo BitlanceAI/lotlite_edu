@@ -11,8 +11,10 @@ interface Lead {
   phone: string;
   programCategory?: string;
   programSpecialization?: string;
+  city?: string;
   source: string;
   callyzerStatus: 'pending' | 'sent' | 'failed';
+  chatbotState?: number;
   createdAt: string;
 }
 
@@ -245,6 +247,7 @@ export default function LeadDashboard() {
                 <th className="px-6 py-4">Phone</th>
                 <th className="px-6 py-4">Source</th>
                 <th className="px-6 py-4">Program</th>
+                <th className="px-6 py-4">City</th>
                 <th className="px-6 py-4">Status</th>
                 <th className="px-6 py-4 text-right">Date</th>
                 <th className="px-6 py-4 text-center">Actions</th>
@@ -277,6 +280,7 @@ export default function LeadDashboard() {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-zinc-700 text-xs font-semibold truncate max-w-[150px]">{lead.programCategory || '-'}</td>
+                    <td className="px-6 py-4 text-zinc-600 text-xs font-semibold">{lead.city || '-'}</td>
                     <td className="px-6 py-4">
                       {lead.callyzerStatus === 'sent' && (
                         <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200/50">
