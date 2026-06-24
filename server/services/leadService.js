@@ -168,12 +168,12 @@ const createChatbotLead = async ({ phone, name, lastMessage, ariaResponse, progr
   const setFields = {
     phone,
     source: 'WhatsApp Chatbot',
+    fullName: name || phone,
     whatsappLastMessage: lastMessage || '',
     whatsappAriaResponse: ariaResponse || '',
     whatsappLastActive: new Date()
   };
 
-  if (name && name !== phone) setFields.fullName = name;
   if (programInterest) setFields.programCategory = programInterest;
   if (city) setFields.city = city;
   if (email && email !== 'SKIP_EMAIL') setFields.email = email;
@@ -181,7 +181,7 @@ const createChatbotLead = async ({ phone, name, lastMessage, ariaResponse, progr
 
   const lead = await Lead.findOneAndUpdate(
     { phone },
-    { $set: setFields, $setOnInsert: { fullName: name || phone, lead_tags: ['WhatsApp Chatbot'] } },
+    { $set: setFields, $setOnInsert: { lead_tags: ['WhatsApp Chatbot'] } },
     { upsert: true, new: true, setDefaultsOnInsert: true }
   );
 
