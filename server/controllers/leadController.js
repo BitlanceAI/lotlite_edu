@@ -61,6 +61,21 @@ const handleCreateChatbotLead = async (req, res) => {
   }
 };
 
+const handleGetLeadByPhone = async (req, res) => {
+  try {
+    const { phone } = req.params;
+    const lead = await leadService.getLeadByPhone(phone);
+    return res.status(200).json({
+      success: true,
+      data: lead,
+      chatbotState: lead?.chatbotState ?? 0
+    });
+  } catch (err) {
+    console.error('[Lead Controller] Get lead by phone error:', err);
+    return res.status(500).json({ success: false, error: err.message });
+  }
+};
+
 const handleGetPendingChatbotLeads = async (req, res) => {
   try {
     const leads = await leadService.getPendingChatbotLeads();
@@ -98,6 +113,7 @@ const handleProxyCallyzerLead = async (req, res) => {
 module.exports = {
   handleCreateLead,
   handleCreateChatbotLead,
+  handleGetLeadByPhone,
   handleGetPendingChatbotLeads,
   handleProcessChatbotLead,
   handleProxyCallyzerLead,

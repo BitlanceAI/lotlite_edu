@@ -75,6 +75,10 @@ const LeadSchema = new mongoose.Schema({
   whatsappLastActive: {
     type: Date
   },
+  chatbotState: {
+    type: Number,
+    default: 0   // 0=new 1=program_sent 2=name_sent 3=city_sent 4=email_sent 5=complete
+  },
   chatbotProcessed: {
     type: Boolean,
     default: false

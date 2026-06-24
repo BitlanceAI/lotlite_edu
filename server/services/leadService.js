@@ -160,30 +160,41 @@ const createLead = async (leadData) => {
  * Save/update a WhatsApp chatbot lead — no Callyzer, no Dograh, no notifications.
  * Upserts by phone number so repeat messages update the same document.
  */
-const createChatbotLead = async ({ phone, name, lastMessage, ariaResponse, programInterest, city, email }) => {
+/**
+ * Upsert chatbot lead — only sets fields that have actual values.
+ * chatbotState tracks which step of the button flow the user is on (0-5).
+ */
+const createChatbotLead = async ({ phone, name, lastMessage, ariaResponse, programInterest, city, email, chatbotState }) => {
   const setFields = {
     phone,
     source: 'WhatsApp Chatbot',
-    whatsappLastMessage: lastMessage,
-    whatsappAriaResponse: ariaResponse,
+    whatsappLastMessage: lastMessage || '',
+    whatsappAriaResponse: ariaResponse || '',
     whatsappLastActive: new Date()
   };
 
-  // Only overwrite structured fields when Aria extracted a real value
   if (name && name !== phone) setFields.fullName = name;
-  else setFields.fullName = setFields.fullName || phone;
   if (programInterest) setFields.programCategory = programInterest;
   if (city) setFields.city = city;
-  if (email) setFields.email = email;
+  if (email && email !== 'SKIP_EMAIL') setFields.email = email;
+  if (typeof chatbotState === 'number') setFields.chatbotState = chatbotState;
 
   const lead = await Lead.findOneAndUpdate(
     { phone },
-    { $set: setFields, $setOnInsert: { lead_tags: ['WhatsApp Chatbot'] } },
+    { $set: setFields, $setOnInsert: { fullName: name || phone, lead_tags: ['WhatsApp Chatbot'] } },
     { upsert: true, new: true, setDefaultsOnInsert: true }
   );
 
-  console.log(`[LeadService] ✓ Chatbot lead upserted | phone=${phone}`);
+  console.log(`[LeadService] ✓ Chatbot lead upserted | phone=${phone} | state=${chatbotState}`);
   return lead;
+};
+
+/**
+ * Get a chatbot lead by phone number.
+ * Returns the lead doc or null if new user.
+ */
+const getLeadByPhone = async (phone) => {
+  return await Lead.findOne({ phone, source: 'WhatsApp Chatbot' });
 };
 
 /**
@@ -305,6 +316,7 @@ const proxyCallyzerLead = async (payload) => {
 module.exports = {
   createLead,
   createChatbotLead,
+  getLeadByPhone,
   getPendingChatbotLeads,
   processChatbotLead,
   proxyCallyzerLead,
