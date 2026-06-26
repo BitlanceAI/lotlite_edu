@@ -129,13 +129,7 @@ const createLead = async (leadData) => {
     
     console.log('[LeadService] ✓ Lead forwarded to Callyzer successfully');
 
-    // Schedule 15-minute lead contact check
-    agenda.schedule('in 15 minutes', 'check_lead_contact', {
-      localLeadId: lead._id.toString(),
-      callyzerLeadId: callyzerRes?.lead_id || null,
-      phone: leadData.phone
-    }).then(() => console.log('[LeadService] ✓ Scheduled 15-minute contact check job'))
-      .catch(e => console.error('[LeadService] ✗ Failed to schedule job:', e));
+
 
     // Fire and forget email and whatsapp acknowledgements
     emailService.sendEmailAcknowledgement(leadData)
@@ -245,11 +239,7 @@ const processChatbotLead = async (leadId) => {
     lead.callyzerResponse = callyzerRes;
     await lead.save();
 
-    agenda.schedule('in 15 minutes', 'check_lead_contact', {
-      localLeadId: lead._id.toString(),
-      callyzerLeadId: callyzerRes?.lead_id || null,
-      phone: lead.phone
-    }).catch(e => console.error('[LeadService] ✗ Failed to schedule contact check:', e));
+
 
     emailService.sendEmailAcknowledgement(lead.toObject())
       .catch(e => console.error('[LeadService] ✗ Email error:', e.message || e));

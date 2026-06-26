@@ -19,7 +19,7 @@ const projectCaseRoutes = require('./routes/projectCaseRoutes');
 const Admin = require('./models/Admin');
 const bcrypt = require('bcryptjs');
 const agenda = require('./config/agenda');
-require('./jobs/leadJobs');
+
 require('./jobs/dograhJobs');
 
 const app = express();
