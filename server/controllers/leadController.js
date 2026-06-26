@@ -65,14 +65,17 @@ const handleGetLeadByPhone = async (req, res) => {
   try {
     const { phone } = req.params;
     const lead = await leadService.getLeadByPhone(phone);
+    if (!lead) {
+      return res.status(404).json({ success: false, error: 'Lead not found', chatbotState: 0 });
+    }
     return res.status(200).json({
       success: true,
       data: lead,
-      chatbotState: lead?.chatbotState ?? 0
+      chatbotState: lead.chatbotState ?? 0
     });
   } catch (err) {
     console.error('[Lead Controller] Get lead by phone error:', err);
-    return res.status(500).json({ success: false, error: err.message });
+    return res.status(500).json({ success: false, error: err.message || 'Internal server error' });
   }
 };
 

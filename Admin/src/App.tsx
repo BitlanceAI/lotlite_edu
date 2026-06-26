@@ -6,12 +6,13 @@ import WebsiteDataDashboard from './components/WebsiteDataDashboard';
 import ChatbotLogsDashboard from './components/ChatbotLogsDashboard';
 import DograhCallLogsDashboard from './components/DograhCallLogsDashboard';
 import ProjectCaseDashboard from './components/ProjectCaseDashboard';
-import { LayoutDashboard, Users, LogOut, Menu, X, FileText, Globe, MessageSquare, Phone, Briefcase } from 'lucide-react';
+import WhatsAppSettings from './components/WhatsAppSettings';
+import { LayoutDashboard, Users, LogOut, Menu, X, FileText, Globe, MessageSquare, Phone, Briefcase, Settings } from 'lucide-react';
 import logo from './assets/Lotlite_Logo.png';
 
 import Login from './components/Login';
 
-type ViewState = 'overview' | 'leads' | 'blog' | 'website-data' | 'chatbot-logs' | 'dograh-call-logs' | 'project-cases';
+type ViewState = 'overview' | 'leads' | 'blog' | 'website-data' | 'chatbot-logs' | 'dograh-call-logs' | 'project-cases' | 'whatsapp-settings';
 
 interface SidebarContentProps {
   activeView: ViewState;
@@ -101,16 +102,28 @@ const SidebarContent = ({ activeView, handleNavClick, handleLogout }: SidebarCon
         <Phone size={18} className={activeView === 'dograh-call-logs' ? 'text-white' : 'text-zinc-400 group-hover:text-wine'} />
         <span className="text-xs uppercase tracking-wider">Voice Agent Logs</span>
       </button>
-      <button 
+      <button
         onClick={() => handleNavClick('project-cases')}
         className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group cursor-pointer ${
-          activeView === 'project-cases' 
-            ? 'bg-wine text-white shadow-md font-bold' 
+          activeView === 'project-cases'
+            ? 'bg-wine text-white shadow-md font-bold'
             : 'text-zinc-500 hover:bg-wine-light hover:text-wine font-medium'
         }`}
       >
         <Briefcase size={18} className={activeView === 'project-cases' ? 'text-white' : 'text-zinc-400 group-hover:text-wine'} />
         <span className="text-xs uppercase tracking-wider">Student Case Projects</span>
+      </button>
+
+      <button
+        onClick={() => handleNavClick('whatsapp-settings')}
+        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group cursor-pointer ${
+          activeView === 'whatsapp-settings'
+            ? 'bg-wine text-white shadow-md font-bold'
+            : 'text-zinc-500 hover:bg-wine-light hover:text-wine font-medium'
+        }`}
+      >
+        <Settings size={18} className={activeView === 'whatsapp-settings' ? 'text-white' : 'text-zinc-400 group-hover:text-wine'} />
+        <span className="text-xs uppercase tracking-wider">WA Templates</span>
       </button>
     </nav>
 
@@ -221,6 +234,7 @@ function App() {
           {activeView === 'chatbot-logs' && <ChatbotLogsDashboard />}
           {activeView === 'dograh-call-logs' && <DograhCallLogsDashboard />}
           {activeView === 'project-cases' && <ProjectCaseDashboard />}
+          {activeView === 'whatsapp-settings' && <WhatsAppSettings />}
         </div>
       </main>
     </div>

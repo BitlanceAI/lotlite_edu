@@ -13,6 +13,9 @@
 const agenda = require('../config/agenda');
 const dograhService = require('../services/dograhService');
 
+// Drain any check_lead_contact jobs left in MongoDB from a prior deployment
+agenda.define('check_lead_contact', async () => {});
+
 // ─── Visit Call Job (fires 30 minutes after lead creation) ─────────────────────
 agenda.define('dograh_visit_call', async (job) => {
   const { leadData } = job.attrs.data;

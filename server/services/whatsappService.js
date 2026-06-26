@@ -1,92 +1,118 @@
-const sendWhatsappAcknowledgement = async (leadData) => {
+const WhatsAppSettings = require('../models/WhatsAppSettings');
+
+const _getSettings = async () => {
+  let s = await WhatsAppSettings.findOne();
+  if (!s) s = await WhatsAppSettings.create({});
+  return s;
+};
+
+const _sendTemplate = async (to, templateName, components) => {
   const apiUrl = process.env.WHATSAPP_API_URL;
   const apiToken = process.env.WHATSAPP_API_TOKEN;
 
   if (!apiUrl || !apiToken) {
-    console.warn('WhatsApp credentials not configured. Skipping WhatsApp acknowledgement.');
+    console.warn('[WhatsApp] Credentials not configured. Skipping message.');
     return { success: false, message: 'WhatsApp API credentials missing' };
   }
 
-  const { phone, fullName, programCategory, programSpecialization } = leadData;
-  if (!phone) {
-    throw new Error('Phone number is required for WhatsApp acknowledgement.');
-  }
-
-  // Format phone number (assuming it might need country code)
-  const formattedPhone = phone.replace(/\s+/g, '').replace(/^\+/, '');
+  const formattedPhone = to.replace(/\s+/g, '').replace(/^\+/, '');
   const contactNumber = formattedPhone.length === 10 ? `91${formattedPhone}` : formattedPhone;
 
-  // Using Meta approved template for business-initiated conversations
-  const isInternship = programCategory === 'Career & Internship Co-Op';
-  let templateName;
-
-  if (isInternship) {
-    // Fallback to the admission template for testing if an internship-specific one isn't set yet
-    templateName = process.env.WHATSAPP_INTERNSHIP_TEMPLATE_NAME || process.env.WHATSAPP_TEMPLATE_NAME || 'acknowledgement_applynow';
-  } else {
-    templateName = process.env.WHATSAPP_TEMPLATE_NAME || 'acknowledgement_applynow';
-  }
-
   const payload = {
-    messaging_product: "whatsapp",
+    messaging_product: 'whatsapp',
     to: contactNumber,
-    type: "template",
+    type: 'template',
     template: {
       name: templateName,
-      language: {
-        code: "en"
-      },
-      components: [
-        {
-          type: "body",
-          parameters: [
-            {
-              type: "text",
-              parameter_name: "applicant_name",
-              text: fullName || "Applicant"
-            },
-            {
-              type: "text",
-              parameter_name: "program_category",
-              text: programCategory || "Program"
-            },
-            {
-              type: "text",
-              parameter_name: "specialization",
-              text: programSpecialization || "Specialization"
-            }
-          ]
-        }
-      ]
+      language: { code: 'en' },
+      components
     }
   };
 
+  const { default: fetch } = await import('node-fetch');
+  const response = await fetch(apiUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiToken}` },
+    body: JSON.stringify(payload)
+  });
+
+  const text = await response.text();
+  let json;
+  try { json = JSON.parse(text); } catch { json = { raw: text }; }
+
+  if (!response.ok) throw { status: response.status, data: json };
+  return { success: true, data: json };
+};
+
+/**
+ * Trigger: Website lead form (admission & internship programs)
+ * Templates:
+ *   - WHATSAPP_TEMPLATE_NAME            (default: acknowledgement_applynow)
+ *   - WHATSAPP_INTERNSHIP_TEMPLATE_NAME (default: acknowledgement_internship)
+ * Parameters: applicant_name, program_category, specialization
+ */
+const sendWhatsappAcknowledgement = async (leadData) => {
+  const { phone, fullName, programCategory, programSpecialization } = leadData;
+  if (!phone) throw new Error('Phone number is required for WhatsApp acknowledgement.');
+
+  const settings = await _getSettings();
+  const isInternship = programCategory === 'Career & Internship Co-Op';
+  const templateName = isInternship ? settings.internshipTemplate : settings.admissionTemplate;
+
+  const components = [
+    {
+      type: 'body',
+      parameters: [
+        { type: 'text', text: fullName || 'Applicant' },           // {{1}}
+        { type: 'text', text: programCategory || 'Program' },      // {{2}}
+        { type: 'text', text: programSpecialization || 'Specialization' } // {{3}}
+      ]
+    }
+  ];
+
   try {
-    const { default: fetch } = await import('node-fetch');
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiToken}`
-      },
-      body: JSON.stringify(payload)
-    });
-
-    const text = await response.text();
-    let json;
-    try {
-      json = JSON.parse(text);
-    } catch {
-      json = { raw: text };
-    }
-
-    if (!response.ok) {
-      throw { status: response.status, data: json };
-    }
-
-    return { success: true, data: json };
+    const result = await _sendTemplate(phone, templateName, components);
+    console.log(`[WhatsApp] ✓ Acknowledgement sent | template=${templateName} | phone=${phone}`);
+    return result;
   } catch (error) {
-    console.error('[WhatsApp Service] Error sending acknowledgement:', error);
+    console.error('[WhatsApp] ✗ Acknowledgement failed:', error);
+    throw error;
+  }
+};
+
+/**
+ * Trigger: WhatsApp Chatbot lead handoff (fires after 30-min idle → processChatbotLead)
+ * Template: WHATSAPP_CHATBOT_TEMPLATE_NAME (default: chatbot_lead_confirmed)
+ * Parameters: applicant_name, program_category
+ *
+ * Create this template in Meta Business Manager:
+ *   Name: chatbot_lead_confirmed
+ *   Body: "Hi {{1}}, thank you for your interest in {{2}} at Lotlite Education.
+ *          Our counselor will call you within 24 hours to guide you further."
+ */
+const sendChatbotLeadAcknowledgement = async (leadData) => {
+  const { phone, fullName, programCategory } = leadData;
+  if (!phone) throw new Error('Phone number is required for chatbot acknowledgement.');
+
+  const settings = await _getSettings();
+  const templateName = settings.chatbotTemplate;
+
+  const components = [
+    {
+      type: 'body',
+      parameters: [
+        { type: 'text', text: fullName || 'Applicant' },          // {{1}}
+        { type: 'text', text: programCategory || 'our programs' } // {{2}}
+      ]
+    }
+  ];
+
+  try {
+    const result = await _sendTemplate(phone, templateName, components);
+    console.log(`[WhatsApp] ✓ Chatbot lead confirmation sent | template=${templateName} | phone=${phone}`);
+    return result;
+  } catch (error) {
+    console.error('[WhatsApp] ✗ Chatbot lead confirmation failed:', error);
     throw error;
   }
 };
@@ -196,6 +222,7 @@ const sendWhatsappOtp = async (phone, otp, retries = 3, delayMs = 1000) => {
 
 module.exports = {
   sendWhatsappAcknowledgement,
+  sendChatbotLeadAcknowledgement,
   sendWhatsappOtp
 };
 

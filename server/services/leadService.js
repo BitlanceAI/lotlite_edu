@@ -163,18 +163,18 @@ const createChatbotLead = async ({ phone, name, lastMessage, ariaResponse, progr
     phone,
     source: 'WhatsApp Chatbot',
     fullName: name || phone,
-    whatsappLastMessage: lastMessage || '',
-    whatsappAriaResponse: ariaResponse || '',
     whatsappLastActive: new Date()
   };
 
+  if (lastMessage) setFields.whatsappLastMessage = lastMessage;
+  if (ariaResponse) setFields.whatsappAriaResponse = ariaResponse;
   if (programInterest) setFields.programCategory = programInterest;
   if (city) setFields.city = city;
   if (email && email !== 'SKIP_EMAIL') setFields.email = email;
   if (typeof chatbotState === 'number') setFields.chatbotState = chatbotState;
 
   const lead = await Lead.findOneAndUpdate(
-    { phone },
+    { phone, source: 'WhatsApp Chatbot' },
     { $set: setFields, $setOnInsert: { lead_tags: ['WhatsApp Chatbot'] } },
     { upsert: true, new: true, setDefaultsOnInsert: true }
   );
@@ -199,9 +199,9 @@ const getPendingChatbotLeads = async () => {
   const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
   return await Lead.find({
     source: 'WhatsApp Chatbot',
-    chatbotProcessed: { $ne: true },
+    chatbotProcessed: false,
     whatsappLastActive: { $lte: thirtyMinutesAgo }
-  }).sort({ whatsappLastActive: 1 });
+  }).sort({ whatsappLastActive: 1 }).limit(100);
 };
 
 /**
@@ -210,48 +210,51 @@ const getPendingChatbotLeads = async () => {
  * Idempotent — safe to call twice (second call is a no-op).
  */
 const processChatbotLead = async (leadId) => {
-  const lead = await Lead.findById(leadId);
-  if (!lead) throw new Error('Lead not found');
-  if (lead.chatbotProcessed) return lead;
+  // Atomic guard: only the first concurrent caller wins; subsequent calls get null and exit
+  const lead = await Lead.findOneAndUpdate(
+    { _id: leadId, chatbotProcessed: { $ne: true } },
+    { $set: { chatbotProcessed: true, chatbotProcessedAt: new Date() } },
+    { new: true }
+  );
 
-  // Mark processed immediately to prevent re-triggering on the next scheduler run
-  lead.chatbotProcessed = true;
-  lead.chatbotProcessedAt = new Date();
-  await lead.save();
+  if (!lead) {
+    const existing = await Lead.findById(leadId);
+    if (!existing) throw new Error('Lead not found');
+    return existing; // already processed
+  }
 
   console.log(`[LeadService] ✓ Chatbot lead processing started | phone=${lead.phone}`);
 
-  // Dograh voice calls
-  dograhService.triggerAdmissionCall(lead)
-    .then(r => console.log(`[Dograh] ✓ Chatbot admission call | run_id=${r.workflow_run_id}`))
-    .catch(e => console.error('[Dograh] ✗ Chatbot admission call failed:', e.message || e));
-
-  agenda.schedule('in 30 minutes', 'dograh_visit_call', { leadData: lead.toObject() })
-    .catch(e => console.error('[Dograh] ✗ Failed to schedule visit call:', e));
-
-  agenda.schedule('in 24 hours', 'dograh_followup_call', { leadData: lead.toObject() })
-    .catch(e => console.error('[Dograh] ✗ Failed to schedule follow-up call:', e));
-
-  // Push to Callyzer
+  // Push to Callyzer first — only trigger voice calls if CRM registration succeeds
   try {
     const callyzerRes = await sendLeadToCallyzer(lead.toObject());
+    await Lead.findByIdAndUpdate(leadId, { $set: { callyzerStatus: 'sent', callyzerResponse: callyzerRes } });
     lead.callyzerStatus = 'sent';
-    lead.callyzerResponse = callyzerRes;
-    await lead.save();
 
+    // Dograh voice calls — fire only after successful Callyzer push
+    dograhService.triggerAdmissionCall(lead.toObject())
+      .then(r => console.log(`[Dograh] ✓ Chatbot admission call | run_id=${r.workflow_run_id}`))
+      .catch(e => console.error('[Dograh] ✗ Chatbot admission call failed:', e.message || e));
 
+    agenda.schedule('in 30 minutes', 'dograh_visit_call', { leadData: lead.toObject() })
+      .catch(e => console.error('[Dograh] ✗ Failed to schedule visit call:', e));
+
+    agenda.schedule('in 24 hours', 'dograh_followup_call', { leadData: lead.toObject() })
+      .catch(e => console.error('[Dograh] ✗ Failed to schedule follow-up call:', e));
 
     emailService.sendEmailAcknowledgement(lead.toObject())
       .catch(e => console.error('[LeadService] ✗ Email error:', e.message || e));
 
-    whatsappService.sendWhatsappAcknowledgement(lead.toObject())
-      .catch(e => console.error('[LeadService] ✗ WhatsApp ack error:', e.message || e));
+    whatsappService.sendChatbotLeadAcknowledgement(lead.toObject())
+      .catch(e => console.error('[LeadService] ✗ WhatsApp chatbot ack error:', e.message || e));
 
   } catch (err) {
+    await Lead.findByIdAndUpdate(leadId, { $set: {
+      callyzerStatus: 'failed',
+      errorDetail: err.message || JSON.stringify(err.data || err),
+      callyzerResponse: err.data || null
+    }});
     lead.callyzerStatus = 'failed';
-    lead.errorDetail = err.message || JSON.stringify(err.data || err);
-    lead.callyzerResponse = err.data || null;
-    await lead.save();
   }
 
   return lead;

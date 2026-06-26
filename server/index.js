@@ -16,6 +16,7 @@ const dograhCallLogRoutes = require('./routes/dograhCallLogRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const seoBlogRoutes = require('./routes/seoBlogRoutes');
 const projectCaseRoutes = require('./routes/projectCaseRoutes');
+const whatsappSettingsRoutes = require('./routes/whatsappSettingsRoutes');
 const Admin = require('./models/Admin');
 const bcrypt = require('bcryptjs');
 const agenda = require('./config/agenda');
@@ -49,6 +50,7 @@ app.use('/api/website-data', websiteDataRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/generate-blog', seoBlogRoutes);
 app.use('/api/project-cases', projectCaseRoutes);
+app.use('/api', whatsappSettingsRoutes);
 
 // ── Dograh ────────────────────────────────────────────────────────────────────
 app.use('/api/webhooks', dograhWebhookRoutes);   // POST /api/webhooks/dograh
