@@ -13,16 +13,16 @@ export default function LotliteAdvantage() {
     <section className="bg-offwhite relative overflow-hidden" id="advantage">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
-          <span className="text-wine text-[10px] font-bold uppercase tracking-[0.4em] block mb-4">The Loteleite SIEC Advantage</span>
+          <span className="text-wine text-[10px] font-bold uppercase tracking-[0.4em] block mb-4">The Lotlite SIEC Advantage</span>
           <h2 className="text-3xl md:text-5xl font-serif text-black leading-tight">
-            Learn Management Through the <br className="hidden md:block"/> Lens of Real Estate
+            Learn Management Through the <br className="hidden md:block" /> Lens of Real Estate
           </h2>
         </div>
 
         <div className="flex flex-wrap justify-center gap-8">
           {advantages.map((adv, idx) => (
-            <div 
-              key={idx} 
+            <div
+              key={idx}
               className="w-full md:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)] bg-white rounded-3xl p-8 border border-black/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-300 max-w-sm md:max-w-none text-left"
               data-aos="fade-up"
               data-aos-delay={idx * 100}

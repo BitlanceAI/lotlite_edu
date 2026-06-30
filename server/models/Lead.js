@@ -35,7 +35,7 @@ const LeadSchema = new mongoose.Schema({
   },
   lead_tags: {
     type: [String],
-    default: ['Loteleite SIEC']
+    default: ['Lotlite SIEC']
   },
   callyzerStatus: {
     type: String,

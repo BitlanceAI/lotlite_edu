@@ -7,6 +7,7 @@ import FocusAreas from './FocusAreas';
 import CurriculumSnapshot from './CurriculumSnapshot';
 import Outcomes from './Outcomes';
 import PracticalLearning from './PracticalLearning';
+import IncubationCallout from './IncubationCallout';
 import WhoShouldApply from './WhoShouldApply';
 import Admissions from './Admissions';
 import ParentFocus from './ParentFocus';
@@ -27,9 +28,9 @@ const HomeSections: React.FC = () => {
       {/* Section 01: Hero (in parent layout) */}
       {/* Section 02: Best of Both Worlds */}
       <BestOfBothWorlds />
-      {/* Section 03: Why Loteleite SIEC */}
+      {/* Section 03: Why Lotlite SIEC */}
       <WhyLotlite />
-      {/* Section 04: Loteleite SIEC Advantage */}
+      {/* Section 04: Lotlite SIEC Advantage */}
       <LotliteAdvantage />
       {/* Section 05: Programs Offered */}
       <Programs />
@@ -43,6 +44,8 @@ const HomeSections: React.FC = () => {
       <Outcomes />
       {/* Section 10: Practical Learning */}
       <PracticalLearning />
+      {/* Incubation Callout */}
+      <IncubationCallout />
       {/* Section 11: Who Should Apply */}
       <WhoShouldApply />
       {/* Section 12: Admissions (Removed from Home Page as per request) */}

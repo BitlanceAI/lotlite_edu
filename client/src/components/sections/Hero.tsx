@@ -4,10 +4,10 @@ import { Play } from 'lucide-react';
 import { useApp } from '../../AppContext';
 
 const phrases = [
-  "Real estate focused curriculum.",
-  "Business and PropTech learning.",
-  "Industry oriented projects.",
-  "Career focused mentorship."
+  "Real Estate ecosystem pillar.",
+  "PropTech & Technology innovation.",
+  "Startup Incubation focus.",
+  "Employment oriented programs."
 ];
 
 export default function Hero() {
@@ -42,7 +42,7 @@ export default function Hero() {
   // Convert any YouTube URL format to embed format
   const toYouTubeEmbedUrl = (url: string): string | null => {
     if (!url) return null;
-    
+
     // Already an embed URL
     if (url.includes('youtube.com/embed/')) {
       return url;
@@ -52,7 +52,7 @@ export default function Hero() {
 
     try {
       const urlObj = new URL(url);
-      
+
       if (urlObj.hostname.includes('youtu.be')) {
         // https://youtu.be/VIDEO_ID
         videoId = urlObj.pathname.slice(1);
@@ -77,7 +77,7 @@ export default function Hero() {
     if (videoId) {
       return `https://www.youtube.com/embed/${videoId}`;
     }
-    
+
     // Return the original URL as-is if we can't parse it
     return url;
   };
@@ -143,10 +143,10 @@ export default function Hero() {
 
           {/* Left Column (Content & Action Buttons) */}
           <div data-aos="fade-up" className="md:col-span-6 lg:col-span-6 text-center md:text-left space-y-4">
-            <span className="text-wine text-[10px] font-bold uppercase tracking-[0.4em] block mb-2">Loteleite SIEC</span>
+            <span className="text-wine text-[10px] font-bold uppercase tracking-[0.4em] block mb-2">Lotlite SIEC</span>
             <h1 className="text-3xl md:text-4xl lg:text-5xl text-black font-serif font-semibold leading-[1.15] text-balance">
-              Real Estate and PropTech <br className="hidden md:block" />
-              <span className="text-wine">Business Education for the Next Generation</span>
+              Build a career that <br className="hidden md:block" />
+              fits the <span className="text-wine">next decade</span>
             </h1>
 
             <div className="h-8">
@@ -156,7 +156,7 @@ export default function Hero() {
             </div>
 
             <p className="text-[11px] sm:text-xs text-muted font-medium leading-relaxed max-w-lg">
-              Build a future ready career in real estate, business management, sales, marketing, investments, CRM, RERA, REIT, and property technology with Loteleite SIEC.
+              Lotlite SIEC, Startup Incubation & Employment Corporation, brings together management, computer applications, real estate, PropTech, venture building and employment focused learning for students who want practical skills and clear career direction.
             </p>
 
             <div className="flex flex-wrap justify-center md:justify-start gap-3 pt-4">
@@ -170,16 +170,7 @@ export default function Hero() {
                 }}
                 className="bg-wine hover:bg-wine-hover text-white border border-transparent px-6 py-3 rounded-lg font-bold text-[10px] uppercase tracking-widest transition-all text-center cursor-pointer shadow-sm"
               >
-                Explore Programs
-              </button>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  setDownloadBrochureOpen(true);
-                }}
-                className="border border-border text-black bg-white px-6 py-3 rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-black hover:text-white transition-all cursor-pointer text-center"
-              >
-                Download Brochure
+                Explore Programmes
               </button>
               <button
                 onClick={(e) => {
@@ -188,7 +179,7 @@ export default function Hero() {
                 }}
                 className="bg-zinc-800 hover:bg-black text-white border border-transparent px-6 py-3 rounded-lg font-bold text-[10px] uppercase tracking-widest transition-all cursor-pointer text-center shadow-xs"
               >
-                Talk to Counsellor
+                Request Callback
               </button>
             </div>
             <p className="text-[9.5px] font-medium text-muted/80 max-w-sm mx-auto md:mx-0 pt-2 leading-relaxed">

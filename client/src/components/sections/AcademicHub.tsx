@@ -80,7 +80,8 @@ export default function AcademicHub() {
   const [formEmail, setFormEmail] = useState('');
   const [formPhone, setFormPhone] = useState('');
   const [formCity, setFormCity] = useState('');
-  const [formProgram, setFormProgram] = useState('MBA in Real Estate, Business and PropTech');
+  const [formProgram, setFormProgram] = useState('MBA Pathway');
+  const [formMessage, setFormMessage] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   // Proposal form states
@@ -474,7 +475,7 @@ export default function AcademicHub() {
           phone: formPhone,
           program: formProgram,
           background: `Admissions Portal Candidate from ${formCity || 'Not Specified'}`,
-          experience: `Career Goal: ${proposalAbstract || 'No message explanation defined.'}`
+          experience: `Message: ${formMessage || 'No message explanation defined.'}`
         },
         leadData: {
           fullName: formName,
@@ -576,9 +577,9 @@ export default function AcademicHub() {
       desc: "Choose your path. Taught in accordance with RICS guidelines, directed by seasoned developers and expert startup venture owners."
     },
     about: {
-      tag: "FOUNDER LED PEDAGOGY",
-      title: "About Lotlite & Legacy",
-      desc: "Real industry leadership. We trace our legacy directly to pioneering developers, replacing classical textbook memorization with street-smart real deal-making."
+      tag: "STARTUP INCUBATION & EMPLOYMENT CORPORATION",
+      title: "A modern startup incubation and employment ecosystem",
+      desc: "Lotlite SIEC stands for Startup Incubation & Employment Corporation. It is designed for students who want practical learning, career clarity, business confidence and exposure to industries that are changing fast."
     },
     outcomes: {
       tag: "VERIFIED PLACEMENT RESULTS",
@@ -605,37 +606,37 @@ export default function AcademicHub() {
   const sectionSEO: Record<string, { title: string; description: string; canonical: string; keywords: string }> = {
     programs: {
       title: 'Academic Programs – BBA, MBA, BCA, MCA in Real Estate & PropTech',
-      description: 'Explore Loteleite SIEC undergraduate and postgraduate programs in real estate management, PropTech, business administration, and computer applications.',
+      description: 'Explore Lotlite SIEC undergraduate and postgraduate programs in real estate management, PropTech, business administration, and computer applications.',
       canonical: '/programs',
       keywords: 'BBA real estate, MBA real estate, BCA PropTech, MCA PropTech, real estate degree India',
     },
     admissions: {
-      title: 'Admissions – Apply to Loteleite SIEC',
-      description: 'Start your admission process at Loteleite SIEC. Learn about eligibility, fees, scholarships, and how to apply for our real estate and PropTech programs.',
+      title: 'Admissions | Lotlite SIEC',
+      description: 'Apply for Lotlite SIEC MBA, BBA, BCA, MCA and incubation pathways. Submit enquiry and speak with the admissions team for programme counselling.',
       canonical: '/admissions',
-      keywords: 'Loteleite SIEC admission, real estate school admission, apply BBA MBA PropTech',
+      keywords: 'Lotlite SIEC admission, apply Lotlite SIEC, programme counselling',
     },
     about: {
-      title: 'About Loteleite SIEC – Faculty, Founders & Mission',
-      description: 'Learn about Loteleite SIEC, its founders, academic board, research, and the mission to build India\'s next generation of real estate leaders.',
+      title: 'About Lotlite SIEC | Startup Incubation & Employment Corporation',
+      description: 'Learn about Lotlite SIEC, Startup Incubation & Employment Corporation, and its ecosystem for business, technology, real estate, PropTech, incubation and employment focused careers.',
       canonical: '/about',
-      keywords: 'Loteleite SIEC about, real estate school founders, PropTech faculty India',
+      keywords: 'about Lotlite SIEC, startup incubation, employment focused education',
     },
     blogs: {
       title: 'Sprint Chronicles – Real Estate & PropTech Insights',
-      description: 'Read the latest articles, research, and insights on real estate, PropTech, RERA, REIT, and property investment from Loteleite SIEC faculty and experts.',
+      description: 'Read the latest articles, research, and insights on real estate, PropTech, RERA, REIT, and property investment from Lotlite SIEC faculty and experts.',
       canonical: '/blogs',
       keywords: 'real estate blog India, PropTech articles, RERA insights, property investment tips',
     },
     incubation: {
-      title: 'Startup Incubation – PropTech Ventures at Loteleite SIEC',
-      description: 'Explore the Loteleite SIEC incubation program for PropTech startups. Get mentorship, resources, and a launchpad for real estate innovation.',
+      title: 'Incubation | Lotlite SIEC',
+      description: 'Explore the Lotlite SIEC incubation track for real estate services, digital businesses, technology enabled ideas and early PropTech ventures.',
       canonical: '/incubation',
-      keywords: 'PropTech incubator India, real estate startup, Lotlite incubation',
+      keywords: 'student incubation, PropTech incubation, startup incubation',
     },
     outcomes: {
-      title: 'Career Outcomes – Placements & Alumni at Loteleite SIEC',
-      description: 'Discover career outcomes, placement records, and alumni success stories from Loteleite SIEC graduates in real estate and PropTech sectors.',
+      title: 'Career Outcomes – Placements & Alumni at Lotlite SIEC',
+      description: 'Discover career outcomes, placement records, and alumni success stories from Lotlite SIEC graduates in real estate and PropTech sectors.',
       canonical: '/outcomes',
       keywords: 'Lotlite placements, real estate careers, PropTech jobs India',
     },
@@ -709,24 +710,24 @@ export default function AcademicHub() {
 
 
                             <span className="text-wine text-[10px] sm:text-xs font-bold uppercase tracking-[0.3em] block">
-                              India's Top BBA & Real Estate Program
+                              Undergraduate Business Pathway
                             </span>
 
                             <h3 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-semibold tracking-tight leading-[1.1] text-black">
-                              <span className="text-wine">BBA</span> in Business, Real Estate & Marketing
+                              BBA in Business, Real Estate and Marketing
                             </h3>
 
                             <div className="space-y-4 pt-2">
                               <div className="flex gap-3 items-start">
                                 <CheckCircle2 size={20} className="text-wine shrink-0 mt-0.5" />
                                 <p className="text-sm md:text-base text-neutral-600 font-medium leading-relaxed">
-                                  Enroll into India's pioneering BBA Program; Learn real estate, marketing, and business management the way top developers build, deploy, and scale properties.
+                                  An undergraduate pathway for students after 12th who want a business foundation with early exposure to marketing, sales, entrepreneurship and real estate.
                                 </p>
                               </div>
                               <div className="flex gap-3 items-start">
                                 <CheckCircle2 size={20} className="text-wine shrink-0 mt-0.5" />
                                 <p className="text-sm md:text-base text-neutral-600 font-medium leading-relaxed">
-                                  Join an alumni network of professionals at Hiranandani, Lodha, PropTiger, Square Yards, DLF, Godrej Properties, and more.
+                                  Gain deep expertise in management fundamentals, active marketing models, sales tactics, and property developer networks.
                                 </p>
                               </div>
                             </div>
@@ -775,16 +776,16 @@ export default function AcademicHub() {
                         </div>
 
                         <div className="bg-card/75 backdrop-blur-md border border-border rounded-3xl p-6 md:p-8 lg:p-10 shadow-xs space-y-6">
-                          <span className="inline-block text-wine text-[10px] font-semibold uppercase tracking-widest bg-wine-light px-3 py-1 rounded-full border border-wine-light-border">AIMS & PHILOSOPHY</span>
+                          <span className="inline-block text-wine text-[10px] font-semibold uppercase tracking-widest bg-wine-light px-3 py-1 rounded-full border border-wine-light-border">Start early with business clarity</span>
                           <h3 className="text-3xl font-serif text-black leading-tight">BBA Program Objectives</h3>
                           <p className="text-muted text-xs md:text-sm font-medium leading-relaxed">
-                            Our primary mission is to create highly-skilled, operational business professionals who understand the physical, digital, and regulatory dimensions of modern marketing and property portfolios. Students will achieve these core competencies:
+                            This programme connects business subjects with practical industry awareness so students can understand how management, marketing, sales and real estate careers actually work:
                           </p>
                           <div className="space-y-4 pt-2">
                             {[
-                              { title: "Marketing & Sales Strategy", desc: "Gain professional confidence by executing marketing campaigns, tracking user conversion rates, and administering distribution channels." },
-                              { title: "Comprehensive Financial Accounting", desc: "Build standard ledger books, master cost calculation models, analyze balance margin trends, and balance cash flows." },
-                              { title: "Applied Operations Research", desc: "Solve logistical scheduling problems, manage inventories efficiently, configure database systems, and design workflow models." }
+                              { title: "Business basics", desc: "Management, accounting, economics, statistics, law, communication and MIS." },
+                              { title: "Marketing and sales", desc: "Branding, services marketing, retail, advertising, sales distribution and analytics." },
+                              { title: "Projects and exposure", desc: "Internship, research, presentations, market study and final dissertation." }
                             ].map((obj, i) => (
                               <div key={i} className="flex gap-3 p-4 bg-card border border-border rounded-2xl">
                                 <div className="w-6 h-6 rounded-full bg-wine-light text-wine border border-wine-light-border font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
@@ -948,7 +949,7 @@ export default function AcademicHub() {
                                 <span className="inline-block bg-wine px-3 py-1 rounded-full text-[8.5px] font-black uppercase tracking-widest text-[#ffffff] border border-white/10 shadow-xs w-fit">GRADUATE EXCELLENCE CREDENTIAL</span>
                                 <h4 className="text-2xl sm:text-3xl font-serif text-black tracking-tight leading-tight">Professional Certificate in Real Estate & Marketing</h4>
                                 <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed font-semibold">
-                                  Earn an industry-renowned, physical and secure digital certificate of completion backed directly by Lotlite Capital and the School of Real Estate Studies. Perfect for LinkedIn portfolios, career accelerations, and global recruitment validations.
+                                  Earn an industry-renowned, physical and secure digital certificate of completion backed directly by Lotlite SIEC. Perfect for LinkedIn portfolios, career accelerations, and global recruitment validations.
                                 </p>
                                 <div className="flex flex-wrap gap-4 pt-2 text-[10px] font-bold text-wine">
                                   <span className="flex items-center gap-1"><Award size={12} /> RICS Standardized Alignment</span>
@@ -973,6 +974,25 @@ export default function AcademicHub() {
                                 </div>
                               </div>
                             </div>
+                          </div>
+                        </div>
+
+                        {/* Possible roles after BBA */}
+                        <div className="bg-card/75 backdrop-blur-md border border-border rounded-3xl p-6 md:p-8 lg:p-10 shadow-xs space-y-6">
+                          <span className="inline-block text-wine text-[10px] font-semibold uppercase tracking-widest bg-wine-light px-3 py-1 rounded-full border border-wine-light-border">CAREER OUTCOMES</span>
+                          <h3 className="text-3xl font-serif text-black leading-tight">Possible roles</h3>
+                          <p className="text-muted text-xs md:text-sm font-medium leading-relaxed">
+                            Every competency trained during the BBA Program is mapped to a tangible, in-demand role across businesses and organizations:
+                          </p>
+                          <div className="flex flex-wrap gap-2 pt-2">
+                            {[
+                              "Business Development Executive", "Sales Executive", "Marketing Executive", "Brand Assistant",
+                              "CRM Executive", "Real Estate Coordinator", "Retail Marketing Executive", "Family Business Associate"
+                            ].map((role, idx) => (
+                              <span key={idx} className="bg-card border border-border px-4 py-2 rounded-full text-xs font-bold text-black hover:border-wine/30 hover:text-wine transition-colors">
+                                {role}
+                              </span>
+                            ))}
                           </div>
                         </div>
 
@@ -1025,9 +1045,9 @@ export default function AcademicHub() {
                         {/* Final CTA redirect box */}
                         <div className="bg-wine-light/50 border border-wine-light-border p-8 md:p-10 rounded-3xl text-center space-y-4 shadow-sm" id="final-bba-cta">
                           <span className="inline-block text-wine text-[10px] font-semibold uppercase tracking-widest bg-wine-light px-3 py-1 rounded-full border border-wine-light-border">JOIN THE UPCOMING COHORT</span>
-                          <h3 className="text-2xl sm:text-3xl text-black font-serif tracking-tight">Ready to begin your journey in BBA?</h3>
+                          <h3 className="text-2xl sm:text-3xl text-black font-serif tracking-tight">Interested in the BBA pathway?</h3>
                           <p className="text-muted text-xs md:text-sm font-medium max-w-2xl mx-auto leading-relaxed">
-                            Admissions are currently open for our upcoming batch. Complete your online profile briefing inside our secure system in under 2 minutes.
+                            Speak to the counselling team and understand eligibility, curriculum, projects and admission next steps.
                           </p>
                           <div className="pt-2">
                             <button
@@ -1041,7 +1061,7 @@ export default function AcademicHub() {
                               className="bg-wine hover:bg-wine-hover text-white font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-xl shadow-lg shadow-wine/10 cursor-pointer inline-flex items-center gap-2 select-none transform hover:-translate-y-0.5 transition-all"
                             >
                               <GraduationCap size={16} />
-                              Apply for Course
+                              Apply Now
                             </button>
                           </div>
                         </div>
@@ -1679,7 +1699,7 @@ export default function AcademicHub() {
                                 <span className="inline-block bg-wine px-3 py-1 rounded-full text-[8.5px] font-black uppercase tracking-widest text-[#ffffff] border border-white/10 shadow-xs w-fit">EXECUTIVE CREDENTIAL Excellence</span>
                                 <h4 className="text-2xl sm:text-3xl font-serif text-black tracking-tight leading-tight">Postgraduate Certificate in Real Estate & Marketing Strategy</h4>
                                 <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed font-semibold">
-                                  Earn an executive-grade, physically-sealed and secure digital certificate of mastery backed directly by Lotlite Capital Partners and the Board of Real Estate Studies. Perfect for corporate portfolio validations, promotions, and strategic placement boards.
+                                  Earn an executive-grade, physically-sealed and secure digital certificate of mastery backed directly by Lotlite SIEC. Perfect for corporate portfolio validations, promotions, and strategic placement boards.
                                 </p>
                                 <div className="flex flex-wrap gap-4 pt-2 text-[10px] font-bold text-wine">
                                   <span className="flex items-center gap-1"><Award size={12} /> RICS Standardized Alignment</span>
@@ -2190,17 +2210,17 @@ export default function AcademicHub() {
                     {/* SECTION 1: Why Lotlite */}
                     <div className="bg-[#fcfbfc] dark:bg-zinc-900/40 border border-neutral-200/50 dark:border-zinc-800/80 rounded-3xl p-6 sm:p-8 md:p-10 space-y-6 scroll-mt-32 shadow-xs transition-all hover:border-wine/20" id="about-section-why-ssi">
                       <div>
-                        <span className="inline-block mb-3 text-wine text-[10px] font-semibold uppercase tracking-widest bg-wine-light px-3 py-1 rounded-full border border-wine-light-border">OUR ADULT LEGACY</span>
-                        <h3 className="text-3xl md:text-4xl text-black font-serif tracking-tight">Why Lotlite?</h3>
+                        <span className="inline-block mb-3 text-wine text-[10px] font-semibold uppercase tracking-widest bg-wine-light px-3 py-1 rounded-full border border-wine-light-border">Why Lotlite</span>
+                        <h3 className="text-3xl md:text-4xl text-black font-serif tracking-tight">Built for students who want more than theory</h3>
                         <p className="text-muted text-sm leading-relaxed font-semibold mt-2">
-                          Lotlite SIEC represents India's leading center dedicated completely to Real Estate Study and development. We operate strictly in accordance under global Royal Institution of Chartered Surveyors templates.
+                          Lotlite SIEC connects management education, technology skills, real estate learning, startup incubation and employment focused outcomes under one future ready vision.
                         </p>
                       </div>
                       <div className="grid md:grid-cols-3 gap-6 pt-2">
                         {[
-                          { title: "Founder Classroom", desc: "No generic theoretical coaches. Meet real CFOs, builders, and active tech operators every week." },
-                          { title: "RICS Standard Grading", desc: "Our syllabus satisfies requirements recognized across 140+ countries worldwide." },
-                          { title: "Active Capital Support", desc: "Deploy products directly while studying using our dedicated ₹5Cr startup pool." }
+                          { title: "Career clarity", desc: "Help students understand where their interests can lead and what skills they need to build." },
+                          { title: "Practical exposure", desc: "Use projects, labs, research, presentations and guided assignments to make learning applied." },
+                          { title: "Industry context", desc: "Connect subjects to real business situations across real estate, technology, marketing and venture building." }
                         ].map((adv, i) => (
                           <div key={i} className="bg-card border border-border p-5 rounded-2xl shadow-2xs">
                             <CheckCircle2 size={18} className="text-wine mb-3" />
@@ -2350,6 +2370,64 @@ export default function AcademicHub() {
                       </div>
                     </div>
 
+                    {/* Recommended Sub-Pages / Sections Quick Navigation */}
+                    <div className="bg-[#fcfbfc] dark:bg-zinc-900/40 border border-neutral-200/50 dark:border-zinc-800/80 rounded-3xl p-6 sm:p-8 md:p-10 space-y-6 scroll-mt-32 shadow-xs transition-all hover:border-wine/20">
+                      <div>
+                        <span className="inline-block mb-3 text-wine text-[10px] font-semibold uppercase tracking-widest bg-wine-light px-3 py-1 rounded-full border border-wine-light-border">RECOMMENDED SECTIONS</span>
+                        <h3 className="text-2xl font-serif text-black leading-tight">Explore more about our ecosystem</h3>
+                      </div>
+
+                      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                        {[
+                          { label: "Why Lotlite", targetId: "about-section-why-ssi" },
+                          { label: "Our Founders", targetId: "about-section-founders" },
+                          { label: "Academic Board & Faculty", targetId: "about-section-all" },
+                          { label: "Intellectual Papers", targetId: "about-section-research" }
+                        ].map((sub, i) => (
+                          <button
+                            key={i}
+                            onClick={() => {
+                              const el = document.getElementById(sub.targetId);
+                              if (el) el.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                            className="bg-card border border-border p-4 rounded-xl text-center text-xs font-bold text-black hover:border-wine hover:text-wine transition-all cursor-pointer shadow-2xs"
+                          >
+                            {sub.label} ↗
+                          </button>
+                        ))}
+                        {/* Blogs link */}
+                        <button
+                          onClick={() => navigate('/blogs')}
+                          className="bg-card border border-border p-4 rounded-xl text-center text-xs font-bold text-black hover:border-wine hover:text-wine transition-all cursor-pointer shadow-2xs"
+                        >
+                          Blogs ↗
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* About Section Final CTA */}
+                    <div className="bg-gradient-to-br from-white via-white/85 to-[#C21A22]/20 border border-neutral-200 rounded-3xl py-10 px-8 relative overflow-hidden shadow-md text-left mt-6">
+                      <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+                        <div className="space-y-2 max-w-2xl">
+                          <h3 className="text-2xl md:text-3xl text-black font-serif tracking-tight leading-tight">
+                            Want to know more about <span className="text-wine font-bold">Lotlite SIEC?</span>
+                          </h3>
+                          <p className="text-xs md:text-sm text-muted leading-relaxed font-semibold">
+                            Connect with the team and get programme details, admission process and counselling support.
+                          </p>
+                        </div>
+
+                        <div className="shrink-0 w-full md:w-auto">
+                          <button
+                            onClick={() => setAdvisorPopupOpen(true)}
+                            className="w-full md:w-auto bg-wine hover:bg-wine-hover text-white border border-transparent px-6 py-3.5 rounded-xl font-bold text-[10px] uppercase tracking-widest transition-all cursor-pointer shadow-md shadow-wine/10"
+                          >
+                            Contact Team
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 )}
 
@@ -2444,11 +2522,11 @@ export default function AcademicHub() {
                           </span>
 
                           <h3 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-semibold tracking-tight leading-[1.1] text-black">
-                            Build your real estate venture with guided incubation
+                            Turn ideas into practical venture plans
                           </h3>
 
                           <p className="text-sm md:text-base text-neutral-600 font-medium leading-relaxed max-w-xl">
-                            Put property marketing or PropTech ideas into practice in tangible plans.
+                            A mentor guided incubation track for students and aspiring founders who want to build real estate services, digital businesses, technology enabled solutions or early PropTech concepts.
                           </p>
 
                           <div className="flex flex-wrap gap-4 pt-4">
@@ -2501,49 +2579,44 @@ export default function AcademicHub() {
                         </div>
                       </div>
 
-                      {/* Ideal For / Outcome / Format Row */}
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div className="bg-[#fcfbfc] border border-neutral-200/55 p-6 rounded-2xl shadow-xs transition-all hover:border-wine/20">
-                          <h5 className="font-extrabold text-black text-xs uppercase tracking-wider mb-2">Ideal For</h5>
-                          <p className="text-xs text-neutral-600 leading-relaxed font-semibold">
-                            Marketing, Startup, Venture, Family Business, real estate business, property, construction, any other real estate field.
-                          </p>
-                        </div>
-
-                        <div className="bg-[#fcfbfc] border border-neutral-200/55 p-6 rounded-2xl shadow-xs transition-all hover:border-wine/20">
-                          <h5 className="font-extrabold text-black text-xs uppercase tracking-wider mb-2">Outcome</h5>
-                          <p className="text-xs text-neutral-600 leading-relaxed font-semibold">
-                            A concrete business plan, market analysis pitch, brand strategy, financial projections, launch roadmap.
-                          </p>
-                        </div>
-
-                        <div className="bg-[#fcfbfc] border border-neutral-200/55 p-6 rounded-2xl shadow-xs transition-all hover:border-wine/20">
-                          <h5 className="font-extrabold text-black text-xs uppercase tracking-wider mb-2">Format</h5>
-                          <p className="text-xs text-neutral-600 leading-relaxed font-semibold">
-                            Guided mentorship, cohort participation, regular pitches, interactive assignments, business building sessions.
-                          </p>
+                      {/* From idea to execution plan */}
+                      <div className="bg-card/75 backdrop-blur-md border border-border rounded-3xl p-6 md:p-8 lg:p-10 shadow-xs space-y-6">
+                        <span className="inline-block text-wine text-[10px] font-semibold uppercase tracking-widest bg-wine-light px-3 py-1 rounded-full border border-wine-light-border">From idea to execution plan</span>
+                        <h3 className="text-3xl font-serif text-black leading-tight">Serious & Selective Track</h3>
+                        <p className="text-muted text-xs md:text-sm font-medium leading-relaxed">
+                          Incubation should feel serious and selective. It should attract learners who want to build, test, present and improve a venture idea:
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                          {[
+                            { title: "Idea discovery", desc: "Find problems worth solving in real estate, education, services, software or digital business." },
+                            { title: "Business model", desc: "Define customers, pricing, offer, distribution, operations and basic finance." },
+                            { title: "Launch readiness", desc: "Create pitch, landing page, sales script, outreach plan, demo and execution roadmap." }
+                          ].map((item, idx) => (
+                            <div key={idx} className="bg-card border border-border p-6 rounded-2xl shadow-xs transition-all hover:border-wine/20">
+                              <h5 className="font-extrabold text-black text-xs uppercase tracking-wider mb-2">{item.title}</h5>
+                              <p className="text-[11px] text-neutral-600 leading-relaxed font-semibold">{item.desc}</p>
+                            </div>
+                          ))}
                         </div>
                       </div>
 
                       {/* 5-Step Roadmap Section */}
-                      <div className="bg-[#fcfbfc] border border-neutral-200/55 rounded-3xl p-6 md:p-8 lg:p-10 shadow-xs space-y-6">
-                        <span className="inline-block text-wine text-[10px] font-semibold uppercase tracking-widest bg-wine-light px-3 py-1 rounded-full border border-wine-light-border">FIVE STEP ROADMAP</span>
-                        <h3 className="text-3xl font-serif text-black leading-tight">From idea clarity to business launch readiness.</h3>
+                      <div className="bg-card/75 backdrop-blur-md border border-border rounded-3xl p-6 md:p-8 lg:p-10 shadow-xs space-y-6">
+                        <span className="inline-block text-wine text-[10px] font-semibold uppercase tracking-widest bg-wine-light px-3 py-1 rounded-full border border-wine-light-border">Think. Test. Build.</span>
+                        <h3 className="text-3xl font-serif text-black leading-tight">Venture Validation Framework</h3>
 
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pt-2">
                           <div className="lg:col-span-5 space-y-4">
                             <p className="text-muted text-xs md:text-sm font-semibold leading-relaxed">
-                              Detailed, milestone-driven pathway structured to validate your startup assumptions, build high-converting assets, configure standard sales automations, and present pitch briefs before deep capital boards.
+                              Mentors guide you through three clear stages to move from a basic business assumption to a validated launch checklist.
                             </p>
                           </div>
 
                           <div className="lg:col-span-7 space-y-4">
                             {[
-                              { step: "Step 01", title: "Idea and market clarity", desc: "Define the unique value proposition, target audience, local opportunity, validate demand and analyze market fit." },
-                              { step: "Step 02", title: "Business model design", desc: "Structure revenue streams, costing estimates, channel partners, and a robust pricing model." },
-                              { step: "Step 03", title: "Brand and digital setup", desc: "Build marketing assets, brand identity, landing page, pitch deck outline and target audience profiles." },
-                              { step: "Step 04", title: "Sales and CRM system", desc: "Create lead generation setups, follow-up workflows, customer journey, CRM tools and interactive landing page." },
-                              { step: "Step 05", title: "Launch readiness review", desc: "Review the launch plan, draft business model, test marketing setup, present solutions and validation plan with mentors." }
+                              { step: "Phase 1", title: "Problem validation", desc: "Students identify customer pain, market size and current alternatives." },
+                              { step: "Phase 2", title: "Offer creation", desc: "Students design service packages, product concepts, pricing and go to market plan." },
+                              { step: "Phase 3", title: "Pitch and launch", desc: "Students prepare pitch deck, demo, landing page, outreach message and launch checklist." }
                             ].map((item, idx) => (
                               <div key={idx} className="flex gap-4 p-4 bg-card border border-border rounded-2xl hover:border-wine/20 transition-all">
                                 <div className="w-16 h-8 rounded-lg bg-wine-light text-wine border border-wine-light-border font-bold text-[10px] uppercase tracking-wider flex items-center justify-center shrink-0">
@@ -2617,38 +2690,34 @@ export default function AcademicHub() {
                       </div>
 
                       {/* Deliverables Section */}
-                      <div className="space-y-6">
-                        <div className="text-center md:text-left space-y-2">
-                          <span className="inline-block text-wine text-[10px] font-semibold uppercase tracking-widest bg-wine-light px-3 py-1 rounded-full border border-wine-light-border">DELIVERABLES</span>
-                          <h3 className="text-3xl font-serif text-black leading-tight">What participants should leave with.</h3>
-                          <p className="text-muted text-xs md:text-sm font-semibold leading-relaxed">
-                            Practical value, milestone metrics, and launch-ready deliverables.
-                          </p>
-                        </div>
+                      <div className="bg-card/75 backdrop-blur-md border border-border rounded-3xl p-6 md:p-8 lg:p-10 shadow-xs space-y-6">
+                        <span className="inline-block text-wine text-[10px] font-semibold uppercase tracking-widest bg-wine-light px-3 py-1 rounded-full border border-wine-light-border">DELIVERABLES</span>
+                        <h3 className="text-3xl font-serif text-black leading-tight">Incubation deliverables</h3>
+                        <p className="text-muted text-xs md:text-sm font-semibold leading-relaxed">
+                          By the end of the incubation track, participants leave with a concrete set of launch assets:
+                        </p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="flex flex-wrap gap-2 pt-2">
                           {[
-                            { title: "Business concept note", desc: "A comprehensive overview of the business idea, target market, value proposition, and competitive advantage." },
-                            { title: "Launch plan", desc: "A step-by-step roadmap to launch the business, including timelines, milestones, budget estimates and resource allocation." },
-                            { title: "Pitch deck outline", desc: "A structured outline of the pitch deck to present the business idea to investors, partners, advisors and potential clients." }
+                            "Pitch deck", "Landing page concept", "Customer discovery summary", "Sales script",
+                            "Offer and pricing plan", "Launch roadmap", "Mentor review presentation"
                           ].map((item, idx) => (
-                            <div key={idx} className="bg-[#fcfbfc] border border-neutral-200/50 p-6 rounded-2xl shadow-xs transition-all hover:border-wine/20">
-                              <h5 className="font-extrabold text-black text-xs uppercase tracking-wider mb-2">{item.title}</h5>
-                              <p className="text-[11px] text-neutral-600 leading-relaxed font-semibold">{item.desc}</p>
-                            </div>
+                            <span key={idx} className="bg-card border border-border px-4 py-2 rounded-full text-xs font-bold text-black hover:border-wine/30 hover:text-wine transition-colors">
+                              {item}
+                            </span>
                           ))}
                         </div>
                       </div>
 
-                      {/* Have a real estate idea CTA */}
+                      {/* Have an idea worth building CTA */}
                       <div className="bg-gradient-to-br from-white via-white/85 to-[#C21A22]/20 border border-neutral-200 rounded-3xl py-10 px-8 relative overflow-hidden shadow-md text-left mt-6">
                         <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
                           <div className="space-y-2 max-w-2xl">
                             <h3 className="text-2xl md:text-3xl text-black font-serif tracking-tight leading-tight">
-                              Have a real estate <span className="text-wine font-bold">idea?</span>
+                              Have an idea worth <span className="text-wine font-bold">building?</span>
                             </h3>
                             <p className="text-xs md:text-sm text-muted leading-relaxed font-semibold">
-                              Apply for our incubation program and learn how to build your startup.
+                              Apply for the incubation track and speak with the Lotlite team.
                             </p>
                           </div>
 
@@ -2881,10 +2950,10 @@ export default function AcademicHub() {
                         ADMISSIONS
                       </span>
                       <h2 className="text-3xl md:text-4xl lg:text-5xl text-black font-serif font-semibold leading-none tracking-tight animate-fade-in">
-                        Start your admission journey.
+                        Start your admission journey
                       </h2>
                       <p className="text-muted dark:text-neutral-400 text-sm md:text-base mt-2 max-w-3xl font-medium leading-relaxed animate-fade-in">
-                        Apply for the elite, industry-oriented professional courses provided by Loteleite SIEC to unlock practical business expertise, master modern property marketing strategies, and launch your career in the thriving real estate businesses and high-growth PropTech enterprises.
+                        This page converts interested students and parents into enquiries. The form should remain visible, short and easy to complete.
                       </p>
                     </div>
 
@@ -2893,14 +2962,14 @@ export default function AcademicHub() {
                     {/* Bottom Split Column Container */}
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start" id="admissions-content-split">
 
-                      {/* Left Column: Process Stepper */}
+                      {/* Left Column: Process Stepper & Eligibility */}
                       <div className="lg:col-span-5 space-y-8 animate-fade-in" id="admissions-process-column">
                         <div className="space-y-2">
                           <span className="inline-block text-wine text-[10px] font-semibold uppercase tracking-widest bg-wine-light px-3 py-1 rounded-full border border-wine-light-border">
                             PROCESS
                           </span>
                           <h4 className="text-2xl md:text-3xl text-black font-serif tracking-tight">
-                            Simple admission flow.
+                            Simple admission flow
                           </h4>
                         </div>
 
@@ -2910,7 +2979,7 @@ export default function AcademicHub() {
                             {
                               num: "1",
                               title: "Submit enquiry",
-                              desc: "Student shares basic details and Program interest."
+                              desc: "Student shares basic details and programme interest."
                             },
                             {
                               num: "2",
@@ -2939,6 +3008,7 @@ export default function AcademicHub() {
                             </div>
                           ))}
                         </div>
+
                       </div>
 
                       {/* Right Column: Dynamic Form Widget */}
@@ -3014,13 +3084,25 @@ export default function AcademicHub() {
                                     className="w-full bg-input border border-border rounded-xl px-3.5 py-2.5 text-xs text-black focus:outline-none focus:border-wine transition-colors font-medium cursor-pointer pr-10"
                                     id="admission-input-program"
                                   >
-                                    <option value="MBA in Real Estate, Business and PropTech">MBA in Real Estate, Business and PropTech</option>
-                                    <option value="BBA in Business, Real Estate and Marketing">BBA in Business, Real Estate and Marketing</option>
-                                    <option value="BCA in Computer Applications, Data Science and Software Development">BCA in Computer Applications, Data Science and Software Development</option>
-                                    <option value="MCA in AI, Software Engineering and Applied Computing">MCA in AI, Software Engineering and Applied Computing</option>
-                                    <option value="Incubation Program">Incubation Program</option>
+                                    <option value="MBA Pathway">MBA Pathway</option>
+                                    <option value="BBA Pathway">BBA Pathway</option>
+                                    <option value="BCA Pathway">BCA Pathway</option>
+                                    <option value="MCA Pathway">MCA Pathway</option>
+                                    <option value="Incubation">Incubation</option>
+                                    <option value="Need counselling">Need counselling</option>
                                   </select>
                                 </div>
+                              </div>
+
+                              <div>
+                                <label className="block text-[9.5px] font-bold text-muted uppercase tracking-widest mb-1.5">Message</label>
+                                <textarea
+                                  value={formMessage}
+                                  onChange={(e) => setFormMessage(e.target.value)}
+                                  className="w-full bg-input border border-border rounded-xl px-3.5 py-2.5 text-xs text-black focus:outline-none focus:border-wine transition-colors font-medium min-h-[80px] resize-none"
+                                  placeholder="Enter your query or message..."
+                                  id="admission-input-message"
+                                />
                               </div>
 
                               <button
@@ -3047,7 +3129,8 @@ export default function AcademicHub() {
                                     setFormEmail('');
                                     setFormPhone('');
                                     setFormCity('');
-                                    setProposalAbstract('');
+                                    setFormProgram('MBA Pathway');
+                                    setFormMessage('');
                                   }}
                                   className="bg-wine hover:bg-wine-hover text-white px-6 py-2.5 rounded-lg text-[10px] uppercase font-bold tracking-widest transition-colors cursor-pointer"
                                 >
@@ -3060,6 +3143,115 @@ export default function AcademicHub() {
                       </div>
 
                     </div>
+
+                    {/* Eligibility & Guidelines */}
+                    <div className="space-y-6 pt-12 border-t border-border/10 animate-fade-in mt-12 w-full text-left" id="admissions-eligibility-section">
+                      <div className="space-y-2">
+                        <span className="inline-block text-wine text-[10px] font-semibold uppercase tracking-widest bg-wine-light px-3 py-1 rounded-full border border-wine-light-border">
+                          ELIGIBILITY
+                        </span>
+                        <h4 className="text-2xl md:text-3xl text-black font-serif tracking-tight">
+                          Academic Eligibility Criteria
+                        </h4>
+                        <p className="text-xs text-muted leading-relaxed font-semibold max-w-2xl">
+                          Short, direct copy blocks for easy web deployment with guaranteed placement and mandatory work structure.
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                          {
+                            title: "BBA Eligibility Criteria",
+                            details: [
+                              { label: "Academic", val: "Passed Standard XII (10+2) or equivalent from a recognized Board with minimum 50% marks (45% for SC/ST)." },
+                              { label: "Fitment", val: "Ideal for fresh minds looking for direct industry entry. Requires good communication skills and a strong drive for real estate consulting." },
+                              { label: "Program Lock-In", val: "3 Years (Aligned with course and mandatory work duration)." }
+                            ]
+                          },
+                          {
+                            title: "BCA Eligibility Criteria",
+                            details: [
+                              { label: "Academic", val: "Passed Standard XII (10+2) or government-approved Engineering Diploma with minimum 50% marks (45% for SC/ST)." },
+                              { label: "Fitment", val: "Tailored for analytical thinkers to manage digital real estate assets, CRM systems, and tech workflows." },
+                              { label: "Program Lock-In", val: "3 Years (Aligned with course and mandatory work duration)." }
+                            ]
+                          },
+                          {
+                            title: "MBA Eligibility Criteria",
+                            details: [
+                              { label: "Academic", val: "Graduation from a recognized University with minimum 50% marks (45% for SC/ST)." },
+                              { label: "Fitment", val: "Designed for future leaders to handle corporate strategy, portfolio sales, and marketing management." },
+                              { label: "Program Lock-In", val: "2 Years (Aligned with course and mandatory work duration)." }
+                            ]
+                          },
+                          {
+                            title: "MCA Eligibility Criteria",
+                            details: [
+                              { label: "Academic", val: "Graduation from a recognized University with minimum 50% marks (45% for SC/ST), with Mathematics/Statistics background preferred." },
+                              { label: "Fitment", val: "For technical minds to build automation infrastructure, APIs, and manage data systems." },
+                              { label: "Program Lock-In", val: "2 Years (Aligned with course and mandatory work duration)." }
+                            ]
+                          }
+                        ].map((elig, idx) => (
+                          <div key={idx} className="bg-[#fcfbfc] border border-neutral-200/55 rounded-2xl p-6 shadow-xs hover:border-wine/15 transition-all space-y-3 flex flex-col justify-between">
+                            <div>
+                              <h6 className="font-extrabold text-black text-xs uppercase tracking-wider mb-3">{elig.title}</h6>
+                              <div className="space-y-3">
+                                {elig.details.map((detail, dIdx) => (
+                                  <div key={dIdx} className="text-[11px] leading-relaxed flex flex-col gap-0.5 text-left">
+                                    <span className="font-bold text-black uppercase tracking-wide text-[9.5px]">{detail.label}</span>
+                                    <span className="text-neutral-500 font-medium">{detail.val}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Incubation Rules Section */}
+                    <div className="bg-[#fcfbfc] border border-neutral-200/55 rounded-3xl p-6 sm:p-8 md:p-10 space-y-6 text-left w-full mt-8 shadow-xs hover:border-wine/15 transition-all animate-fade-in" id="admissions-incubation-rules-section">
+                      <div>
+                        <span className="inline-block mb-3 text-wine text-[10px] font-semibold uppercase tracking-widest bg-wine-light px-3 py-1 rounded-full border border-wine-light-border">Rules & Core Trainee Structure</span>
+                        <h4 className="text-2xl md:text-3xl text-black font-serif tracking-tight">Incubation Program Rules & Core Trainee Structure</h4>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {[
+                          { label: "Guaranteed Day-1 Placement", val: "Admission into the program constitutes automatic full-time placement within our corporate workforce. Every student who joins will begin working with us on Day 1—gaining immediate professional responsibilities." },
+                          { label: "Mandatory Professional Commitment", val: "This is a work-driven program. Your workspace serves as your practical classroom. All enrolled participants are required to fulfill their designated daily operational roles within our real estate consulting teams." },
+                          { label: "Concurrent Online Degree", val: "Alongside your mandatory daily work, you will complete your UGC approved online degree tracks delivered through our academic partner, Symbiosis School for Online and Digital Learning (SSODL). DEB ID registration is mandatory." },
+                          { label: "Course-Specific Lock-in", val: "Due to the comprehensive corporate training and executive mentorship provided, all participants commit to a mandatory service commitment corresponding directly to their course duration (3 Years for Undergraduate tracks / 2 Years for Postgraduate tracks)." }
+                        ].map((rule, idx) => (
+                          <div key={idx} className="bg-card border border-border rounded-xl p-5 shadow-2xs space-y-1">
+                            <span className="font-bold text-black uppercase tracking-wide text-[9.5px] block">{rule.label}</span>
+                            <p className="text-[11px] text-neutral-500 leading-relaxed font-semibold">{rule.val}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Counseling Section */}
+                    <div className="bg-gradient-to-br from-white via-white/85 to-[#C21A22]/20 border border-neutral-200 rounded-3xl py-8 px-8 relative overflow-hidden shadow-md text-left mt-8 w-full animate-fade-in" id="admissions-counseling-section">
+                      <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+                        <div className="space-y-2 max-w-2xl">
+                          <h4 className="text-2xl md:text-3xl text-black font-serif tracking-tight leading-tight">Need Counseling?</h4>
+                          <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-semibold">
+                            Unsure which track fits your career goals? Request a one-on-one call with our program advisors to map your perfect professional and academic path.
+                          </p>
+                        </div>
+                        <div className="shrink-0 w-full md:w-auto">
+                          <button
+                            onClick={() => setAdvisorPopupOpen(true)}
+                            className="w-full md:w-auto bg-wine hover:bg-wine-hover text-white border border-transparent px-6 py-3 rounded-xl font-bold text-[10px] uppercase tracking-widest transition-all cursor-pointer shadow-md shadow-wine/10"
+                          >
+                            Request Call
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 )}
 

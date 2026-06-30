@@ -317,7 +317,7 @@ export default function Chatbot() {
             fullName: name,
             phone,
             source: 'Chatbot',
-            lead_tags: ['Loteleite SIEC', 'Chatbot']
+            lead_tags: ['Lotlite SIEC', 'Chatbot']
           }
         })
       });
@@ -416,13 +416,12 @@ export default function Chatbot() {
     <>
       {/* Floating trigger */}
       <div
-        className={`fixed ${
-          isOpen
+        className={`fixed ${isOpen
             ? 'bottom-4 sm:bottom-5 md:bottom-8'
             : isStickyBarVisible
-            ? 'bottom-20 md:bottom-8'
-            : 'bottom-4 sm:bottom-5 md:bottom-8'
-        } right-4 sm:right-5 md:right-8 z-[90] flex items-center gap-3 flex-row-reverse transition-all duration-300`}
+              ? 'bottom-20 md:bottom-8'
+              : 'bottom-4 sm:bottom-5 md:bottom-8'
+          } right-4 sm:right-5 md:right-8 z-[90] flex items-center gap-3 flex-row-reverse transition-all duration-300`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -477,11 +476,10 @@ export default function Chatbot() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.85, y: 50 }}
             transition={{ type: 'spring', damping: 25, stiffness: 350 }}
-            className={`fixed ${
-              isStickyBarVisible
+            className={`fixed ${isStickyBarVisible
                 ? 'bottom-20 sm:bottom-20 md:bottom-24'
                 : 'bottom-4 sm:bottom-5 md:bottom-24'
-            } right-4 left-4 sm:left-auto sm:right-5 md:right-8 w-[calc(100vw-2rem)] sm:w-[380px] h-[calc(100vh-110px)] max-h-[500px] sm:h-[520px] bg-card border border-border rounded-3xl shadow-3xl overflow-hidden flex flex-col z-[90] transition-all duration-300`}
+              } right-4 left-4 sm:left-auto sm:right-5 md:right-8 w-[calc(100vw-2rem)] sm:w-[380px] h-[calc(100vh-110px)] max-h-[500px] sm:h-[520px] bg-card border border-border rounded-3xl shadow-3xl overflow-hidden flex flex-col z-[90] transition-all duration-300`}
           >
             {/* Header */}
             <div className="bg-wine p-4 flex items-center justify-between border-b border-wine/20">
@@ -520,12 +518,12 @@ export default function Chatbot() {
                 <div key={msg.id}>
                   <div className={`flex gap-2.5 max-w-[85%] ${msg.sender === 'user' ? 'ml-auto flex-row-reverse' : ''}`}>
                     <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${msg.sender === 'bot'
-                        ? msg.status === 'success'
-                          ? 'bg-green-100 text-green-600'
-                          : msg.status === 'error'
-                            ? 'bg-red-100 text-red-500'
-                            : 'bg-wine/10 text-wine dark:bg-wine/30 dark:text-rose-400'
-                        : 'bg-card border border-border text-muted shadow-xs'
+                      ? msg.status === 'success'
+                        ? 'bg-green-100 text-green-600'
+                        : msg.status === 'error'
+                          ? 'bg-red-100 text-red-500'
+                          : 'bg-wine/10 text-wine dark:bg-wine/30 dark:text-rose-400'
+                      : 'bg-card border border-border text-muted shadow-xs'
                       }`}>
                       {msg.sender === 'bot'
                         ? msg.status === 'success'
@@ -541,12 +539,12 @@ export default function Chatbot() {
                         <ContactFormCard onSubmit={submitToCallyzer} />
                       ) : (
                         <div className={`p-3.5 rounded-2xl text-xs leading-relaxed ${msg.sender === 'user'
-                            ? 'bg-wine text-zinc-50 rounded-tr-none shadow-sm font-semibold'
-                            : msg.status === 'success'
-                              ? 'bg-green-50 border border-green-200 text-green-800 rounded-tl-none shadow-xs font-semibold whitespace-pre-wrap'
-                              : msg.status === 'error'
-                                ? 'bg-red-50 border border-red-200 text-red-700 rounded-tl-none shadow-xs font-semibold whitespace-pre-wrap'
-                                : 'bg-card border border-border text-black rounded-tl-none shadow-xs font-semibold whitespace-pre-wrap'
+                          ? 'bg-wine text-zinc-50 rounded-tr-none shadow-sm font-semibold'
+                          : msg.status === 'success'
+                            ? 'bg-green-50 border border-green-200 text-green-800 rounded-tl-none shadow-xs font-semibold whitespace-pre-wrap'
+                            : msg.status === 'error'
+                              ? 'bg-red-50 border border-red-200 text-red-700 rounded-tl-none shadow-xs font-semibold whitespace-pre-wrap'
+                              : 'bg-card border border-border text-black rounded-tl-none shadow-xs font-semibold whitespace-pre-wrap'
                           }`}>
                           {msg.text}
                         </div>

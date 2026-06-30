@@ -1,4 +1,4 @@
-// Shared TypeScript interfaces and types for LotLite Business School Platform
+// Shared TypeScript interfaces and types for Lotlite SIEC Platform
 
 export interface UserProfile {
   id: string;

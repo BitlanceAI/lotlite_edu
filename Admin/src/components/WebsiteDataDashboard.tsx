@@ -25,7 +25,7 @@ export default function WebsiteDataDashboard() {
   const [papers, setPapers] = useState<any[]>([]);
 
   const [seoData, setSeoData] = useState({ title: '', description: '', keywords: '' });
-  
+
   const [heroVideoData, setHeroVideoData] = useState({
     videoSource: 'youtube', // 'youtube' or 'bunny'
     youtubeLink: '',
@@ -1183,7 +1183,7 @@ export default function WebsiteDataDashboard() {
                 type="text"
                 value={seoData.title}
                 onChange={(e) => setSeoData({ ...seoData, title: e.target.value })}
-                placeholder="e.g. Loteleite SIEC | Real Estate and PropTech Business School"
+                placeholder="e.g. Lotlite SIEC | Real Estate and PropTech Business School"
                 className="w-full px-4 py-2.5 border border-border rounded-xl text-xs font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-wine/10 focus:border-wine"
               />
             </div>
@@ -1193,7 +1193,7 @@ export default function WebsiteDataDashboard() {
               <textarea
                 value={seoData.description}
                 onChange={(e) => setSeoData({ ...seoData, description: e.target.value })}
-                placeholder="e.g. Explore Loteleite SIEC programmes in real estate..."
+                placeholder="e.g. Explore Lotlite SIEC programmes in real estate..."
                 className="w-full px-4 py-2.5 border border-border rounded-xl text-xs font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-wine/10 focus:border-wine min-h-[100px] resize-y"
               />
             </div>
@@ -1445,35 +1445,35 @@ export default function WebsiteDataDashboard() {
                     placeholder="https://..."
                     className="w-full px-4 py-2.5 border border-border rounded-xl text-xs font-semibold bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-wine/10 focus:border-wine"
                   />
-                  
+
                   <div className="flex gap-2">
-                      <div className="relative inline-block flex-1 sm:flex-none">
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => handleHeroUpload(e, 'thumbnailUrl')}
-                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                          disabled={uploadingHeroVideo}
-                        />
-                        <button
-                          disabled={uploadingHeroVideo}
-                          className="w-full flex justify-center items-center gap-1.5 px-4 py-2.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all cursor-pointer"
-                        >
-                          {uploadingHeroVideo ? <Loader2 size={12} className="animate-spin" /> : <UploadCloud size={12} />}
-                          {uploadingHeroVideo ? 'Uploading...' : 'Upload Thumbnail'}
-                        </button>
-                      </div>
-                      {heroVideoData.thumbnailUrl && (
-                        <button
-                          onClick={() => handleHeroDelete('thumbnailUrl')}
-                          disabled={deletingHeroFile === 'thumbnailUrl'}
-                          className="flex items-center gap-1.5 px-4 py-2.5 bg-red-50 hover:bg-red-100 text-red-600 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all cursor-pointer border border-red-200 disabled:opacity-50"
-                        >
-                          {deletingHeroFile === 'thumbnailUrl' ? <Loader2 size={12} className="animate-spin" /> : <Trash2 size={12} />}
-                          {deletingHeroFile === 'thumbnailUrl' ? 'Deleting...' : 'Delete'}
-                        </button>
-                      )}
+                    <div className="relative inline-block flex-1 sm:flex-none">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleHeroUpload(e, 'thumbnailUrl')}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        disabled={uploadingHeroVideo}
+                      />
+                      <button
+                        disabled={uploadingHeroVideo}
+                        className="w-full flex justify-center items-center gap-1.5 px-4 py-2.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all cursor-pointer"
+                      >
+                        {uploadingHeroVideo ? <Loader2 size={12} className="animate-spin" /> : <UploadCloud size={12} />}
+                        {uploadingHeroVideo ? 'Uploading...' : 'Upload Thumbnail'}
+                      </button>
                     </div>
+                    {heroVideoData.thumbnailUrl && (
+                      <button
+                        onClick={() => handleHeroDelete('thumbnailUrl')}
+                        disabled={deletingHeroFile === 'thumbnailUrl'}
+                        className="flex items-center gap-1.5 px-4 py-2.5 bg-red-50 hover:bg-red-100 text-red-600 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all cursor-pointer border border-red-200 disabled:opacity-50"
+                      >
+                        {deletingHeroFile === 'thumbnailUrl' ? <Loader2 size={12} className="animate-spin" /> : <Trash2 size={12} />}
+                        {deletingHeroFile === 'thumbnailUrl' ? 'Deleting...' : 'Delete'}
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

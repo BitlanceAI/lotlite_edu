@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 
-const SITE_NAME = 'Loteleite SIEC';
+const SITE_NAME = 'Lotlite SIEC';
 const BASE_URL = 'https://www.lotlitesiec.com';
 const DEFAULT_IMAGE = `${BASE_URL}/favicon-512x512.png`;
 const TWITTER_HANDLE = '@LotliteProgram';
@@ -24,8 +24,8 @@ export default function PageSEO({
   ogType = 'website',
   noIndex = false,
 }: PageSEOProps) {
-  const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} | Real Estate and PropTech Business School`;
-  const fullDescription = description || 'Explore Loteleite SIEC Programs in real estate, business, marketing, sales, CRM, RERA, REIT, investment, and PropTech. Apply now for career focused learning.';
+  const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} | Startup Incubation & Employment Corporation`;
+  const fullDescription = description || 'Explore Lotlite SIEC (Startup Incubation & Employment Corporation) programs. Empowering careers across Real Estate, PropTech, Technology, Incubation, and Employment.';
   const fullCanonical = canonical ? `${BASE_URL}${canonical}` : BASE_URL;
 
   return (

@@ -138,7 +138,7 @@ export default function Admissions() {
             </div>
 
             <p className="text-[11px] sm:text-xs text-muted font-medium leading-relaxed max-w-lg">
-              Start your journey toward a career in real estate, business, marketing, sales, and PropTech. Build a future ready career in sales, investments, CRM, RERA, REIT, and property technology with Loteleite SIEC.
+              Start your journey toward a career in real estate, business, marketing, sales, and PropTech. Build a future ready career in sales, investments, CRM, RERA, REIT, and property technology with Lotlite SIEC.
             </p>
 
             <div className="flex flex-wrap gap-2 pt-1 pb-4">

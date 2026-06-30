@@ -49,7 +49,7 @@ export default function InternshipPopup({ isOpen, onClose }: InternshipPopupProp
     if (!name.trim()) {
       newErrors.name = 'Please enter your full name';
     }
-    
+
     if (!email.trim()) {
       newErrors.email = 'Please enter your email address';
     } else if (!/\S+@\S+\.\S+/.test(email)) {
@@ -100,9 +100,9 @@ export default function InternshipPopup({ isOpen, onClose }: InternshipPopupProp
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone: phone.trim() })
       });
-      
+
       const data = await response.json();
-      
+
       if (!response.ok || !data.success) {
         setOtpError(data.error || 'Failed to send OTP. Please try again.');
         setIsSubmitting(false);
@@ -119,7 +119,7 @@ export default function InternshipPopup({ isOpen, onClose }: InternshipPopupProp
           programCategory: 'Career & Internship Co-Op (₹30k Stipend)',
           programSpecialization: education.trim(),
           source: 'Web Pop-Up Career Portal Inquiry',
-          lead_tags: ['Loteleite SIEC', 'Internship']
+          lead_tags: ['Lotlite SIEC', 'Internship']
         }
       });
     } catch (err) {
@@ -164,14 +164,14 @@ export default function InternshipPopup({ isOpen, onClose }: InternshipPopupProp
             className="bg-card border border-border dark:border-white/10 shadow-2xl dark:shadow-[0_25px_60px_rgba(0,0,0,0.8)] w-[92%] sm:w-[85%] md:w-full max-w-[390px] sm:max-w-[480px] md:max-w-[850px] relative rounded-3xl z-10 flex flex-col md:flex-row max-h-[90vh] sm:max-h-[85vh] md:max-h-[640px] overflow-hidden my-auto"
           >
             {/* Dynamic decorative visual left/top banner */}
-            <div 
-              className="relative h-24 sm:h-28 md:h-auto md:w-[38%] bg-cover bg-center overflow-hidden flex flex-col justify-end p-4 sm:p-5 md:p-6 select-none shrink-0" 
+            <div
+              className="relative h-24 sm:h-28 md:h-auto md:w-[38%] bg-cover bg-center overflow-hidden flex flex-col justify-end p-4 sm:p-5 md:p-6 select-none shrink-0"
               style={{ backgroundImage: "url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800&auto=format&fit=crop')" }}
             >
               {/* Solid readable photographic overlay */}
               <div className="absolute inset-0 true-bg-black-60 md:true-bg-black-65 z-[1]" />
               <div className="absolute inset-0 true-gradient-overlay z-[2]" />
-              
+
               {/* Floating elements inside banner */}
               <div className="absolute -top-12 -right-12 w-40 h-40 bg-wine/30 rounded-full blur-2xl pointer-events-none z-[1]" />
 
@@ -204,7 +204,7 @@ export default function InternshipPopup({ isOpen, onClose }: InternshipPopupProp
                       <p className="text-muted text-[10.5px] sm:text-xs leading-relaxed mb-2.5 sm:mb-3">
                         Secure a prestigious professional internship and placement with premium developers. Kickstart your real estate management career with hands-on corporate co-ops.
                       </p>
-                      
+
                       {/* Stipend Callout High Contrast Box */}
                       <div className="flex items-center gap-3 p-2.5 sm:p-3 rounded-xl bg-wine/[0.03] border border-wine/10 dark:bg-wine/10 dark:border-wine/25">
                         <div className="w-8 h-8 rounded-lg bg-wine/10 dark:bg-wine/20 text-wine flex items-center justify-center shrink-0">
@@ -235,9 +235,8 @@ export default function InternshipPopup({ isOpen, onClose }: InternshipPopupProp
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             placeholder="e.g. Rahul Sharma"
-                            className={`w-full bg-input text-black placeholder:text-muted/40 border ${
-                              errors.name ? 'border-red-500 focus:ring-red-500' : 'border-border focus:border-wine'
-                            } rounded-xl py-1.5 sm:py-2 pl-9 pr-4 text-xs font-medium focus:outline-none transition-all`}
+                            className={`w-full bg-input text-black placeholder:text-muted/40 border ${errors.name ? 'border-red-500 focus:ring-red-500' : 'border-border focus:border-wine'
+                              } rounded-xl py-1.5 sm:py-2 pl-9 pr-4 text-xs font-medium focus:outline-none transition-all`}
                           />
                         </div>
                         {errors.name && (
@@ -259,9 +258,8 @@ export default function InternshipPopup({ isOpen, onClose }: InternshipPopupProp
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="rahul.sharma@example.com"
-                            className={`w-full bg-input text-black placeholder:text-muted/40 border ${
-                              errors.email ? 'border-red-500 focus:ring-red-500' : 'border-border focus:border-wine'
-                            } rounded-xl py-1.5 sm:py-2 pl-9 pr-4 text-xs font-medium focus:outline-none transition-all`}
+                            className={`w-full bg-input text-black placeholder:text-muted/40 border ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-border focus:border-wine'
+                              } rounded-xl py-1.5 sm:py-2 pl-9 pr-4 text-xs font-medium focus:outline-none transition-all`}
                           />
                         </div>
                         {errors.email && (
@@ -283,9 +281,8 @@ export default function InternshipPopup({ isOpen, onClose }: InternshipPopupProp
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             placeholder="e.g. +91 98765 43210"
-                            className={`w-full bg-input text-black placeholder:text-muted/40 border ${
-                              errors.phone ? 'border-red-500 focus:ring-red-500' : 'border-border focus:border-wine'
-                            } rounded-xl py-1.5 sm:py-2 pl-9 pr-4 text-xs font-medium focus:outline-none transition-all`}
+                            className={`w-full bg-input text-black placeholder:text-muted/40 border ${errors.phone ? 'border-red-500 focus:ring-red-500' : 'border-border focus:border-wine'
+                              } rounded-xl py-1.5 sm:py-2 pl-9 pr-4 text-xs font-medium focus:outline-none transition-all`}
                           />
                         </div>
                         {errors.phone && (
@@ -307,9 +304,8 @@ export default function InternshipPopup({ isOpen, onClose }: InternshipPopupProp
                             value={education}
                             onChange={(e) => setEducation(e.target.value)}
                             placeholder="e.g. BBA, B.Com, B.Tech, or Postgraduate"
-                            className={`w-full bg-input text-black placeholder:text-muted/40 border ${
-                              errors.education ? 'border-red-500 focus:ring-red-500' : 'border-border focus:border-wine'
-                            } rounded-xl py-1.5 sm:py-2 pl-9 pr-4 text-xs font-medium focus:outline-none transition-all`}
+                            className={`w-full bg-input text-black placeholder:text-muted/40 border ${errors.education ? 'border-red-500 focus:ring-red-500' : 'border-border focus:border-wine'
+                              } rounded-xl py-1.5 sm:py-2 pl-9 pr-4 text-xs font-medium focus:outline-none transition-all`}
                           />
                         </div>
                         {errors.education && (
@@ -359,7 +355,7 @@ export default function InternshipPopup({ isOpen, onClose }: InternshipPopupProp
                     <p className="text-[8px] sm:text-[9px] uppercase font-extrabold tracking-widest text-[#1B8C68] mt-0.5">
                       Career Fellowship Queue Active
                     </p>
-                    
+
                     <div className="w-full max-w-sm mt-3 sm:mt-4 p-3 rounded-xl bg-offwhite border border-border text-left space-y-2">
                       <div className="flex gap-2">
                         <div className="w-1 h-1 rounded-full bg-wine mt-1.5 shrink-0" />

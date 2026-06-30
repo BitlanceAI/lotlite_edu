@@ -1,9 +1,9 @@
 import React from 'react';
 import { useApp } from '../../AppContext';
-import { Phone } from 'lucide-react';
+import { Sparkles, Send } from 'lucide-react';
 
 export default function FinalCTA() {
-  const { setAdvisorPopupOpen } = useApp();
+  const { setApplyPopupOpen } = useApp();
 
   return (
     <section className="py-16 bg-transparent relative overflow-hidden" id="final-cta">
@@ -16,22 +16,21 @@ export default function FinalCTA() {
           {/* Left Content */}
           <div className="flex-1 text-left space-y-4 relative z-10">
             <span className="inline-block bg-wine/5 text-wine border border-wine/10 px-3.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-widest">
-              Immediate Academic Help
+              Admissions Open
             </span>
             <h2 className="text-3xl md:text-4xl font-serif text-black leading-tight">
-              Confused between which<span className="text-wine font-extrabold"> Program </span>to choose?
+              Ready to choose your <span className="text-wine font-extrabold">pathway?</span>
             </h2>
             <div className="space-y-1.5 text-muted text-xs md:text-sm font-semibold max-w-xl leading-relaxed">
-              <p>Speak directly with our expert career advisors to choose the right academic pathway.</p>
-              <p>Understand eligibility, EMI options, placement records, and industry capstone project scope.</p>
+              <p>Speak to the admissions team and understand which programme is right for your stage, interest and career goal.</p>
             </div>
 
             <div className="flex flex-wrap gap-3 pt-2">
               <span className="flex items-center gap-1.5 bg-neutral-50 dark:bg-zinc-900 border border-neutral-200/50 dark:border-zinc-800 px-3.5 py-1.5 rounded-full text-[9px] font-bold text-neutral-600 dark:text-neutral-400">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" /> Live Chat Support Ready
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" /> Admissions Desk Active
               </span>
               <span className="flex items-center gap-1.5 bg-neutral-50 dark:bg-zinc-900 border border-neutral-200/50 dark:border-zinc-800 px-3.5 py-1.5 rounded-full text-[9px] font-bold text-neutral-600 dark:text-neutral-400">
-                <Phone size={10} className="text-wine" /> Callback within 10 Mins
+                <Sparkles size={10} className="text-wine animate-spin" /> Interactive Profiling
               </span>
             </div>
           </div>
@@ -39,13 +38,13 @@ export default function FinalCTA() {
           {/* Right Action Button */}
           <div className="flex flex-col items-center md:items-end justify-center shrink-0 w-full md:w-auto text-center md:text-right gap-3.5 relative z-10">
             <button
-              onClick={() => setAdvisorPopupOpen(true)}
+              onClick={() => setApplyPopupOpen(true)}
               className="bg-wine hover:bg-wine-hover text-white px-8 py-4 rounded-xl font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-wine/15 flex items-center justify-center gap-2 cursor-pointer w-full md:w-auto transition-all transform hover:-translate-y-0.5"
             >
-              <Phone size={14} className="fill-white text-white" /> Talk to Counsellor
+              <Send size={12} className="text-white" /> Start Admission
             </button>
             <span className="text-[8.5px] font-black uppercase tracking-[0.15em] text-neutral-400">
-              Admissions Office Hours: 9 AM - 7 PM
+              Apply in under 2 minutes
             </span>
           </div>
         </div>

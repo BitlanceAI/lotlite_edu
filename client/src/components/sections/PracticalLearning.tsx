@@ -1,37 +1,48 @@
 import React from 'react';
+import { BookOpen, Award, Layers } from 'lucide-react';
 
 export default function PracticalLearning() {
+  const steps = [
+    {
+      icon: <BookOpen className="w-5 h-5 text-wine" />,
+      title: "Learn",
+      desc: "Students build basics in business, technology, communication, problem solving and industry context."
+    },
+    {
+      icon: <Layers className="w-5 h-5 text-wine" />,
+      title: "Apply",
+      desc: "Concepts are connected to case studies, market research, lab work, automation, software projects and presentations."
+    },
+    {
+      icon: <Award className="w-5 h-5 text-wine" />,
+      title: "Build",
+      desc: "Students create projects that can be shown during interviews, counselling conversations and venture reviews."
+    }
+  ];
+
   return (
     <section className="py-20 md:py-28 bg-white relative overflow-hidden" id="practical-learning">
-      <div className="max-w-4xl mx-auto px-6 relative z-10 text-center">
-        <span className="text-wine text-[10px] font-bold uppercase tracking-[0.4em] block mb-4">Methodology</span>
-        <h2 className="text-3xl md:text-5xl font-serif text-black leading-tight mb-6">
-          Learn by Doing, Not Just Reading
+      <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
+        <span className="text-wine text-[10px] font-bold uppercase tracking-[0.4em] block mb-4">Learning Model</span>
+        <h2 className="text-3xl md:text-5xl font-serif text-black leading-tight mb-16">
+          Learn. Apply. Build.
         </h2>
-        <p className="text-sm md:text-base text-muted font-medium leading-relaxed mb-12">
-          At Loteleite SIEC, students learn through a practical and application based approach. The learning journey is designed to help students understand real industry situations and build workplace confidence.
-        </p>
-        
-        <div className="bg-offwhite border border-black/5 rounded-3xl p-8 md:p-12 shadow-sm text-left">
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8">
-            {[
-              "Real estate case studies",
-              "Market research assignments",
-              "CRM and lead management practice",
-              "Property launch campaign planning",
-              "Sales and counselling simulations",
-              "Business communication training",
-              "Marketing strategy projects",
-              "Research projects",
-              "Internship or field exposure",
-              "Final project presentation"
-            ].map((item, idx) => (
-              <li key={idx} className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-wine shrink-0" />
-                <span className="text-sm font-bold text-black">{item}</span>
-              </li>
-            ))}
-          </ul>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {steps.map((step, idx) => (
+            <div
+              key={idx}
+              className="bg-offwhite border border-black/5 rounded-3xl p-8 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-col items-start text-left"
+              data-aos="fade-up"
+              data-aos-delay={idx * 100}
+            >
+              <div className="w-12 h-12 rounded-2xl bg-wine/5 border border-wine/10 flex items-center justify-center mb-6">
+                {step.icon}
+              </div>
+              <h3 className="text-lg font-bold text-black mb-3">{step.title}</h3>
+              <p className="text-sm text-muted leading-relaxed font-semibold">{step.desc}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

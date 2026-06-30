@@ -16,14 +16,14 @@ const sendLeadToCallyzer = async (leadData) => {
     throw new Error('Callyzer credentials are not configured in environment variables.');
   }
 
-  const { 
-    fullName = '', 
-    email = '', 
-    phone = '', 
-    programCategory = '', 
-    programSpecialization = '', 
+  const {
+    fullName = '',
+    email = '',
+    phone = '',
+    programCategory = '',
+    programSpecialization = '',
     source = 'Website Lead',
-    lead_tags = ['Loteleite SIEC'] 
+    lead_tags = ['Lotlite SIEC']
   } = leadData;
 
   // Add source to lead tags if not already present
@@ -126,7 +126,7 @@ const createLead = async (leadData) => {
     lead.callyzerStatus = 'sent';
     lead.callyzerResponse = callyzerRes;
     await lead.save();
-    
+
     console.log('[LeadService] ✓ Lead forwarded to Callyzer successfully');
 
 
@@ -135,7 +135,7 @@ const createLead = async (leadData) => {
     emailService.sendEmailAcknowledgement(leadData)
       .then(() => console.log('[LeadService] ✓ Email sent successfully'))
       .catch(e => console.error('[LeadService] ✗ Email error:', e.message || e));
-      
+
     whatsappService.sendWhatsappAcknowledgement(leadData)
       .then(() => console.log('[LeadService] ✓ WhatsApp message sent successfully'))
       .catch(e => console.error('[LeadService] ✗ WhatsApp error:', e.message || e));
@@ -249,11 +249,13 @@ const processChatbotLead = async (leadId) => {
       .catch(e => console.error('[LeadService] ✗ WhatsApp chatbot ack error:', e.message || e));
 
   } catch (err) {
-    await Lead.findByIdAndUpdate(leadId, { $set: {
-      callyzerStatus: 'failed',
-      errorDetail: err.message || JSON.stringify(err.data || err),
-      callyzerResponse: err.data || null
-    }});
+    await Lead.findByIdAndUpdate(leadId, {
+      $set: {
+        callyzerStatus: 'failed',
+        errorDetail: err.message || JSON.stringify(err.data || err),
+        callyzerResponse: err.data || null
+      }
+    });
     lead.callyzerStatus = 'failed';
   }
 

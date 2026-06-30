@@ -1,6 +1,6 @@
-# Loteleite SIEC Backend API Documentation
+# Lotlite SIEC Backend API Documentation
 
-This document outlines the available REST API endpoints for the Loteleite SIEC backend service. The server runs locally on `http://localhost:5000` by default. All endpoints are prefixed with `/api`.
+This document outlines the available REST API endpoints for the Lotlite SIEC backend service. The server runs locally on `http://localhost:5000` by default. All endpoints are prefixed with `/api`.
 
 ---
 
@@ -21,7 +21,7 @@ Handles the creation of leads, saving them to the database, and forwarding them 
   "phone": "9876543210",
   "programCategory": "UG Program",
   "programSpecialization": "BBA",
-  "lead_tags": ["Loteleite SIEC"]
+  "lead_tags": ["Lotlite SIEC"]
 }
 ```
 
@@ -48,7 +48,7 @@ Handles the creation of leads, saving them to the database, and forwarding them 
     }
   ],
   "lead_tags": [
-    "Loteleite SIEC"
+    "Lotlite SIEC"
   ],
   "assignment": {
     "strategy": "Round Robin"

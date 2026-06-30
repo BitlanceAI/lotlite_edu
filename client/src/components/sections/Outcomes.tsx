@@ -54,14 +54,14 @@ export default function Outcomes() {
             Career Outcomes
           </h2>
           <p className="text-muted text-sm leading-relaxed max-w-2xl mx-auto font-medium">
-            Loteleite SIEC prepares students for opportunities across real estate, business, marketing, sales, CRM, consulting, and PropTech. Our focus is on practical skill-building to help you become job ready.
+            Lotlite SIEC prepares students for opportunities across real estate, business, marketing, sales, CRM, consulting, and PropTech. Our focus is on practical skill-building to help you become job ready.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto" data-aos="fade-up" data-aos-delay="100">
           {outcomeDomains.map((domain, idx) => (
-            <div 
-              key={idx} 
+            <div
+              key={idx}
               className="bg-white border border-black/5 rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.06)] hover:border-wine/10 hover:-translate-y-1 transition-all duration-300 flex flex-col"
             >
               <div className="flex items-center gap-4 mb-6 border-b border-black/5 pb-4">

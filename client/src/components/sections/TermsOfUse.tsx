@@ -6,41 +6,90 @@ export default function TermsOfUse() {
     <div className="pt-32 pb-24 max-w-4xl mx-auto px-6 relative z-10 text-black dark:text-white">
       <PageSEO
         title="Terms of Use"
-        description="Read the Terms of Use for Loteleite SIEC. Learn about the rules governing use of our website and academic services."
+        description="Read the Terms of Use for Lotlite SIEC. Learn about the rules governing use of our website and academic services."
         canonical="/terms-of-use"
         noIndex={true}
       />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="prose dark:prose-invert prose-wine max-w-none"
+        className="prose dark:prose-invert prose-wine max-w-none text-left"
       >
-        <h1 className="text-4xl md:text-5xl font-semibold mb-8 tracking-tight">Terms of Use</h1>
+        <h1 className="text-4xl md:text-5xl font-semibold mb-8 tracking-tight font-serif">Terms and Conditions</h1>
         <p className="text-sm text-neutral-500 mb-8">Last Updated: June 2026</p>
-        
+
+        <p className="lead text-base text-neutral-600 dark:text-zinc-300 mb-8 font-medium">
+          Welcome to our Work-Integrated Learning Program portal. By accessing or using this website, you agree to
+          comply with and be bound by the following terms and conditions of use.
+        </p>
+
         <h2>1. Acceptance of Terms</h2>
         <p>
-          By accessing and using the Lotlite SIEC website, you accept and agree to be bound by the terms and provision of this agreement.
+          By registering, applying, or browsing this platform, users acknowledge that they have read, understood, and
+          accepted these Terms and Conditions in full. If you disagree with any part of these terms, you must not use this
+          website.
         </p>
 
-        <h2>2. Use License</h2>
+        <h2>2. Program Structure & Automatic Employment Mandate</h2>
         <p>
-          Permission is granted to temporarily download one copy of the materials on Lotlite SIEC's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title.
+          This website serves as a registration platform for a unique Work-Integrated Learning Model. Users acknowledge
+          and accept that:
+        </p>
+        <ul className="space-y-2">
+          <li>
+            Admission into any academic track automatically constitutes full-time professional integration into our
+            associated corporate workforce from Day 1.
+          </li>
+          <li>
+            Active full-time daily professional participation at our designated corporate offices is a mandatory, core
+            requirement of the program.
+          </li>
+          <li>
+            Academic enrollment is delivered concurrently via our online university learning partners.
+          </li>
+        </ul>
+
+        <h2>3. Course-Specific Service Agreements (Lock-in Period)</h2>
+        <p>
+          Due to the substantial operational resources, professional training, and executive mentorship invested in every
+          participant from Day 1, all candidates agree to enter into a mandatory employment service commitment
+          matching their selected program track:
+        </p>
+        <ul className="space-y-2">
+          <li>
+            <strong>Undergraduate Tracks (BBA / BCA):</strong> A mandatory 3-year service commitment from the date of onboarding.
+          </li>
+          <li>
+            <strong>Postgraduate Tracks (MBA / MCA):</strong> A mandatory 2-year service commitment from the date of onboarding.
+          </li>
+        </ul>
+
+        <h2>4. User Accounts & Registration Accuracy</h2>
+        <p>
+          To apply for programs, users may be required to complete registration forms. You agree to provide accurate,
+          current, and complete details. Providing false information or misrepresenting academic qualifications will result in
+          immediate disqualification from the admission lifecycle and termination of corporate association.
         </p>
 
-        <h2>3. Disclaimer</h2>
+        <h2>5. Intellectual Property Rights</h2>
         <p>
-          The materials on Lotlite SIEC's website are provided on an 'as is' basis. Lotlite SIEC makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+          Unless otherwise stated, all material, concepts, structural blueprints, program models, text, graphics, and layouts
+          published on this website are the intellectual property of the organization and are protected by applicable
+          copyright and trademark laws. Unauthorized reproduction or commercial distribution is strictly prohibited.
         </p>
 
-        <h2>4. Limitations</h2>
+        <h2>6. Limitation of Liability</h2>
         <p>
-          In no event shall Lotlite SIEC or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Lotlite SIEC's website.
+          The information on this website is provided on an "as is" and "as available" basis. While we strive for absolute
+          accuracy, the organization does not warrant that the website copy is free from accidental typographical updates
+          or temporary server disruptions. We reserve the right to refine website content at any time without prior notice.
         </p>
 
-        <h2>5. Revisions and Errata</h2>
+        <h2>7. Governing Law</h2>
         <p>
-          The materials appearing on Lotlite SIEC's website could include technical, typographical, or photographic errors. Lotlite SIEC does not warrant that any of the materials on its website are accurate, complete, or current.
+          These terms and conditions are governed by and construed in accordance with the laws of India, and any
+          disputes relating to these terms shall be subject to the exclusive jurisdiction of the local courts where the
+          corporate office operates.
         </p>
       </motion.div>
     </div>
